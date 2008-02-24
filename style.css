@@ -1,0 +1,14 @@
+ul#chcounter-widget {
+	list-style-type: none;
+	}
+ul#chcounter-widget li {
+	padding: 0.1em;
+	margin: 0 0.5em;
+	float: left;
+	}
+label.chcounter-widget {
+	padding: 0em 0.5em 0em 0em;
+	width: 14em;
+	float: left;
+	font-size: 1em;
+	}
