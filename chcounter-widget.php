@@ -206,6 +206,18 @@ function chCounterWidgetInit()
 }
 
 /**
+* chcounter_widget_uninstall() - Delete options upon deactivation of the plugin
+*
+* @param none
+* @return void
+*/
+function chcounter_widget_uninstall()
+{
+	delete_option( 'chcounter_widget' );
+}
+
+
+/**
  * chCounterWidgetAddHeaderCode() - Add Code to Wordpress Header
  *
  * @param none
@@ -220,4 +232,5 @@ function chCounterWidgetInit()
 load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
  
 add_action( 'plugins_loaded', 'chCounterWidgetInit' );
+add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_uninstall' );
 add_action( 'admin_head', 'chCounterWidgetAddHeaderCode' );
