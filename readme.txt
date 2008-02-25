@@ -3,15 +3,13 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget
 Requires at least: 2.2
 Tested up to: 2.3.3
-Stable tag: 1.1
+Stable tag: 1.1.1
 
-A simple plugin to create a widget for the chCounter (http://chcounter.org/)
+A simple plugin to create a widget for the chCounter from <http://chcounter.org/>
 
 == Description ==
 
-This is a simple plugin which creates a widget for the chCounter (http://chcounter.org/). Since Version 1.1 the directory where the chCounter ist installed is set via the admin panel.
-
-The title of the counter is set via the administration panel. In the current version you can choose to display the following information with the counter
+This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>. Since Version 1.1 the directory where the chCounter ist installed is set via the admin panel.
 
 * Total number of visitors
 * Online visitors yesterday
@@ -25,8 +23,7 @@ The title of the counter is set via the administration panel. In the current ver
 * Link to the chCounter statistics page
 
 Furthermore it is possible to control the order of parameters shown on the frontend (since Version 1.1)
-
-The plugin supports internationalization. Currently supported languages are English and German. For translation into other languages, just create the apporpriate MO-File and place it into the chCounter plugin directory.
+The widget frontend takes its language directly from the chCounter settings. The backend of the plugin supports internationalization. Currently supported languages are English and German. For translation into other languages, just create the appropriate MO-File and place it into the chCounter plugin directory.
 
 == Installation ==
 
@@ -40,9 +37,10 @@ To install the plugin to the following steps
 == Frequently Asked Questions == 
 
 = How to upgrade from version 1.0 to 1.1? =
-You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once.
+You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once. **Attention**: In Version 1.1 all data created by the plugin will be deleted upon plugin deactivation. I recommend to update to version 1.1.1
 
-
+= How to upgrade from version 1.0 to 1.1.1? =
+First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
 
 == Screenshots ==
 

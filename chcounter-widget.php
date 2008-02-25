@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Simple plugin to create a widget for the chCounter.
-Version: 1.1
+Version: 1.1.1
 Author: Kolja Schleich
 
 
@@ -85,23 +85,26 @@ function chcounter_widget_options_page()
 	$options = get_option( 'chcounter_widget' );
 	$i = 1;
 	
- 	if ( $_POST['chcounter-submit'] ) {	
-		//$options['title'] = $_POST['chCounter_widget_title'];
-		$options['chcounter_path'] = $_POST['chcounter_widget_path'];
-		foreach ( $chcounter_widget_params AS $param => $data ) {
-			$options[$param] = isset( $_POST[$param] ) ? 1 : 0;
-			$options['order'][$_POST['order'][$param]] = $param;
+ 	if ( isset( $_POST['update_chcounter'] ) ) {	
+		if ( 'update_options' == $_POST['update_chcounter'] ) {
+			//$options['title'] = $_POST['chCounter_widget_title'];
+			$options['chcounter_path'] = $_POST['chcounter_widget_path'];
+			$options['uninstall'] = isset( $_POST['chcounter_widget_uninstall'] ) ? 1 : 0;
+			foreach ( $chcounter_widget_params AS $param => $data ) {
+				$options[$param] = isset( $_POST[$param] ) ? 1 : 0;
+				$options['order'][$_POST['order'][$param]] = $param;
+			}
+			
+			update_option( 'chcounter_widget', $options );
+			
+			$return_message = !isset( $_POST['chcounter_widget_uninstall'] ) ? 'Settings saved' : 'Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database';
+			echo '<div id="message" class="updated fade"><p><strong>'.__( $return_message, 'chcounter').'</strong></p></div>';
 		}
-		
-		update_option( 'chcounter_widget', $options );
-		
-		echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter').'</strong></p></div>';
 	}
 	
-	
-	echo '<form action="options-general.php?page=chcounter-widget.php" method="post">';
 	echo '<div class="wrap">';
 	echo '	<h2>'.__( 'chCounter Widget Settings', 'chcounter' ).'</h2>';
+	echo '<form action="options-general.php?page=chcounter-widget.php" method="post">';
 	echo '	<p><label for="chcounter_widget_path" style="font-weight: bold;">'.__( 'chCounter Path', 'chcounter' ).':</label> '.$_SERVER['DOCUMENT_ROOT'].'<input type="text" name="chcounter_widget_path" id="chcounter_widget_path" value="'.$options['chcounter_path'].'" size="20" /> '.__( 'without trailing slash', 'chcounter' ).'</p>';
 	echo '	<div class="narrow">';
 	echo '	<table class="widefat" title="chCounter Parameters">';
@@ -111,14 +114,18 @@ function chcounter_widget_options_page()
 		$i++;
 		$class = ( 'alternate' == $class ) ? '' : 'alternate';
 		$selected[$param] = ( 1 == $options[$param] ) ? ' checked="checked"' : '';
-		
 		echo '<tr class="'.$class.'"><td><label for="'.$param.'" class="chcounter-widget">'.__( $chcounter_widget_params[$param]['admin_label'], 'chcounter' ).'</label></td><td><input type="checkbox" name="'.$param.'" id="'.$param.'" value="1"'.$selected[$param].' /></td><td><input type="text" name="order['.$param.']" value="'.$order.'" size="1" /></td></tr>';
 	}
-	echo '</tbody></table></div>';
-
-	echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
-	echo '<p class="submit"><input type="submit" name="updateSettings" value="'.__( 'Save Settings', 'chcounter' ) .'&raquo;" class="button" /></p>';
-	echo '</div></form>';
+	echo '	</tbody></table></div>';
+	
+	$selected_uninstall = ( isset($options['uninstall']) AND 1 == $options['uninstall'] ) ? " checked = 'checked'" : '';
+	echo '	<h3>'.__( 'Uninstall chCounter Widget', 'chcounter' ).'</h3>';
+	echo '	<p>'.__( '<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin.', 'chcounter' ).'</p>';
+	echo '	<p><label for="chcounter_widget_uninstall">'.__( 'Yes, I want to uninstall chCounter Widget', 'chcounter').'</label> <input type="checkbox" name="chcounter_widget_uninstall" id="chcounter_widget_uninstall" value="1"'.$selected_uninstall.'/> </p>';
+	echo '	<input type="hidden" name="update_chcounter" id="chcounter-submit" value="update_options" />';
+	echo '	<p class="submit"><input type="submit" name="updateSettings" value="'.__( 'Save Settings', 'chcounter' ) .'&raquo;" class="button" /></p>';
+	echo '	</form>';
+	echo '</div>';
 	
 	return;
 }
@@ -174,7 +181,7 @@ function chcounter_widget_init()
 
 
 /**
- * Add Menus to the Web Interface
+ * chcounter_widget_add_admin_menu() - Add Options Menu to the Web Interface
  *
  * @param none
  * @return void
@@ -186,14 +193,16 @@ function chcounter_widget_add_admin_menu()
 
 
 /**
- * chcounter_widget_uninstall() - Delete options upon deactivation of the plugin
+ * chcounter_widget_deactivation() - Checks if uninstall option is set and maybe deletes plugin options
  *
  * @param none
  * @return void
  */
-function chcounter_widget_uninstall()
+function chcounter_widget_deactivation()
 {
-	delete_option( 'chcounter_widget' );
+	$options = get_option( 'chcounter_widget' );
+	if ( isset($options['uninstall']) AND 1 == $options['uninstall'] )
+		delete_option( 'chcounter_widget' );
 }
 
 
@@ -211,7 +220,7 @@ function chcounter_widget_uninstall()
 
 load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
  
-add_action( 'plugins_loaded', 'chcounter_widget_init' );
-add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_uninstall' );
+add_action( 'activate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_init' );
 add_action( 'admin_head', 'chcounter_widget_add_header_code' );
-add_action('admin_menu', 'chcounter_widget_add_admin_menu');
+add_action( 'admin_menu', 'chcounter_widget_add_admin_menu' );
+add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_deactivation' );

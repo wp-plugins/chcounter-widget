@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-02-24 21:17+0100\n"
+"PO-Revision-Date: 2008-02-25 21:10+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -54,47 +54,63 @@ msgstr "Statistiken"
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
 
-#: chcounter-widget.php:98
+#: chcounter-widget.php:100
 msgid "Settings saved"
 msgstr "Einstellungen gespeichert"
 
-#: chcounter-widget.php:104
+#: chcounter-widget.php:100
+msgid "Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database"
+msgstr "Einstellungen gespeichert. Die uninstall Option wurde aktiviert. Wenn du das Plugin deaktivierst werden alle Plugin Daten aus der Datenbank entfernt"
+
+#: chcounter-widget.php:106
 msgid "chCounter Widget Settings"
 msgstr "chCounter Widget Einstellungen"
 
-#: chcounter-widget.php:105
+#: chcounter-widget.php:108
 msgid "chCounter Path"
 msgstr "chCounter Pfad"
 
-#: chcounter-widget.php:105
+#: chcounter-widget.php:108
 msgid "without trailing slash"
 msgstr "ohne Slash am Ende"
 
-#: chcounter-widget.php:107
+#: chcounter-widget.php:111
 msgid "Parameter"
 msgstr "Parameter"
 
-#: chcounter-widget.php:107
+#: chcounter-widget.php:111
 msgid "Show"
 msgstr "Zeigen"
 
-#: chcounter-widget.php:107
+#: chcounter-widget.php:111
 msgid "Order"
 msgstr "Order"
 
-#: chcounter-widget.php:119
+#: chcounter-widget.php:122
+msgid "Uninstall chCounter Widget"
+msgstr "chCounter Widget Deinstallation"
+
+#: chcounter-widget.php:123
+msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
+msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
+
+#: chcounter-widget.php:124
+msgid "Yes, I want to uninstall chCounter Widget"
+msgstr "Ja, ich möchte chCounter Widget deinstallieren"
+
+#: chcounter-widget.php:126
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: chcounter-widget.php:139
+#: chcounter-widget.php:147
 msgid "Title"
 msgstr "Titel"
 
-#: chcounter-widget.php:161
+#: chcounter-widget.php:169
 msgid "Visitor Counter"
 msgstr "Besucherzähler"
 
-#: chcounter-widget.php:183
+#: chcounter-widget.php:191
 msgid "chCounter Widget"
 msgstr "chCounter Widget"
 
