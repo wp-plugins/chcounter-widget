@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Simple plugin to create a widget for the chCounter.
-Version: 1.0
+Version: 1.1.1
 Author: Kolja Schleich
 
 
@@ -23,153 +23,128 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-define('ChCounter_PLUGIN_URI', get_bloginfo('wpurl').'/wp-content/plugins/chcounter-widget');
 
 // Add trailing slash to $_SERVER['DOCUMENT_ROOT'] if it doesn't exist
 if ( substr( $_SERVER['DOCUMENT_ROOT'], -1, 1 ) != '/' )
 	$_SERVER['DOCUMENT_ROOT'] == $_SERVER['DOCUMENT_ROOT'].'/';
-
+	
+$chcounter_widget_params = array( "total" => array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" ),
+				  "today" => array( "admin_label" => "Visitors today", "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" ),
+				  "yesterday" => array( "admin_label" => "Visitors yesterday", "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" ),
+				  "max_per_day" => array( "admin_label" => "Max. visitors per day", "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" ),
+				  "online" => array( "admin_label" => "Curently online", "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" ),
+				  "max_online" => array( "admin_label" => "Max. online", "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" ),
+				  "total_page_views" => array( "admin_label" => "Total page views", "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" ),
+				  "total_page_views_this_page" => array( "admin_label" => "Page views of current page", "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" ),
+				  "per_day" => array( "admin_label" => "Visitors per day", "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" ),
+				  "stats" => array( "admin_label" => "Statistics", "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" ),
+				);
 /**
- * chCounterWidget() - Function to display chCounter Widget
+ * chcounter_widget() - Function to display chCounter Widget
  *
  */
-function chCounterWidget( $args )
+function chcounter_widget( $args )
 {
+	global $chcounter_widget_params;
 	extract( $args );
 	$options = get_option( 'chcounter_widget' );
 	
 	echo '<li id="chcounter"><h2>'.$options['title'].'</h2>';
-	if ( file_exists( $_SERVER['DOCUMENT_ROOT'].'chcounter/counter.php' ) ) {
+	if ( file_exists( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' ) ) {
 		$counter_template = '';
-		if ( 1 == $options['total'] )
-			$counter_template .= '<li>{L_TOTAL_VISITORS} {V_TOTAL_VISITORS}</li>';
-		if ( 1 == $options['today'] )
-			$counter_template .= '<li>{L_VISITORS_TODAY} {V_VISITORS_TODAY}</li>';
-		if ( 1 == $options['yesterday'] )
-			$counter_template .= '<li>{L_VISITORS_YESTERDAY} {V_VISITORS_YESTERDAY}</li>';
-		if ( 1 == $options['max_per_day'] )
-			$counter_template .= '<li>{L_MAX_VISITORS_PER_DAY} {V_MAX_VISITORS_PER_DAY}</li>';
-		if ( 1 == $options['online'] )
-			$counter_template .= '<li>{L_VISITORS_CURRENTLY_ONLINE} {V_VISITORS_CURRENTLY_ONLINE}</li>';
-		if ( 1 == $options['max_online'] )
-			$counter_template .= '<li>{L_MAX_VISITORS_ONLINE} {V_MAX_VISITORS_ONLINE}</li>';
-		if ( 1 == $options['total_page_views'] )
-			$counter_template .= '<li>{L_TOTAL_PAGE_VIEWS} {V_TOTAL_PAGE_VIEWS}</li>';
-		if ( 1 == $options['total_page_views_this_page'] )
-			$counter_template .= '<li>{L_PAGE_VIEWS_THIS_PAGE} {V_PAGE_VIEWS_THIS_PAGE}</li>';
-		if ( 1 == $options['per_day'] )
-			$counter_template .= '<li>{L_VISITORS_PER_DAY} {V_VISITORS_PER_DAY}</li>';
-		if ( 1 == $options['stats'] ) {
-			$counter_template .= '<li><a target="_blank" href="{V_COUNTER_URL}/stats/index.php"><img src="{V_COUNTER_URL}/images/stats.png" style="width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;" alt="counter" title="{L_STATISTICS}" /></a><a target="_blank" href="{V_COUNTER_URL}/stats/index.php">{L_STATISTICS}</a></li>';
+		//sort( $options['order'] );
+		foreach ( $options['order'] AS $order => $param ) {
+			if ( 1 == $options[$param] ) {
+				if ( 'stats' == $param )
+					$counter_template .= '<li><a target="_blank" href="'.$chcounter_widget_params['stats']['counter_value'].'/stats/index.php"><img src="'.$chcounter_widget_params['stats']['counter_value'].'/images/stats.png" style="width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;" alt="counter" title="'.$chcounter_widget_params['stats']['counter_label'].'" /></a><a target="_blank" href="'.$chcounter_widget_params['stats']['counter_value'].'/stats/index.php">'.$chcounter_widget_params['stats']['counter_label'].'</a></li>';
+				else
+					$counter_template .= '<li>'.$chcounter_widget_params[$param]['counter_label'].' '.$chcounter_widget_params[$param]['counter_value'].'</li>';
+			}
 		}
-			
+		
 		$chCounter_template = <<<TEMPLATE
 		<ul>$counter_template</ul>
 TEMPLATE;
-		include( $_SERVER['DOCUMENT_ROOT'].'chcounter/counter.php' );
+		include( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
 	} else {
-		echo '<p>'.__( 'It looks like the chCounter is not installed. The Plugin expects chCounter to be installed in /chcounter/', 'chcounter' ).'</p>';
+		echo '<p>'.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).'</p>';
 	}
 	echo '</li>';	
 }
 
+
 /**
- * chCounterWidgetOptions() - Update Options for the Widget
+ * chcounter_widget_settings() - chCounter Widget Settings Page
  *
- * @param string $title Widget Title
- * @param int $online
- * @param int $today
- * @param int $yesterday
- * @param int $max_per_day
- * @param int $max_online
- * @param int $total
- * @param int $stats
- *
+ * @param none
  * @return void
  */
-function chCounterWidgetSetOptions( $title, $online, $today, $yesterday, $max_per_day, $max_online, $total, $total_page_views, $total_page_views_this_page, $per_day, $stats )
+function chcounter_widget_options_page()
 {
-	$options = array();
+	global $chcounter_widget_params;
+	$options = get_option( 'chcounter_widget' );
+	$i = 1;
 	
-	$options['title'] = $title;
-	$options['online'] = $online;
-	$options['today'] = $today;
-	$options['yesterday'] = $yesterday;
-	$options['max_per_day'] = $max_per_day;
-	$options['max_online'] = $max_online;
-	$options['total'] = $total;
-	$options['total_page_views'] = $total_page_views;
-	$options['total_page_views_this_page'] = $total_page_views_this_page;
-	$options['per_day'] = $per_day;
-	$options['stats'] = $stats;
+ 	if ( isset( $_POST['update_chcounter'] ) ) {	
+		if ( 'update_options' == $_POST['update_chcounter'] ) {
+			//$options['title'] = $_POST['chCounter_widget_title'];
+			$options['chcounter_path'] = $_POST['chcounter_widget_path'];
+			$options['uninstall'] = isset( $_POST['chcounter_widget_uninstall'] ) ? 1 : 0;
+			foreach ( $chcounter_widget_params AS $param => $data ) {
+				$options[$param] = isset( $_POST[$param] ) ? 1 : 0;
+				$options['order'][$_POST['order'][$param]] = $param;
+			}
+			
+			update_option( 'chcounter_widget', $options );
+			
+			$return_message = !isset( $_POST['chcounter_widget_uninstall'] ) ? 'Settings saved' : 'Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database';
+			echo '<div id="message" class="updated fade"><p><strong>'.__( $return_message, 'chcounter').'</strong></p></div>';
+		}
+	}
 	
-	update_option( 'chcounter_widget', $options );
+	echo '<div class="wrap">';
+	echo '	<h2>'.__( 'chCounter Widget Settings', 'chcounter' ).'</h2>';
+	echo '<form action="options-general.php?page=chcounter-widget.php" method="post">';
+	echo '	<p><label for="chcounter_widget_path" style="font-weight: bold;">'.__( 'chCounter Path', 'chcounter' ).':</label> '.$_SERVER['DOCUMENT_ROOT'].'<input type="text" name="chcounter_widget_path" id="chcounter_widget_path" value="'.$options['chcounter_path'].'" size="20" /> '.__( 'without trailing slash', 'chcounter' ).'</p>';
+	echo '	<div class="narrow">';
+	echo '	<table class="widefat" title="chCounter Parameters">';
+	echo '	<thead><tr><th>'.__( 'Parameter', 'chcounter' ).'</th><th>'.__( 'Show', 'chcounter' ).'</th><th>'.__( 'Order', 'chcounter' ).'</th></thead>';
+	echo '	<tbody id="the-list">';
+	foreach( $options['order'] AS $order => $param ) {
+		$i++;
+		$class = ( 'alternate' == $class ) ? '' : 'alternate';
+		$selected[$param] = ( 1 == $options[$param] ) ? ' checked="checked"' : '';
+		echo '<tr class="'.$class.'"><td><label for="'.$param.'" class="chcounter-widget">'.__( $chcounter_widget_params[$param]['admin_label'], 'chcounter' ).'</label></td><td><input type="checkbox" name="'.$param.'" id="'.$param.'" value="1"'.$selected[$param].' /></td><td><input type="text" name="order['.$param.']" value="'.$order.'" size="1" /></td></tr>';
+	}
+	echo '	</tbody></table></div>';
+	
+	$selected_uninstall = ( isset($options['uninstall']) AND 1 == $options['uninstall'] ) ? " checked = 'checked'" : '';
+	echo '	<h3>'.__( 'Uninstall chCounter Widget', 'chcounter' ).'</h3>';
+	echo '	<p>'.__( '<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin.', 'chcounter' ).'</p>';
+	echo '	<p><label for="chcounter_widget_uninstall">'.__( 'Yes, I want to uninstall chCounter Widget', 'chcounter').'</label> <input type="checkbox" name="chcounter_widget_uninstall" id="chcounter_widget_uninstall" value="1"'.$selected_uninstall.'/> </p>';
+	echo '	<input type="hidden" name="update_chcounter" id="chcounter-submit" value="update_options" />';
+	echo '	<p class="submit"><input type="submit" name="updateSettings" value="'.__( 'Save Settings', 'chcounter' ) .'&raquo;" class="button" /></p>';
+	echo '	</form>';
+	echo '</div>';
 	
 	return;
 }
 
 
 /**
- * chCounterWidgetControl() - chCounter Widget Options Menu
+ * chcounter_widget_control() - Control Panel for the widget
  *
  * @param none
  * @return void
  */
-function chCounterWidgetControl()
+function chcounter_widget_control()
 {
 	$options = get_option( 'chcounter_widget' );
-	
- 	if ( $_POST['chcounter-submit'] ) {
-		$online = ( isset( $_POST['online'] ) ) ? 1 : 0;
-		$today = ( isset( $_POST['today'] ) ) ? 1 : 0;
-		$yesterday = ( isset( $_POST['yesterday'] ) ) ? 1 : 0;
-		$max_per_day = ( isset( $_POST['max_per_day'] ) ) ? 1 : 0;
-		$max_online = ( isset( $_POST['max_online'] ) ) ? 1 : 0;
-		$total = ( isset( $_POST['total'] ) ) ? 1 : 0;
-		$total_page_views = ( isset( $_POST['total_page_views'] ) ) ? 1 : 0;
-		$total_page_views_this_page = ( isset( $_POST['total_page_views_this_page'] ) ) ? 1 : 0;
-		$per_day = ( isset( $_POST['visitors_per_day'] ) ) ? 1 : 0;
-		$stats = ( isset( $_POST['stats'] ) ) ? 1 : 0;
-		
-		chCounterWidgetSetOptions( $_POST['chCounter_widget_title'], $online, $today, $yesterday, $max_per_day, $max_online, $total, $total_page_views, $total_page_views_this_page, $per_day, $stats );
+	if ( $_POST['chcounter-submit'] ) {	
+		$options['title'] = $_POST['chCounter_widget_title'];
+		update_option( 'chcounter_widget', $options );
 	}
-	
-	echo '<p style="text-align: center;">'.__( 'Title', 'chcounter' ).'<input style="margin-left: 1em;" type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" size="30" /></p>';
-	
-	echo '<ul id="chcounter-widget">';
-	
-	$selected = ( 1 == $options['total'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="total" class="chcounter-widget">'.__( 'Total Visitors', 'chcounter' ).'</label><input type="checkbox" name="total" id="total" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['today'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="today" class="chcounter-widget">'.__( 'Visitors today', 'chcounter' ).'</label><input type="checkbox" name="today" id="today" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['yesterday'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="yesterday" class="chcounter-widget">'.__( 'Visitors yesterday', 'chcounter' ).'</label><input type="checkbox" name="yesterday" id="yesterday" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['max_per_day'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="max_per_day" class="chcounter-widget">'.__( 'Max. visitors per day', 'chcounter' ).'</label><input type="checkbox" name="max_per_day" id="max_per_day" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['online'] ) ? ' checked="checked"' : '';
-	echo '<li style="clear: both;"><label for="online" class="chcounter-widget">'.__( 'Curently online', 'chcounter' ).'</label><input type="checkbox" name="online" id="online" value="1"'.$selected.' /></li>';
-
-	$selected = ( 1 == $options['max_online'] ) ? ' checked="checked"' : '';	
-	echo '<li><label for="max_online" class="chcounter-widget">'.__( 'Max. online', 'chcounter' ).'</label><input type="checkbox" name="max_online" id="max_online" value="1"'.$selected.' /></li>';
-
-	$selected = ( 1 == $options['total_page_views'] ) ? ' checked="checked"' : '';	
-	echo '<li><label for="total_page_views" class="chcounter-widget">'.__( 'Total page views', 'chcounter' ).'</label><input type="checkbox" name="total_page_views" id="total_page_views" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['total_page_views_this_page'] ) ? ' checked="checked"' : '';	
-	echo '<li><label for="total_page_views_this_page" class="chcounter-widget">'.__( 'Page views of this page', 'chcounter' ).'</label><input type="checkbox" name="total_page_views_this_page" id="total_page_views_this_page" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['per_day'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="visitors_per_day" class="chcounter-widget">'.__( 'Visitors per day', 'chcounter' ).'</label><input type="checkbox" name="visitors_per_day" id="visitors_per_day" value="1"'.$selected.' /></li>';
-	
-	$selected = ( 1 == $options['stats'] ) ? ' checked="checked"' : '';
-	echo '<li><label for="stats" class="chcounter-widget">'.__( 'Statistics', 'chcounter' ).'</label><input type="checkbox" name="stats" id="stats" value="1"'.$selected.' /></li>';
-	
-	echo '</ul>';
-
+	echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" size="30" /></p>';
 	echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 	
 	return;
@@ -177,47 +152,75 @@ function chCounterWidgetControl()
 
 
 /**
- * chCounterWidgetInit() - Plugin Initialization
+ * chcounter_widget_init() - Plugin Initialization
  *
  * @param none
  * @return void
  */
-function chCounterWidgetInit()
+function chcounter_widget_init()
 {
-	register_sidebar_widget( 'chCounter', 'chCounterWidget' );
-	register_widget_control( 'chCounter', 'chCounterWidgetControl', 500, 200 );
+	global $chcounter_widget_params;
+	
+	register_sidebar_widget( 'chCounter', 'chcounter_widget' );
+	register_widget_control( 'chCounter', 'chcounter_widget_control', 250, 100 );
+	
 	
 	$options = array();
-	
-	$options['online'] = 1;
-	$options['today'] = 1;
-	$options['yesterday'] = 1;
-	$options['max_per_day'] = 1;
-	$options['max_online'] = 1;
-	$options['total'] = 1;
-	$options['stats'] = 1;
-	$options['total_page_views'] = 1;
-	$options['total_page_views_this_page'] = 1;
-	$options['per_day'] = 1;
-	
+	$options['title'] = __( 'Visitor Counter', 'chcounter' );
+	$i = 1;
+	foreach ( $chcounter_widget_params AS $param => $data ) {
+		$options[$param] = 1;
+		$options['order'][$i] = $param;
+		$i++;
+	}
+
 	add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
 	
 	return;
 }
 
+
 /**
- * chCounterWidgetAddHeaderCode() - Add Code to Wordpress Header
+ * chcounter_widget_add_admin_menu() - Add Options Menu to the Web Interface
+ *
+ * @param none
+ * @return void
+ */
+function chcounter_widget_add_admin_menu()
+{
+	add_options_page(__( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), 'chcounter_widget_options_page');
+}
+
+
+/**
+ * chcounter_widget_deactivation() - Checks if uninstall option is set and maybe deletes plugin options
+ *
+ * @param none
+ * @return void
+ */
+function chcounter_widget_deactivation()
+{
+	$options = get_option( 'chcounter_widget' );
+	if ( isset($options['uninstall']) AND 1 == $options['uninstall'] )
+		delete_option( 'chcounter_widget' );
+}
+
+
+/**
+ * chcounter_widget_add_header_code() - Add Code to Wordpress Header
  *
  * @param none
  */
- function chCounterWidgetAddHeaderCode()
+ function chcounter_widget_add_header_code()
  {
 	echo "\n\n<!-- chCounter Widget START -->\n";
-	echo "<link rel='stylesheet' href='".ChCounter_PLUGIN_URI."/style.css' type='text/css' />\n";
+	echo "<link rel='stylesheet' href='".get_bloginfo('wpurl')."/wp-content/plugins/chcounter-widget/style.css' type='text/css' />\n";
 	echo "<!-- chCounter Widget END -->\n\n";
  }
 
 load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
  
-add_action( 'plugins_loaded', 'chCounterWidgetInit' );
-add_action( 'admin_head', 'chCounterWidgetAddHeaderCode' );
+add_action( 'activate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_init' );
+add_action( 'admin_head', 'chcounter_widget_add_header_code' );
+add_action( 'admin_menu', 'chcounter_widget_add_admin_menu' );
+add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_deactivation' );
