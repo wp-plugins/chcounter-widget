@@ -3,7 +3,7 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget
 Requires at least: 2.2
 Tested up to: 2.3.3
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 
 A simple plugin to create a widget for the chCounter from <http://chcounter.org/>
 
