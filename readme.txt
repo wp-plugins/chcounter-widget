@@ -39,7 +39,10 @@ To install the plugin to the following steps
 
 == Frequently Asked Questions == 
 
-None so far
+= How to upgrade from version 1.0 to 1.1? =
+You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once.
+
+
 
 == Screenshots ==
 
