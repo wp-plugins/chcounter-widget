@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Simple plugin to create a widget for the chCounter.
-Version: 1.1.1
+Version: 1.1.2
 Author: Kolja Schleich
 
 
@@ -161,10 +161,6 @@ function chcounter_widget_init()
 {
 	global $chcounter_widget_params;
 	
-	register_sidebar_widget( 'chCounter', 'chcounter_widget' );
-	register_widget_control( 'chCounter', 'chcounter_widget_control', 250, 100 );
-	
-	
 	$options = array();
 	$options['title'] = __( 'Visitor Counter', 'chcounter' );
 	$i = 1;
@@ -177,6 +173,19 @@ function chcounter_widget_init()
 	add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
 	
 	return;
+}
+
+
+/**
+ * chcounter_register_widget() - Register Widget upon plugin loading
+ *
+ * @param none
+ * @return void
+ */
+function chcounter_register_widget()
+{
+	register_sidebar_widget( 'chCounter', 'chcounter_widget' );
+	register_widget_control( 'chCounter', 'chcounter_widget_control', 250, 100 );
 }
 
 
@@ -221,6 +230,7 @@ function chcounter_widget_deactivation()
 load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
  
 add_action( 'activate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_init' );
+add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_deactivation' );
 add_action( 'admin_head', 'chcounter_widget_add_header_code' );
 add_action( 'admin_menu', 'chcounter_widget_add_admin_menu' );
-add_action( 'deactivate_chcounter-widget/chcounter-widget.php', 'chcounter_widget_deactivation' );
+add_action( 'plugins_loaded', 'chcounter_register_widget' );
