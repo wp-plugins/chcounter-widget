@@ -39,7 +39,7 @@ To install the plugin to the following steps
 = How to upgrade from version 1.0 to 1.1? =
 You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once. **Attention**: In Version 1.1 all data created by the plugin will be deleted upon plugin deactivation. I recommend to update to version 1.1.1
 
-= How to upgrade from version 1.0 to 1.1.1? =
+= How to upgrade from version 1.0 to 1.1.2? =
 First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
 
 == Screenshots ==
