@@ -210,6 +210,8 @@ TEMPLATE;
 	*/
 	function init()
 	{
+		require_once('chcounter-widget-upgrade.php');
+		
 		$params = $this->get_parameters();
 		
 		register_sidebar_widget( 'chCounter', array( &$this, 'display' ) );
@@ -217,11 +219,9 @@ TEMPLATE;
 		
 		$options = array();
 		$options['title'] = '';
-		$i = 1;
 		foreach ( $params AS $param => $data ) {
-			$options['params']['available'][$i] = $param;
+			$options['params']['available'][] = $param;
 			$options['params']['active'] = array();
-			$i++;
 		}
 	
 		add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
@@ -277,7 +277,7 @@ function chcounter_widget_add_admin_menu()
 		
 	add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename( __FILE__ ), array( &$chcounter_widget, 'display_options_page' ) );
 }
-	
+
 if ( isset( $chcounter_widget ) ) {
 	add_action( 'plugins_loaded', array( $chcounter_widget, 'init' ) );
 	add_action( 'deactivate_chcounter-widget/chcounter-widget.php', array( $chcounter_widget, 'deactivate' ) );
