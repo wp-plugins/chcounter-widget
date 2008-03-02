@@ -48,29 +48,35 @@ Due to some major changes in the options structure you need to uninstall the chC
 
 **Version 2.0**
 *2-March-2008*
+
 - implementation of drag & drop sorting and activation of parameters
 - styling like widgets in Wordpress 2.3
 
 **Version 1.1.3**
 *29-February-2008*
+
 - Some styling upgrade with own css file in respect to Wordpress 2.5
 
 **Version 1.1.2**
 *25-February-2008*
+
 - Took out the uninstallation upon plugin deactivation and added an option to uninstall it.
 - Fixed a severe bug in 1.1.1 so that the widget was not displayed.
 
 **Version 1.1.1**
 *25-February-2008*
+
 - Implemented uninstallation of the plugin upon deactivation.
 - Version was deleted due to severe bug that caused the widget not to work.
 
 **Version 1.1**
 *24-February-2008*
+
 - Implemented option to set chCounter installation directory via the admin interface and simple sorting of parameters.
 
 **Version 1.0**
 *20-February-2008*
+
 - First Release of the plugin.
 
 == Screenshots ==
