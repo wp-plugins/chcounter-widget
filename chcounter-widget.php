@@ -210,8 +210,6 @@ TEMPLATE;
 	*/
 	function init()
 	{
-		require_once('chcounter-widget-upgrade.php');
-		
 		$params = $this->get_parameters();
 		
 		register_sidebar_widget( 'chCounter', array( &$this, 'display' ) );
@@ -252,7 +250,7 @@ TEMPLATE;
 	function add_header_code()
 	{
 		echo "\n\n<!-- chCounter Widget START -->\n";
-		echo "<link rel='stylesheet' href='".get_bloginfo( 'wpurl' )."/wp-content/plugins/chcounter-widget/style.css' type='text/css' />\n";
+		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/prototype.js'></script>\n";
 		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/scriptaculous.js'></script>\n";
 		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/chcounter.js'></script>\n";
