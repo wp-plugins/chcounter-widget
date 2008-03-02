@@ -1,6 +1,6 @@
 === chCounter Widget ===
 Contributors: Kolja Schleich
-Tags: plugin, sidebar, widget, visitor counter, counter, count
+Tags: plugin, sidebar, widget, visitor counter, counter
 Requires at least: 2.2
 Tested up to: 2.3.3
 Stable tag: 2.0
