@@ -41,6 +41,9 @@ You first unzip the new files and upload them to the plugins directory. After up
 = How to upgrade from version 1.0 to 1.1.2? =
 First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
 
+= How to upgrade to Version 2.0 =
+Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
+
 = How to diplay chCounter without using widgets? =
 Place the following code where you want to display chCounter
 
@@ -54,10 +57,6 @@ $chcounter_widget->display(array (
    'widget_title' => 'Visitor statistics',
 ));
 ?>`
-
-
-= How to upgrade to Version 2.0 =
-Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
 
 == ChangeLog ==
 
