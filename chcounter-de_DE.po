@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-02-25 21:10+0100\n"
+"PO-Revision-Date: 2008-03-01 18:17+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -10,107 +10,115 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: GERMANY\n"
 
-#: chcounter-widget.php:31
+#: chcounter-widget.php:49
 msgid "Total Visitors"
 msgstr "Besucher Gesamt"
 
-#: chcounter-widget.php:32
+#: chcounter-widget.php:50
 msgid "Visitors today"
 msgstr "Besucher Heute"
 
-#: chcounter-widget.php:33
+#: chcounter-widget.php:51
 msgid "Visitors yesterday"
 msgstr "Besucher Gestern"
 
-#: chcounter-widget.php:34
+#: chcounter-widget.php:52
 msgid "Max. visitors per day"
 msgstr "Max. pro Tag"
 
-#: chcounter-widget.php:35
+#: chcounter-widget.php:53
 msgid "Curently online"
 msgstr "Gerade Online"
 
-#: chcounter-widget.php:36
+#: chcounter-widget.php:54
 msgid "Max. online"
 msgstr "Max. online"
 
-#: chcounter-widget.php:37
+#: chcounter-widget.php:55
 msgid "Total page views"
 msgstr "Seitenaufrufe gesamt"
 
-#: chcounter-widget.php:38
+#: chcounter-widget.php:56
 msgid "Page views of current page"
 msgstr "Seitenaufrufe aktuelle Seite"
 
-#: chcounter-widget.php:39
+#: chcounter-widget.php:57
 msgid "Visitors per day"
 msgstr "Besucher pro Tag"
 
-#: chcounter-widget.php:40
+#: chcounter-widget.php:58
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: chcounter-widget.php:70
+#: chcounter-widget.php:114
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
 
-#: chcounter-widget.php:100
+#: chcounter-widget.php:143
 msgid "Settings saved"
 msgstr "Einstellungen gespeichert"
 
-#: chcounter-widget.php:100
+#: chcounter-widget.php:143
 msgid "Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database"
 msgstr "Einstellungen gespeichert. Die uninstall Option wurde aktiviert. Wenn du das Plugin deaktivierst werden alle Plugin Daten aus der Datenbank entfernt"
 
-#: chcounter-widget.php:106
-msgid "chCounter Widget Settings"
-msgstr "chCounter Widget Einstellungen"
-
-#: chcounter-widget.php:108
-msgid "chCounter Path"
-msgstr "chCounter Pfad"
-
-#: chcounter-widget.php:108
-msgid "without trailing slash"
-msgstr "ohne Slash am Ende"
-
-#: chcounter-widget.php:111
-msgid "Parameter"
-msgstr "Parameter"
-
-#: chcounter-widget.php:111
-msgid "Show"
-msgstr "Zeigen"
-
-#: chcounter-widget.php:111
-msgid "Order"
-msgstr "Order"
-
-#: chcounter-widget.php:122
-msgid "Uninstall chCounter Widget"
-msgstr "chCounter Widget Deinstallation"
-
-#: chcounter-widget.php:123
-msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
-msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
-
-#: chcounter-widget.php:124
-msgid "Yes, I want to uninstall chCounter Widget"
-msgstr "Ja, ich möchte chCounter Widget deinstallieren"
-
-#: chcounter-widget.php:126
-msgid "Save Settings"
-msgstr "Einstellungen speichern"
-
-#: chcounter-widget.php:147
+#: chcounter-widget.php:184
 msgid "Title"
 msgstr "Titel"
 
-#: chcounter-widget.php:169
-msgid "Visitor Counter"
-msgstr "Besucherzähler"
-
-#: chcounter-widget.php:191
+#: chcounter-widget.php:264
 msgid "chCounter Widget"
 msgstr "chCounter Widget"
+
+#: settings.php:4
+msgid "chCounter Widget Settings"
+msgstr "chCounter Widget Einstellungen"
+
+#: settings.php:8
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: settings.php:9
+msgid "chCounter Path"
+msgstr "chCounter Pfad"
+
+#: settings.php:9
+msgid "without trailing slash"
+msgstr "ohne Slash am Ende"
+
+#: settings.php:12
+msgid "Parameters"
+msgstr "Parameter"
+
+#: settings.php:14
+msgid "Available"
+msgstr "Verfügbar"
+
+#: settings.php:23
+msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
+msgstr "Du siehst diese Nachricht, weil alle Parameter aktiviert sind. Du kannst einzelne Parameter deaktivieren, indem du sie per drag & drop in diese Box ziehst"
+
+#: settings.php:27
+msgid "Active"
+msgstr "Aktiviert"
+
+#: settings.php:37
+msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
+msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. Du kannst die chCounter Anzeige per drag & drop in diese Box gestalten"
+
+#: settings.php:43
+msgid "Uninstall chCounter Widget"
+msgstr "chCounter Widget Deinstallation"
+
+#: settings.php:44
+msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
+msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
+
+#: settings.php:45
+msgid "Yes, I want to uninstall chCounter Widget"
+msgstr "Ja, ich möchte chCounter Widget deinstallieren"
+
+#: settings.php:48
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
 

@@ -1,29 +1,28 @@
 === chCounter Widget ===
 Contributors: Kolja Schleich
-Tags: plugin, sidebar, widget
+Tags: plugin, sidebar, widget, visitor counter, counter
 Requires at least: 2.2
 Tested up to: 2.3.3
-Stable tag: 1.1.2
+Stable tag: 2.0
 
 A simple plugin to create a widget for the chCounter from <http://chcounter.org/>
 
 == Description ==
 
-This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>. Since Version 1.1 the directory where the chCounter ist installed is set via the admin panel.
+This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>.
 
 * Total number of visitors
 * Online visitors yesterday
 * Currently Online visitors
 * Online visitors today
-* Maximal visitors online per day
-* Maximal visitors online at one time
+* Maximum number of visitors online per day
+* Maximum number of visitors online at one time
 * Total number of page views
 * Total number of page views for current page
 * Visitors per day
 * Link to the chCounter statistics page
 
-Furthermore it is possible to control the order of parameters shown on the frontend (since Version 1.1)
-The widget frontend takes its language directly from the chCounter settings. The backend of the plugin supports internationalization. Currently supported languages are English and German. For translation into other languages, just create the appropriate MO-File and place it into the chCounter plugin directory.
+The parameters to display are controlled via the admin panel. Since Version 2.0 I implemented a drag & drop sorting and activation of parameters through the scriptaculous JavaScript libraries (<http://script.aculo.us/>).
 
 == Installation ==
 
@@ -39,8 +38,46 @@ To install the plugin to the following steps
 = How to upgrade from version 1.0 to 1.1? =
 You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once. **Attention**: In Version 1.1 all data created by the plugin will be deleted upon plugin deactivation. I recommend to update to version 1.1.1
 
-= How to upgrade from version 1.0 to 1.1.1? =
+= How to upgrade from version 1.0 to 1.1.2? =
 First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
+
+= How to upgrade to Version 2.0 =
+Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
+
+== ChangeLog ==
+
+**Version 2.0**
+*2-March-2008*
+
+- implementation of drag & drop sorting and activation of parameters
+- styling like widgets in Wordpress 2.3
+
+**Version 1.1.3**
+*29-February-2008*
+
+- Some styling upgrade with own css file in respect to Wordpress 2.5
+
+**Version 1.1.2**
+*25-February-2008*
+
+- Took out the uninstallation upon plugin deactivation and added an option to uninstall it.
+- Fixed a severe bug in 1.1.1 so that the widget was not displayed.
+
+**Version 1.1.1**
+*25-February-2008*
+
+- Implemented uninstallation of the plugin upon deactivation.
+- Version was deleted due to severe bug that caused the widget not to work.
+
+**Version 1.1**
+*24-February-2008*
+
+- Implemented option to set chCounter installation directory via the admin interface and simple sorting of parameters.
+
+**Version 1.0**
+*20-February-2008*
+
+- First Release of the plugin.
 
 == Screenshots ==
 
