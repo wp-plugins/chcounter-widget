@@ -41,41 +41,54 @@ You first unzip the new files and upload them to the plugins directory. After up
 = How to upgrade from version 1.0 to 1.1.2? =
 First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
 
+= How to diplay chCounter without using widgets? =
+Place the following code where you want to display chCounter
+`<?php
+$chcounter_widget = new chCounterWidget();
+$chcounter_widget->display(array (
+   'before_widget' => '<li id="chcounter" class="widget chCounterWidget_display">',
+   'after_widget' => '</li>',
+   'before_title' => '<h2 class="widgettitle">',
+   'after_title' => '</h2>',
+   'widget_title' => 'Visitor statistics',
+));
+?>`
+
+
 = How to upgrade to Version 2.0 =
 Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
 
 == ChangeLog ==
 
-**Version 2.0**
-*2-March-2008*
+**Version 2.0.1**, *17-March-2008*
+
+- made it compatible with Wordpress 2.5
+- implemented possibility to display chCounter statically without using widget. See FAQ for further details
+
+**Version 2.0**, *2-March-2008*
 
 - implementation of drag & drop sorting and activation of parameters
 - styling like widgets in Wordpress 2.3
 
-**Version 1.1.3**
-*29-February-2008*
+**Version 1.1.3**, *29-February-2008*
 
 - Some styling upgrade with own css file in respect to Wordpress 2.5
 
-**Version 1.1.2**
-*25-February-2008*
+**Version 1.1.2**, *25-February-2008*
 
 - Took out the uninstallation upon plugin deactivation and added an option to uninstall it.
 - Fixed a severe bug in 1.1.1 so that the widget was not displayed.
 
-**Version 1.1.1**
-*25-February-2008*
+**Version 1.1.1**, *25-February-2008*
 
 - Implemented uninstallation of the plugin upon deactivation.
 - Version was deleted due to severe bug that caused the widget not to work.
 
-**Version 1.1**
-*24-February-2008*
+**Version 1.1**, *24-February-2008*
 
 - Implemented option to set chCounter installation directory via the admin interface and simple sorting of parameters.
 
-**Version 1.0**
-*20-February-2008*
+**Version 1.0**, *20-February-2008*
 
 - First Release of the plugin.
 
