@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-03-01 18:17+0100\n"
+"PO-Revision-Date: 2008-03-17 20:37+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -87,38 +87,42 @@ msgid "without trailing slash"
 msgstr "ohne Slash am Ende"
 
 #: settings.php:12
+msgid "Make chCounter Invisible"
+msgstr "Mache chCounter unsichtbar"
+
+#: settings.php:14
 msgid "Parameters"
 msgstr "Parameter"
 
-#: settings.php:14
+#: settings.php:16
 msgid "Available"
 msgstr "Verfügbar"
 
-#: settings.php:23
+#: settings.php:25
 msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
 msgstr "Du siehst diese Nachricht, weil alle Parameter aktiviert sind. Du kannst einzelne Parameter deaktivieren, indem du sie per drag & drop in diese Box ziehst"
 
-#: settings.php:27
+#: settings.php:29
 msgid "Active"
 msgstr "Aktiviert"
 
-#: settings.php:37
+#: settings.php:39
 msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
 msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. Du kannst die chCounter Anzeige per drag & drop in diese Box gestalten"
 
-#: settings.php:43
+#: settings.php:45
 msgid "Uninstall chCounter Widget"
 msgstr "chCounter Widget Deinstallation"
 
-#: settings.php:44
+#: settings.php:46
 msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
 msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
 
-#: settings.php:45
+#: settings.php:47
 msgid "Yes, I want to uninstall chCounter Widget"
 msgstr "Ja, ich möchte chCounter Widget deinstallieren"
 
-#: settings.php:48
+#: settings.php:50
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 

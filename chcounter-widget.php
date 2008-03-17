@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Simple plugin to create a widget for the chCounter.
-Version: 2.0.1
+Version: 2.0.2
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.0.1';
+	var $version = '2.0.2';
 	
 	/**
 	 * Array of available parameters
@@ -84,11 +84,11 @@ class chCounterWidget
 
 
 	/**
-	* get_parameters()  - get available parameters to display
-	*
-	* @param none
-	* @return array
-	*/
+	 * get_parameters()  - get available parameters to display
+	 *
+	 * @param none
+	 * @return array
+	 */
 	function get_parameters()
 	{
 		return $this->params;
@@ -96,11 +96,11 @@ class chCounterWidget
 
 
 	/**
-	* display() - Function to display chCounter Widget
-	*
-	* @param none
-	* @return void
-	*/
+	 * display() - Function to display chCounter Widget
+	 *
+	 * @param none
+	 * @return void
+	 */
 	function display( $args )
 	{
 		extract( $args );
@@ -110,38 +110,43 @@ class chCounterWidget
 		if ( !$widget_title )
 			$widget_title = $options['title'];
 		
-		echo $before_widget . $before_title . $widget_title . $after_title;
 		if ( file_exists( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' ) ) {
-			$counter_template = '';
-			
-			if ( count( $options['params']['active'] ) > 0 ) {
-				foreach ( $options['params']['active'] AS $order => $param ) {
-					if ( 'stats' == $param )
-						$counter_template .= '<li><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php"><img src="'.$params['stats']['counter_value'].'/images/stats.png" style="width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;" alt="counter" title="'.$params['stats']['counter_label'].'" /></a><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php">'.$params['stats']['counter_label'].'</a></li>';
-					else
-						$counter_template .= '<li>'.$params[$param]['counter_label'].' '.$params[$param]['counter_value'].'</li>';
+			if ( 0 == $options['invisible'] ) {
+				echo $before_widget . $before_title . $widget_title . $after_title;
+				$counter_template = '';
+				
+				if ( count( $options['params']['active'] ) > 0 ) {
+					foreach ( $options['params']['active'] AS $order => $param ) {
+						if ( 'stats' == $param )
+							$counter_template .= '<li><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php"><img src="'.$params['stats']['counter_value'].'/images/stats.png" style="width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;" alt="counter" title="'.$params['stats']['counter_label'].'" /></a><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php">'.$params['stats']['counter_label'].'</a></li>';
+						else
+							$counter_template .= '<li>'.$params[$param]['counter_label'].' '.$params[$param]['counter_value'].'</li>';
+					}
 				}
-			}
-			
-			$chCounter_template = <<<TEMPLATE
-			<ul>$counter_template</ul>
+				
+				$chCounter_template = <<<TEMPLATE
+				<ul>$counter_template</ul>
 TEMPLATE;
-			include_once( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
+				include_once( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
+				echo $after_widget;
+			} else {
+				$chCounter_visible = 0;
+				include_once( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
+			}
 		} else {
-			echo '<p>'.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).'</p>';
+			echo $before_widget . $before_title . 'chCounter Error' .$after_title.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).$after_widget;
 		}
-		echo $after_widget;
-	
+			
 		return;
 	}
 
 
 	/**
-	* display_options_page() - chCounter Widget Settings Page
-	*
-	* @param none
-	* @return void
-	*/
+	 * display_options_page() - chCounter Widget Settings Page
+	 *
+	 * @param none
+	 * @return void
+	 */
 	function display_options_page()
 	{
 		$params = $this->get_parameters();
@@ -151,6 +156,7 @@ TEMPLATE;
 			if ( 'update_options' == $_POST['update_chcounter'] ) {
 				$options['chcounter_path'] = $_POST['chcounter_widget_path'];
 				$options['uninstall'] = isset( $_POST['chcounter_widget_uninstall'] ) ? 1 : 0;
+				$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 				$options['params']['available'] = $this->get_order( $_POST['chcounter_widget_available_order'], 'chcounter_available' );
 				$options['params']['active'] = $this->get_order( $_POST['chcounter_widget_active_order'], 'chcounter_active' );
 				
@@ -167,11 +173,11 @@ TEMPLATE;
 
 
 	/**
-	* get_order() - Get Order of parameters
-	*
-	* @param string $input serialized string with order
-	* @return array
-	*/
+	 * get_order() - Get Order of parameters
+	 *
+	 * @param string $input serialized string with order
+	 * @return array
+	 */
  	function get_order( $input, $listname )
 	{
 		parse_str( $input, $input_array );
@@ -186,11 +192,11 @@ TEMPLATE;
 
 
 	/**
-	* widget_control() - Control Panel for the widget
-	*
-	* @param none
-	* @return void
-	*/
+	 * widget_control() - Control Panel for the widget
+	 *
+	 * @param none
+	 * @return void
+	 */
 	function widget_control()
 	{
 		$options = get_option( 'chcounter_widget' );
@@ -206,11 +212,11 @@ TEMPLATE;
 
 
 	/**
-	* init() - Plugin Initialization
-	*
-	* @param none
-	* @return void
-	*/
+	 * init() - Plugin Initialization
+	 *
+	 * @param none
+	 * @return void
+	 */
 	function init()
 	{
 		$params = $this->get_parameters();
@@ -220,6 +226,7 @@ TEMPLATE;
 		
 		$options = array();
 		$options['title'] = '';
+		$options['invisible'] = 1;
 		foreach ( $params AS $param => $data ) {
 			$options['params']['available'][] = $param;
 			$options['params']['active'] = array();
@@ -232,11 +239,11 @@ TEMPLATE;
 
 
 	/**
-	* deactivate() - Checks if uninstall option is set and maybe deletes plugin options
-	*
-	* @param none
-	* @return void
-	*/
+	 * deactivate() - Checks if uninstall option is set and maybe deletes plugin options
+	 *
+	 * @param none
+	 * @return void
+	 */
 	function deactivate()
 	{
 		$options = get_option( 'chcounter_widget' );
@@ -246,10 +253,10 @@ TEMPLATE;
 
 
 	/**
-	* add_header_code() - Add Code to Wordpress Header
-	*
-	* @param none
-	*/
+	 * add_header_code() - Add Code to Wordpress Header
+	 *
+	 * @param none
+	 */
 	function add_header_code()
 	{
 		echo "\n\n<!-- chCounter Widget START -->\n";
@@ -259,31 +266,27 @@ TEMPLATE;
 		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/chcounter.js'></script>\n";
 		echo "<!-- chCounter Widget END -->\n\n";
 	}
+	
+	/**
+	 * add_admin_menu() - Add Options Menu to the Web Interface
+	 *
+	 * @param none
+	 * @return void
+	 */
+	function add_admin_menu()
+	{
+		add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename( __FILE__ ), array( &$this, 'display_options_page' ) );
+	}
 }
+
 
 $chcounter_widget = new chCounterWidget();
-
-/**
-* add_admin_menu() - Add Options Menu to the Web Interface
-*
-* @param none
-* @return void
-*/
-function chcounter_widget_add_admin_menu()
-{
-	global $chcounter_widget;
-	
-	if ( !isset($chcounter_widget) ) 
-		return;
-		
-	add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename( __FILE__ ), array( &$chcounter_widget, 'display_options_page' ) );
-}
 
 if ( isset( $chcounter_widget ) ) {
 	add_action( 'plugins_loaded', array( $chcounter_widget, 'init' ) );
 	add_action( 'deactivate_chcounter-widget/chcounter-widget.php', array( $chcounter_widget, 'deactivate' ) );
 	add_action( 'admin_head', array( $chcounter_widget, 'add_header_code' ) );
-	add_action( 'admin_menu', 'chcounter_widget_add_admin_menu' );
+	add_action( 'admin_menu', array( $chcounter_widget, 'add_admin_menu' ) );
 	
 	load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
 }

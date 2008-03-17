@@ -6,8 +6,10 @@
 <form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
 		
 <h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
-<p><label for='chcounter_widget_path' style='font-weight: bold;'><?php _e( 'chCounter Path', 'chcounter' ) ?>: </label><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><?php _e( 'without trailing slash', 'chcounter' ) ?></p>
-		
+<p><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?>: </label><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><?php _e( 'without trailing slash', 'chcounter' ) ?></p>
+
+<?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?>
+<p><label for='chcounter_widget_invisible'><?php _e( 'Make chCounter Invisible', 'chcounter' ) ?></label> <input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/></p>
 
 <h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
 <div id="chcounter_available_box" class='chcounter_widget_parameters narrow'>
@@ -37,7 +39,6 @@
 	<span class="handle" id="chcounter_handle_active"><?php _e( 'You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box', 'chcounter' ) ?></span>
 	<input type="hidden" name="chcounter_widget_active_order" id="chcounter_widget_active_order" />
 </div>
-		
 
 <?php $selected_uninstall = ( isset($options['uninstall']) AND 1 == $options['uninstall'] ) ? " checked = 'checked'" : ''; ?>
 <h3 style='clear: both; padding-top: 1em;'><?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?></h3>
