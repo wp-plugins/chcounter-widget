@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Simple plugin to create a widget for the chCounter.
-Version: 2.0
+Version: 2.0.1
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.0';
+	var $version = '2.0.1';
 	
 	/**
 	 * Array of available parameters
@@ -106,12 +106,15 @@ class chCounterWidget
 		extract( $args );
 		$options = get_option( 'chcounter_widget' );
 		$params = $this->get_parameters();
+
+		if ( !$widget_title )
+			$widget_title = $options['title'];
 		
-		echo '<li id="chcounter"><h2>'.$options['title'].'</h2>';
+		echo $before_widget . $before_title . $widget_title . $after_title;
 		if ( file_exists( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' ) ) {
 			$counter_template = '';
 			
-			if ( count($options['params']['active']) > 0 ) {
+			if ( count( $options['params']['active'] ) > 0 ) {
 				foreach ( $options['params']['active'] AS $order => $param ) {
 					if ( 'stats' == $param )
 						$counter_template .= '<li><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php"><img src="'.$params['stats']['counter_value'].'/images/stats.png" style="width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;" alt="counter" title="'.$params['stats']['counter_label'].'" /></a><a target="_blank" href="'.$params['stats']['counter_value'].'/stats/index.php">'.$params['stats']['counter_label'].'</a></li>';
@@ -123,11 +126,11 @@ class chCounterWidget
 			$chCounter_template = <<<TEMPLATE
 			<ul>$counter_template</ul>
 TEMPLATE;
-			include( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
+			include_once( $_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php' );
 		} else {
 			echo '<p>'.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).'</p>';
 		}
-		echo '</li>';
+		echo $after_widget;
 	
 		return;
 	}
@@ -169,12 +172,12 @@ TEMPLATE;
 	* @param string $input serialized string with order
 	* @return array
 	*/
-	function get_order($input, $listname)
+ 	function get_order( $input, $listname )
 	{
-		parse_str( $input, $input_array);
+		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
 		$order_array = array();
-		for ( $i = 0; $i < count($input_array); $i++ ) {
+		for ( $i = 0; $i < count( $input_array ); $i++ ) {
 			if ( $input_array[$i] != '' )
 				$order_array[$i+1] = $input_array[$i];
 		}
@@ -191,7 +194,7 @@ TEMPLATE;
 	function widget_control()
 	{
 		$options = get_option( 'chcounter_widget' );
-		if ( $_POST['chcounter-submit'] ) {	
+		if ( $_POST['chcounter-submit'] ) {
 			$options['title'] = $_POST['chCounter_widget_title'];
 			update_option( 'chcounter_widget', $options );
 		}
@@ -237,7 +240,7 @@ TEMPLATE;
 	function deactivate()
 	{
 		$options = get_option( 'chcounter_widget' );
-		if ( isset($options['uninstall']) AND 1 == $options['uninstall'] )
+ 		if ( isset( $options['uninstall'] ) AND 1 == $options['uninstall'] )
 			delete_option( 'chcounter_widget' );
 	}
 
