@@ -43,6 +43,7 @@ First upload the new files to the plugins directory. You can just overwrite the 
 
 = How to diplay chCounter without using widgets? =
 Place the following code where you want to display chCounter
+
 `<?php
 $chcounter_widget = new chCounterWidget();
 $chcounter_widget->display(array (
