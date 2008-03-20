@@ -10,63 +10,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: GERMANY\n"
 
-#: chcounter-widget.php:49
+#: chcounter-widget.php:65
 msgid "Total Visitors"
 msgstr "Besucher Gesamt"
 
-#: chcounter-widget.php:50
+#: chcounter-widget.php:66
 msgid "Visitors today"
 msgstr "Besucher Heute"
 
-#: chcounter-widget.php:51
+#: chcounter-widget.php:67
 msgid "Visitors yesterday"
 msgstr "Besucher Gestern"
 
-#: chcounter-widget.php:52
+#: chcounter-widget.php:68
 msgid "Max. visitors per day"
 msgstr "Max. pro Tag"
 
-#: chcounter-widget.php:53
+#: chcounter-widget.php:69
 msgid "Curently online"
 msgstr "Gerade Online"
 
-#: chcounter-widget.php:54
+#: chcounter-widget.php:70
 msgid "Max. online"
 msgstr "Max. online"
 
-#: chcounter-widget.php:55
+#: chcounter-widget.php:71
 msgid "Total page views"
 msgstr "Seitenaufrufe gesamt"
 
-#: chcounter-widget.php:56
+#: chcounter-widget.php:72
 msgid "Page views of current page"
 msgstr "Seitenaufrufe aktuelle Seite"
 
-#: chcounter-widget.php:57
+#: chcounter-widget.php:73
 msgid "Visitors per day"
 msgstr "Besucher pro Tag"
 
-#: chcounter-widget.php:58
+#: chcounter-widget.php:74
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: chcounter-widget.php:114
+#: chcounter-widget:147
+msgid "chCounter Error"
+msgstr "chCounter Fehler"
+
+#: chcounter-widget.php:147
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
 
-#: chcounter-widget.php:143
+#: chcounter-widget.php:176
 msgid "Settings saved"
 msgstr "Einstellungen gespeichert"
 
-#: chcounter-widget.php:143
+#: chcounter-widget.php:176
 msgid "Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database"
 msgstr "Einstellungen gespeichert. Die uninstall Option wurde aktiviert. Wenn du das Plugin deaktivierst werden alle Plugin Daten aus der Datenbank entfernt"
 
-#: chcounter-widget.php:184
+#: chcounter-widget.php:217
 msgid "Title"
 msgstr "Titel"
 
-#: chcounter-widget.php:264
+#: chcounter-widget.php:292
 msgid "chCounter Widget"
 msgstr "chCounter Widget"
 
