@@ -48,7 +48,7 @@ First upload the new files to the plugins directory. You can just overwrite the 
 Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
 
 = How to diplay chCounter statically without using widgets? =
-*Version 2.0.2*
+**Version 2.0.2**
 
 Place the following code where you want to display chCounter
 
@@ -63,7 +63,7 @@ $chcounter_widget->display(array (
 ));
 ?>`
 
-*Version 2.1+*
+**Version 2.1**
 
 You can just put the following code where you want to display chCounter:
 
