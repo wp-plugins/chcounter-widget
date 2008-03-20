@@ -3,9 +3,10 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter
 Requires at least: 2.2
 Tested up to: 2.5
-Stable tag: 2.0.2
+Stable tag: 2.1
 
-A simple plugin to create a widget for the chCounter from <http://chcounter.org/>
+A simple plugin to create a widget for the chCounter from <http://chcounter.org/>.
+
 
 == Description ==
 
@@ -24,6 +25,7 @@ This is a simple plugin which creates a widget for the chCounter from <http://ch
 
 The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting.
 
+
 == Installation ==
 
 To install the plugin to the following steps
@@ -32,6 +34,7 @@ To install the plugin to the following steps
 2. Activiate the plugin via the admin plugin page.
 3. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
 3. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
+
 
 == Frequently Asked Questions == 
 
@@ -45,6 +48,8 @@ First upload the new files to the plugins directory. You can just overwrite the 
 Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
 
 = How to diplay chCounter statically without using widgets? =
+*Version 2.0.2*
+
 Place the following code where you want to display chCounter
 
 `<?php
@@ -58,7 +63,21 @@ $chcounter_widget->display(array (
 ));
 ?>`
 
+*Version 2.1+*
+
+You can just put the following code where you want to display chCounter:
+
+`<?php chcounter_widget_display("chCounter Widget Title") ?>`
+
+The plugin will default to before and after widget tags like in the example for Version 2.0.2. Alternatively you can pass an array of arguments to the function like in Version 2.0.2 to overwrite the defaults.
+
+
 == ChangeLog ==
+
+**Version 2.1**, *20-March-2008*
+
+- Simplified static displaying of chCounter. See FAQ for further details
+- Switched to using scriptaculous and prototype shipped with Wordpress to reduce disk usage
 
 **Version 2.0.2**, *17-March-2008*
 
@@ -96,6 +115,7 @@ $chcounter_widget->display(array (
 **Version 1.0**, *20-February-2008*
 
 - First Release of the plugin.
+
 
 == Screenshots ==
 

@@ -273,14 +273,12 @@ TEMPLATE;
 	{
 		echo "\n\n<!-- chCounter Widget START -->\n";
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
-//		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/prototype.js'></script>\n";
-//		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/js/scriptaculous.js'></script>\n";
-		wp_print_scripts('prototype');
-		wp_print_scripts('scriptaculous');
-		echo "<script language='JavaScript' type='text/javascript' src='".$this->plugin_url."/chcounter.js'></script>\n";
+		wp_register_script('chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0');
+		wp_print_scripts('chcounter');
 		echo "<!-- chCounter Widget END -->\n\n";
 	}
 	
+
 	/**
 	 * add_admin_menu() - Add Options Menu to the Web Interface
 	 *
