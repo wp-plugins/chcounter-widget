@@ -3,7 +3,7 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter
 Requires at least: 2.2
 Tested up to: 2.5
-Stable tag: 2.1
+Stable tag: 2.2
 
 A simple plugin to create a widget for the chCounter from <http://chcounter.org/>.
 
@@ -73,6 +73,10 @@ The plugin will default to before and after widget tags like in the example for 
 
 
 == ChangeLog ==
+
+** Version 2.2**, *9-April-2008*
+
+- bug fix for displaying widget statically
 
 **Version 2.1**, *20-March-2008*
 

@@ -14,13 +14,13 @@
 <h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
 <div id="chcounter_available_box" class='chcounter_widget_parameters narrow'>
 	<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
-	<ul class='chcounter_widget' id='chcounter_available'>
+	<ol class='chcounter_widget' id='chcounter_available'>
 	<?php if ( count($options['params']['available']) > 0 ) : ?>
 	<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
 		<li id='param_<?php echo $param ?>'><?php _e( $params[$param]['admin_label'], 'chcounter' ) ?></li>
 	<?php endforeach; ?>
 	<?php endif; ?>
-	</ul>
+	</ol>
 	
 	<span class="handle" id="chcounter_handle_available"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
 	<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
@@ -28,13 +28,13 @@
 <div id="chcounter_active_box" class='chcounter_widget_parameters narrow'>
 	<h4><?php _e( 'Active', 'chcounter' ) ?></h4>
 	
-	<ul class='chcounter_widget' id='chcounter_active'>
+	<ol class='chcounter_widget' id='chcounter_active'>
 	<?php if ( count($options['params']['active']) > 0 ) : ?>
 	<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
 		<li id='param_<?php echo $param ?>'><?php _e( $params[$param]['admin_label'], 'chcounter' ) ?></li>
 	<?php endforeach; ?>
 	<?php endif; ?>
-	</ul>
+	</ol>
 	
 	<span class="handle" id="chcounter_handle_active"><?php _e( 'You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box', 'chcounter' ) ?></span>
 	<input type="hidden" name="chcounter_widget_active_order" id="chcounter_widget_active_order" />

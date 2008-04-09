@@ -2,8 +2,8 @@
 /*
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
-Description: Simple plugin to create a widget for the chCounter.
-Version: 2.1
+Description: Integrate chCounter into Wordpress as widget.
+Version: 2.2
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.1';
+	var $version = '2.2';
 	
 	/**
 	 * Array of available parameters
@@ -48,7 +48,7 @@ class chCounterWidget
 	  
 	 
 	/**
-	 * __construct() - Initialize available parameters
+	 * Initialize available parameters
 	 *
 	 * @param none
 	 * @return void
@@ -59,7 +59,8 @@ class chCounterWidget
 		if ( substr($_SERVER['DOCUMENT_ROOT'], -1, 1) != '/' )
 			$_SERVER['DOCUMENT_ROOT'] == $_SERVER['DOCUMENT_ROOT'].'/';
 		
-		$this->plugin_url = get_bloginfo( 'wpurl' )."/wp-content/plugins/chcounter-widget";
+		//$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR."/chcounter-widget";
+		$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR.'/'.basename(__FILE__, ".php");
 
 		$params = array();
 		$params["total"] = array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
@@ -84,7 +85,7 @@ class chCounterWidget
 
 
 	/**
-	 * get_parameters()  - get available parameters to display
+	 * gets available parameters to display
 	 *
 	 * @param none
 	 * @return array
@@ -96,16 +97,16 @@ class chCounterWidget
 
 	
 	/**
-	 * display() - Function to display chCounter Widget
+	 * displays chCounter Widget
 	 *
-	 * @param none
+	 * @param array $args
 	 * @return void
 	 */
 	function display($args)
 	{
 		if ( is_string($args) )
-			parse_str( $args, $args );
-
+			$args = array( 'widget_title' => $args );
+			
 		$options = get_option( 'chcounter_widget' );
 		$params = $this->get_parameters();
 
@@ -152,7 +153,7 @@ TEMPLATE;
 
 
 	/**
-	 * display_options_page() - chCounter Widget Settings Page
+	 * displays settings page
 	 *
 	 * @param none
 	 * @return void
@@ -183,7 +184,7 @@ TEMPLATE;
 
 
 	/**
-	 * get_order() - Get Order of parameters
+	 * gets order of parameters
 	 *
 	 * @param string $input serialized string with order
 	 * @return array
@@ -202,7 +203,7 @@ TEMPLATE;
 
 
 	/**
-	 * widget_control() - Control Panel for the widget
+	 * displays control panel for the widget
 	 *
 	 * @param none
 	 * @return void
@@ -222,7 +223,7 @@ TEMPLATE;
 
 
 	/**
-	 * init() - Plugin Initialization
+	 * initializes plugin
 	 *
 	 * @param none
 	 * @return void
@@ -238,12 +239,21 @@ TEMPLATE;
 		
 		$options = array();
 		$options['title'] = '';
-		$options['invisible'] = 1;
+		$options['invisible'] = 0;
+		$options['version'] = $this->version;
 		foreach ( $params AS $param => $data ) {
 			$options['params']['available'][] = $param;
 			$options['params']['active'] = array();
 		}
-	
+		
+		$old_options = get_option( 'chcounter_widget' );
+		if ( !isset($old_options['version']) ) {
+			$options = array();
+			$options = $old_options;
+			$options['version'] = $this->version;
+			update_option( 'chcounter_widget', $options );
+		}
+		
 		add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
 		
 		return;
@@ -251,7 +261,7 @@ TEMPLATE;
 
 
 	/**
-	 * deactivate() - Checks if uninstall option is set and maybe deletes plugin options
+	 * checks if uninstall option is set and maybe deletes plugin options upon plugin deactivation
 	 *
 	 * @param none
 	 * @return void
@@ -265,7 +275,7 @@ TEMPLATE;
 
 
 	/**
-	 * add_header_code() - Add Code to Wordpress Header
+	 * adds code to Wordpress head
 	 *
 	 * @param none
 	 */
@@ -280,7 +290,7 @@ TEMPLATE;
 	
 
 	/**
-	 * add_admin_menu() - Add Options Menu to the Web Interface
+	 * add options menu to the admin panel
 	 *
 	 * @param none
 	 * @return void

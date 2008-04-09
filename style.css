@@ -19,24 +19,24 @@ div.chcounter_widget_parameters span.handle {
 	display: block;
 	}
 	
-ul.chcounter_widget {
+ol.chcounter_widget {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	min-height: 30px;
 	}
-ul.chcounter_widget li {
+ol.chcounter_widget li {
 	padding: 0.5em;
 	margin: 0.2 0.5em;
-	background-color: #e4f2fd;
+	/*background-color: #e4f2fd;*/
 	background: #fdfdfd;
 	border: 1px solid #ccc;
 	cursor: move;
 	}
-ul.chcounter_widget li.holder {
+ol.chcounter_widget li.holder {
 	border: none;
 	background: transparent;
 	}
-ul.chcounter_widget li input {
+ol.chcounter_widget li input {
 	margin: 0 1em auto auto;
 	}
