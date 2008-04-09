@@ -74,7 +74,7 @@ The plugin will default to before and after widget tags like in the example for 
 
 == ChangeLog ==
 
-** Version 2.2**, *9-April-2008*
+**Version 2.2**, *9-April-2008*
 
 - bug fix for displaying widget statically
 
