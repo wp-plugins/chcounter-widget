@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-03-20 17:11+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2008-04-12 18:16+0100\n"
+"Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -62,10 +62,6 @@ msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine 
 msgid "Settings saved"
 msgstr "Einstellungen gespeichert"
 
-#: chcounter-widget.php:176
-msgid "Settings saved. The uninstall options has been checked. If you deactivate the plugin now all plugin data will be removed from the database"
-msgstr "Einstellungen gespeichert. Die uninstall Option wurde aktiviert. Wenn du das Plugin deaktivierst werden alle Plugin Daten aus der Datenbank entfernt"
-
 #: chcounter-widget.php:217
 msgid "Title"
 msgstr "Titel"
@@ -116,7 +112,7 @@ msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. D
 
 #: settings.php:45
 msgid "Uninstall chCounter Widget"
-msgstr "chCounter Widget Deinstallation"
+msgstr "chCounter Widget deinstallieren"
 
 #: settings.php:46
 msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."

@@ -40,3 +40,7 @@ ol.chcounter_widget li.holder {
 ol.chcounter_widget li input {
 	margin: 0 1em auto auto;
 	}
+
+label.chcounter_widget {
+	float: none;
+	}
