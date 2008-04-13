@@ -10,7 +10,7 @@ A simple plugin to create a widget for the chCounter from <http://chcounter.org/
 
 == Description ==
 
-This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>.
+This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>. Currently the following parameters are supported:
 
 * Total number of visitors
 * Online visitors yesterday
