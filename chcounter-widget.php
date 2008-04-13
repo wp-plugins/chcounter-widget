@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.2
+Version: 2.2.1
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.2';
+	var $version = '2.2.1';
 	
 	/**
 	 * Array of available parameters
@@ -321,16 +321,29 @@ TEMPLATE;
 			$options['params']['active'] = array();
 		}
 		
+		add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
+		
+		/*
+		* Upgrade Stuff
+		*/
 		if ($old_options = get_option( 'chcounter_widget' ) ) {
 			if ( !isset($old_options['version']) ) {
 				$options = array();
 				$options = $old_options;
 				$options['version'] = $this->version;
 				update_option( 'chcounter_widget', $options );
+			} elseif ( $old_options['version'] != $this->version ) {
+				$options = array();
+				$options['title'] = $old_options['title'];
+				$options['invisible'] = $old_options['invisible'];
+				$options['version'] = $this->version;
+				$options['chcounter_path'] = $old_options['chcounter_path'];
+				$options['params'] = $old_options['params'];
+				update_option( 'chcounter_widget', $options );
 			}
 		}
 		
-		add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
+
 		
 		return;
 	}
@@ -370,7 +383,8 @@ TEMPLATE;
 	function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
-		wp_enqueue_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
+		wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
+		wp_print_scripts( 'chcounter' );
 	}
 	
 
@@ -391,9 +405,9 @@ $chcounter_widget = new chCounterWidget();
 
 
 add_action( 'plugins_loaded', array(&$chcounter_widget, 'registerWidget') );
-add_action( 'activate_chcounter-widget/chcounter-widget.php', array(&$chcounter_widget, 'init') );
+add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
 add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
-	
+
 load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
 
 // Uninstall chCounter Widget
