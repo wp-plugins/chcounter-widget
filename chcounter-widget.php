@@ -33,13 +33,6 @@ class chCounterWidget
 	var $version = '2.2.1';
 	
 	/**
-	 * Array of available parameters
-	 *
-	 * @var array
-	 */
-	 var $params = array();
-	 
-	/**
 	 * path to the plugin
 	 *
 	 * @var string
@@ -62,20 +55,6 @@ class chCounterWidget
 		//$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR."/chcounter-widget";
 		$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR.'/'.basename(__FILE__, ".php");
 
-		$params = array();
-		$params["total"] = array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
-		$params["today"] = array( "admin_label" => "Visitors today", "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
-		$params["yesterday"] = array( "admin_label" => "Visitors yesterday", "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
-		$params["maxperday"] = array( "admin_label" => "Max. visitors per day", "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
-		$params["online"] = array( "admin_label" => "Curently online", "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
-		$params["maxonline"] = array( "admin_label" => "Max. online", "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
-		$params["totalpageviews"] = array( "admin_label" => "Total page views", "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
-		$params["totalpageviewsthispage"] = array( "admin_label" => "Page views of current page", "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["perday"] = array( "admin_label" => "Visitors per day", "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["stats"] = array( "admin_label" => "Statistics", "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
-
-		$this->params = $params;
-
 		return;
 	}
 	function chCounterWidget()
@@ -90,9 +69,21 @@ class chCounterWidget
 	 * @param none
 	 * @return array
 	 */
-	function getParameters()
+	function get_parameters()
 	{
-		return $this->params;
+        	$params = array();
+		$params["total"] = array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
+		$params["today"] = array( "admin_label" => "Visitors today", "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
+		$params["yesterday"] = array( "admin_label" => "Visitors yesterday", "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
+		$params["maxperday"] = array( "admin_label" => "Max. visitors per day", "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
+		$params["online"] = array( "admin_label" => "Curently online", "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
+		$params["maxonline"] = array( "admin_label" => "Max. online", "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
+		$params["totalpageviews"] = array( "admin_label" => "Total page views", "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
+		$params["totalpageviewsthispage"] = array( "admin_label" => "Page views of current page", "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["perday"] = array( "admin_label" => "Visitors per day", "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["stats"] = array( "admin_label" => "Statistics", "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
+
+		return $params;
 	}
 
 	
@@ -108,7 +99,7 @@ class chCounterWidget
 			$args = array( 'widget_title' => $args );
 			
 		$options = get_option( 'chcounter_widget' );
-		$params = $this->getParameters();
+		$params = $this->get_parameters();
 
 		$defaults = array(
 			'before_widget' => '<li id="chcounter" class="widget '.get_class($this).'_'.__FUNCTION__.'">',
@@ -158,17 +149,17 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function displayOptionsPage()
+	function display_options_page()
 	{
-		$params = $this->getParameters();
+		$params = $this->get_parameters();
 		$options = get_option( 'chcounter_widget' );
 		
 		if ( isset($_POST['update_chcounter']) ) {	
 			if ( 'update_options' == $_POST['update_chcounter'] ) {
 				$options['chcounter_path'] = $_POST['chcounter_widget_path'];
 				$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-				$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
-				$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
+				$options['params']['available'] = $this->get_order($_POST['chcounter_widget_available_order'], 'chcounter_available');
+				$options['params']['active'] = $this->get_order($_POST['chcounter_widget_active_order'], 'chcounter_active');
 				
 				update_option('chcounter_widget', $options);
 
@@ -252,7 +243,7 @@ TEMPLATE;
 	 * @param string $input serialized string with order
 	 * @return array
 	 */
- 	function getOrder( $input, $listname )
+ 	function get_order( $input, $listname )
 	{
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
@@ -271,7 +262,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function widgetControl()
+	function widget_control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
@@ -286,18 +277,18 @@ TEMPLATE;
 
 
 	/**
-	 * Register widget
+	 * registers widget
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function registerWidget()
+	function register_widget()
 	{
 		if ( !function_exists("register_sidebar_widget") )
 			return;
 
 		register_sidebar_widget( 'chCounter', array(&$this, 'display') );
-		register_widget_control( 'chCounter', array(&$this, 'widgetControl'), 250, 100 );
+		register_widget_control( 'chCounter', array(&$this, 'widget_control'), 250, 100 );
 		return;
 	}
 	
@@ -310,7 +301,7 @@ TEMPLATE;
 	 */
 	function init()
 	{
-		$params = $this->getParameters();
+		$params = $this->get_parameters();
 		
 		$options = array();
 		$options['title'] = '';
@@ -380,7 +371,7 @@ TEMPLATE;
 	 *
 	 * @param none
 	 */
-	function addHeaderCode()
+	function add_header_code()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
@@ -394,21 +385,21 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function addAdminMenu()
+	function add_admin_menu()
 	{
-		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'displayOptionsPage') );
-		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
+		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'display_options_page') );
+		add_action( "admin_print_scripts-$mypage", array(&$this, 'add_header_code') );
 	}
 }
 
 $chcounter_widget = new chCounterWidget();
 
 
-add_action( 'plugins_loaded', array(&$chcounter_widget, 'registerWidget') );
+add_action( 'plugins_loaded', array(&$chcounter_widget, 'register_widget') );
 add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
-add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
+add_action( 'admin_menu', array(&$chcounter_widget, 'add_admin_menu') );
 
-load_plugin_textdomain( 'chcounter', $path = 'wp-content/plugins/chcounter-widget' );
+load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php")  );
 
 // Uninstall chCounter Widget
 if ( isset( $_GET['chcounter-widget']) AND 'uninstall' == $_GET['chcounter-widget'] AND ( isset($_GET['delete_plugin']) AND 1 == $_GET['delete_plugin'] ) )
