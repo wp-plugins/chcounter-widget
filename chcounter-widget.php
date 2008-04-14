@@ -93,7 +93,7 @@ class chCounterWidget
 	 * @param array $args
 	 * @return void
 	 */
-	function display($args)
+	function display( $args )
 	{
 		if ( is_string($args) )
 			$args = array( 'widget_title' => $args );
