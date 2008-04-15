@@ -93,7 +93,7 @@ class chCounterWidget
 	 * @param array $args
 	 * @return void
 	 */
-	function display( $args )
+	function display($args)
 	{
 		if ( is_string($args) )
 			$args = array( 'widget_title' => $args );
@@ -144,12 +144,12 @@ TEMPLATE;
 
 
 	/**
-	 * displays options page
+	 * displays admin page
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function display_options_page()
+	function display_admin_page()
 	{
 		$params = $this->get_parameters();
 		$options = get_option( 'chcounter_widget' );
@@ -387,7 +387,7 @@ TEMPLATE;
 	 */
 	function add_admin_menu()
 	{
-		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'display_options_page') );
+		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'display_admin_page') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'add_header_code') );
 	}
 }
