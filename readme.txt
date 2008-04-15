@@ -63,7 +63,7 @@ $chcounter_widget->display(array (
 ));
 ?>`
 
-**Version 2.1**
+**Version 2.1+**
 
 You can just put the following code where you want to display chCounter:
 
