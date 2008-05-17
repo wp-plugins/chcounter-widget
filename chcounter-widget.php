@@ -69,7 +69,7 @@ class chCounterWidget
 	 * @param none
 	 * @return array
 	 */
-	function get_parameters()
+	function getParameters()
 	{
         	$params = array();
 		$params["total"] = array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
@@ -99,7 +99,7 @@ class chCounterWidget
 			$args = array( 'widget_title' => $args );
 			
 		$options = get_option( 'chcounter_widget' );
-		$params = $this->get_parameters();
+		$params = $this->getParameters();
 
 		$defaults = array(
 			'before_widget' => '<li id="chcounter" class="widget '.get_class($this).'_'.__FUNCTION__.'">',
@@ -149,17 +149,17 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function display_admin_page()
+	function displayAdminPage()
 	{
-		$params = $this->get_parameters();
+		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
 		
-		if ( isset($_POST['update_chcounter']) ) {	
+		if ( isset($_POST['update_chcounter']) && check_admin_referer( 'chcounter-widget_update-options' ) ) {
 			if ( 'update_options' == $_POST['update_chcounter'] ) {
 				$options['chcounter_path'] = $_POST['chcounter_widget_path'];
 				$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-				$options['params']['available'] = $this->get_order($_POST['chcounter_widget_available_order'], 'chcounter_available');
-				$options['params']['active'] = $this->get_order($_POST['chcounter_widget_active_order'], 'chcounter_active');
+				$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
+				$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
 				
 				update_option('chcounter_widget', $options);
 
@@ -172,7 +172,9 @@ TEMPLATE;
 			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
 				
 			<form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
-					
+				
+				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
+				
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<p><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?>: </label><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><?php _e( 'without trailing slash', 'chcounter' ) ?></p>
 				
@@ -243,7 +245,7 @@ TEMPLATE;
 	 * @param string $input serialized string with order
 	 * @return array
 	 */
- 	function get_order( $input, $listname )
+ 	function getOrder( $input, $listname )
 	{
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
@@ -262,7 +264,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function widget_control()
+	function control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
@@ -282,13 +284,13 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function register_widget()
+	function register()
 	{
 		if ( !function_exists("register_sidebar_widget") )
 			return;
 
 		register_sidebar_widget( 'chCounter', array(&$this, 'display') );
-		register_widget_control( 'chCounter', array(&$this, 'widget_control'), 250, 100 );
+		register_widget_control( 'chCounter', array(&$this, 'control'), 250, 100 );
 		return;
 	}
 	
@@ -301,7 +303,7 @@ TEMPLATE;
 	 */
 	function init()
 	{
-		$params = $this->get_parameters();
+		$params = $this->getParameters();
 		
 		$options = array();
 		$options['title'] = '';
@@ -371,7 +373,7 @@ TEMPLATE;
 	 *
 	 * @param none
 	 */
-	function add_header_code()
+	function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
@@ -385,24 +387,24 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	function add_admin_menu()
+	function addAdminMenu()
 	{
-		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'display_admin_page') );
-		add_action( "admin_print_scripts-$mypage", array(&$this, 'add_header_code') );
+		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 8, basename(__FILE__), array(&$this, 'displayAdminPage') );
+		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 	}
 }
 
 $chcounter_widget = new chCounterWidget();
 
 
-add_action( 'plugins_loaded', array(&$chcounter_widget, 'register_widget') );
+add_action( 'plugins_loaded', array(&$chcounter_widget, 'register') );
 add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
-add_action( 'admin_menu', array(&$chcounter_widget, 'add_admin_menu') );
+add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
 
 load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php")  );
 
 // Uninstall chCounter Widget
-if ( isset( $_GET['chcounter-widget']) AND 'uninstall' == $_GET['chcounter-widget'] AND ( isset($_GET['delete_plugin']) AND 1 == $_GET['delete_plugin'] ) )
+if (isset( $_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && ( isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
 	$chcounter_widget->uninstall();
 
 		
