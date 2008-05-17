@@ -27,7 +27,7 @@ The parameters to display are controlled via the admin panel. There's also an op
 
 **Translations**
 
-* [Turkish](http://http://svn.wp-plugins.org/chcounter-widget/trunk/chcounter-tr_TR.mo) by Roman Neumüller
+* [Turkish](http://svn.wp-plugins.org/chcounter-widget/trunk/chcounter-tr_TR.mo) by Roman Neumüller
 
 The Plugin supports by default English and German. All the other language files are also in trunk and will be automatically included in future releases.
 
