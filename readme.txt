@@ -3,14 +3,14 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.2
 Tested up to: 2.5
-Stable tag: 2.2.1
+Stable tag: 2.3
 
-A simple plugin to create a widget for the chCounter from <http://chcounter.org/>.
+A simple plugin to create a widget for the [chCounter](http://chcounter.org).
 
 
 == Description ==
 
-This is a simple plugin which creates a widget for the chCounter from <http://chcounter.org/>. Currently the following parameters are supported:
+This is a simple plugin which creates a widget for the [chCounter](http://chcounter.org). Currently the following parameters are supported:
 
 * Total number of visitors
 * Online visitors yesterday
@@ -23,13 +23,13 @@ This is a simple plugin which creates a widget for the chCounter from <http://ch
 * Visitors per day
 * Link to the chCounter statistics page
 
-The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting.
+The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. In the latest Version I've included a new capability to control access to the Plugin Settings page and make it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
 
 **Translations**
 
-* [Turkish](http://svn.wp-plugins.org/chcounter-widget/trunk/chcounter-tr_TR.mo) by Roman Neumüller
+For translations please check out the [repository](http://dev.wp-plugins.org/browser/chcounter-widget/i18n).
 
-The Plugin supports by default English and German. All the other language files are also in trunk and will be automatically included in future releases.
+Since Version 2.3 I detached the translation files from the main plugin so they have to be downloaded manually. This keeps the plugin slim as more translations are added. A template for creating translations for other languages is included. If you create a translation for your language you can send the file to me and I will put it in the repository for public access.
 
 == Installation ==
 
@@ -79,9 +79,14 @@ The plugin will default to before and after widget tags like in the example for 
 
 == ChangeLog ==
 
+**Version 2.3**, *21-May-2008*
+
+- NEW: uses own capability to control access to plugin options page
+- detached translation files from main plugin files. Own repository
+
 **Version 2.2.1**, *13-April-2008*
 
-- load scripts only on chCounter settings page
+- NEW: load scripts only on chCounter settings page
 - changed uninstallation method to direct uninstallation and plugin deactivation
 - reincorporated settings.php into main plugin file
 
@@ -91,21 +96,21 @@ The plugin will default to before and after widget tags like in the example for 
 
 **Version 2.1**, *20-March-2008*
 
-- Simplified static displaying of chCounter. See FAQ for further details
+- NEW: Simplified static displaying of chCounter. See FAQ for further details
 - Switched to using scriptaculous and prototype shipped with Wordpress to reduce disk usage
 
 **Version 2.0.2**, *17-March-2008*
 
-- NEW Feature: option to make chCounter invisible while active
+- NEW: option to make chCounter invisible while active
 
 **Version 2.0.1**, *17-March-2008*
 
 - made it compatible with Wordpress 2.5
-- NEW Feature: possibility to display chCounter statically without using widget. See FAQ for further details
+- NEW: possibility to display chCounter statically without using widget. See FAQ for further details
 
 **Version 2.0**, *2-March-2008*
 
-- NEW Feature: drag & drop sorting and activation of parameters
+- NEW: drag & drop sorting and activation of parameters
 - styling like widgets in Wordpress 2.3
 
 **Version 1.1.3**, *29-February-2008*
@@ -115,17 +120,17 @@ The plugin will default to before and after widget tags like in the example for 
 **Version 1.1.2**, *25-February-2008*
 
 - Took out automatic uninstallation upon plugin deactivation
-- NEW Feature: option to uninstall it upon plugin deactivation
+- NEW: option to uninstall it upon plugin deactivation
 - Fixed a severe bug in 1.1.1 so that the widget was not displayed.
 
 **Version 1.1.1**, *25-February-2008*
 
-- Implemented uninstallation of the plugin upon deactivation.
+- NEW: Implemented uninstallation of the plugin upon deactivation.
 - Version was deleted due to severe bug that caused the widget not to work.
 
 **Version 1.1**, *24-February-2008*
 
-- NEW Feature: option to set chCounter installation directory via the admin interface and simple sorting of parameters.
+- NEW: option to set chCounter installation directory via the admin interface and simple sorting of parameters.
 
 **Version 1.0**, *20-February-2008*
 
