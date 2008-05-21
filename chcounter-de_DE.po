@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2008-02-24 21:17+0100\n"
+"Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: chcounter-widget.php:31
+msgid "Total Visitors"
+msgstr "Besucher Gesamt"
+
+#: chcounter-widget.php:32
+msgid "Visitors today"
+msgstr "Besucher Heute"
+
+#: chcounter-widget.php:33
+msgid "Visitors yesterday"
+msgstr "Besucher Gestern"
+
+#: chcounter-widget.php:34
+msgid "Max. visitors per day"
+msgstr "Max. pro Tag"
+
+#: chcounter-widget.php:35
+msgid "Curently online"
+msgstr "Gerade Online"
+
+#: chcounter-widget.php:36
+msgid "Max. online"
+msgstr "Max. online"
+
+#: chcounter-widget.php:37
+msgid "Total page views"
+msgstr "Seitenaufrufe gesamt"
+
+#: chcounter-widget.php:38
+msgid "Page views of current page"
+msgstr "Seitenaufrufe aktuelle Seite"
+
+#: chcounter-widget.php:39
+msgid "Visitors per day"
+msgstr "Besucher pro Tag"
+
+#: chcounter-widget.php:40
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: chcounter-widget.php:70
+msgid "Could not find the chcounter installation. Please check your settings."
+msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
+
+#: chcounter-widget.php:98
+msgid "Settings saved"
+msgstr "Einstellungen gespeichert"
+
+#: chcounter-widget.php:104
+msgid "chCounter Widget Settings"
+msgstr "chCounter Widget Einstellungen"
+
+#: chcounter-widget.php:105
+msgid "chCounter Path"
+msgstr "chCounter Pfad"
+
+#: chcounter-widget.php:105
+msgid "without trailing slash"
+msgstr "ohne Slash am Ende"
+
+#: chcounter-widget.php:107
+msgid "Parameter"
+msgstr "Parameter"
+
+#: chcounter-widget.php:107
+msgid "Show"
+msgstr "Zeigen"
+
+#: chcounter-widget.php:107
+msgid "Order"
+msgstr "Order"
+
+#: chcounter-widget.php:119
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: chcounter-widget.php:139
+msgid "Title"
+msgstr "Titel"
+
+#: chcounter-widget.php:161
+msgid "Visitor Counter"
+msgstr "Besucherzähler"
+
+#: chcounter-widget.php:183
+msgid "chCounter Widget"
+msgstr "chCounter Widget"
+
