@@ -58,70 +58,70 @@ msgstr ""
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr ""
 
-#: chcounter-widget.php:167
+#: chcounter-widget.php:165
 msgid "Settings saved"
 msgstr ""
 
-#: chcounter-widget.php:173
+#: chcounter-widget.php:170
 msgid "chCounter Widget Settings"
 msgstr ""
 
-#: chcounter-widget.php:179
+#: chcounter-widget.php:176
 msgid "General Settings"
 msgstr ""
 
-#: chcounter-widget.php:180
+#: chcounter-widget.php:177
 msgid "chCounter Path"
 msgstr ""
 
-#: chcounter-widget.php:180
+#: chcounter-widget.php:177
 msgid "without trailing slash"
 msgstr ""
 
-#: chcounter-widget.php:183
+#: chcounter-widget.php:180
 msgid "Make chCounter Invisible"
 msgstr ""
 
-#: chcounter-widget.php:185
+#: chcounter-widget.php:182
 msgid "Parameters"
 msgstr ""
 
-#: chcounter-widget.php:187
+#: chcounter-widget.php:184
 msgid "Available"
 msgstr ""
 
-#: chcounter-widget.php:196
+#: chcounter-widget.php:193
 msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
 msgstr ""
 
-#: chcounter-widget.php:200
+#: chcounter-widget.php:197
 msgid "Active"
 msgstr ""
 
-#: chcounter-widget.php:210
+#: chcounter-widget.php:207
 msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
 msgstr ""
 
-#: chcounter-widget.php:216
+#: chcounter-widget.php:212
 msgid "Save Settings"
 msgstr ""
 
-#: chcounter-widget.php:220,226
+#: chcounter-widget.php:217,222
 msgid "Uninstall chCounter Widget"
 msgstr ""
 
-#: chcounter-widget.php:223
+#: chcounter-widget.php:219
 msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
 msgstr ""
 
-#: chcounter-widget.php:224
+#: chcounter-widget.php:220
 msgid "Yes, I want to uninstall chCounter Widget"
 msgstr ""
 
-#: chcounter-widget.php:276
+#: chcounter-widget.php:271
 msgid "Title"
 msgstr ""
 
-#: chcounter-widget.php:400
+#: chcounter-widget.php:395
 msgid "chCounter Widget"
 msgstr ""
