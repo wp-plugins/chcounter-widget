@@ -154,17 +154,15 @@ TEMPLATE;
 		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
 			
-		if ( isset($_POST['update_chcounter']) && check_admin_referer( 'chcounter-widget_update-options' ) ) {
-			if ( 'update_options' == $_POST['update_chcounter'] ) {
-				$options['chcounter_path'] = $_POST['chcounter_widget_path'];
-				$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-				$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
-				$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
+		if ( isset($_POST['updateSettings']) && check_admin_referer( 'chcounter-widget_update-options' ) ) {
+			$options['chcounter_path'] = $_POST['chcounter_widget_path'];
+			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
+			$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
+			$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
 					
-				update_option('chcounter_widget', $options);
+			update_option('chcounter_widget', $options);
 	
-				echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
-			}
+			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
 		
 		?>
@@ -211,7 +209,6 @@ TEMPLATE;
 				</div>
 						
 				<br style="clear: both;" />
-				<input type="hidden" name="update_chcounter" id="chcounter-submit" value="update_options" />
 				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button" /></p>
 			</form>
 		</div>
@@ -403,7 +400,7 @@ TEMPLATE;
 $chcounter_widget = new chCounterWidget();
 
 
-add_action( 'plugins_loaded', array(&$chcounter_widget, 'register') );
+add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
 add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
 add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
 
