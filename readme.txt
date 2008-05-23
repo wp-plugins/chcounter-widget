@@ -26,7 +26,8 @@ This is a simple plugin which creates a widget for the [chCounter](http://chcoun
 The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. In the latest Version I've included a new capability to control access to the Plugin Settings page and make it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
 
 **Translations**
-For translations please check out the [repository](http://dev.wp-plugins.org/browser/chcounter-widget/i18n).
+The Plugin supports internationalization. It includes a template to create a translation file for your language.
+
 
 Since Version 2.3 I detached the translation files from the main plugin so they have to be downloaded manually. This keeps the plugin slim as more translations are added. A template for creating translations for other languages is included. If you create a translation for your language you can send the file to me and I will put it in the repository for public access.
 
