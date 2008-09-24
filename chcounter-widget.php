@@ -214,6 +214,7 @@ TEMPLATE;
 				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button" /></p>
 			</form>
 		</div>
+		<!--
 		<div class='wrap'>
 			<h3 style='clear: both; padding-top: 1em;'><?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?></h3>
 			<form action="index.php" method="get">
@@ -224,6 +225,7 @@ TEMPLATE;
 				<p class="submit"><input type="submit" value="<?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?>&raquo;" class="button" /></p>
 			</form>
 		</div>
+		-->
 		<script type='text/javascript'>
 			// <![CDATA[
 			Sortable.create("chcounter_available",
@@ -360,6 +362,7 @@ TEMPLATE;
 		/*
 		* Deactivate Plugin
 		*/
+		/*
 		$plugin = basename(__FILE__, ".php") .'/' . basename(__FILE__);
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ( function_exists( "deactivate_plugins" ) )
@@ -370,6 +373,7 @@ TEMPLATE;
 			update_option('active_plugins', $current);
 			do_action('deactivate_' . trim( $plugin ));
 		}
+		*/
 	}
 
 
@@ -401,16 +405,19 @@ TEMPLATE;
 
 $chcounter_widget = new chCounterWidget();
 
-
+register_activation_hook(__FILE__, array(&$chcounter_widget, 'init') );
+//add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
 add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
-add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
 add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
 
 load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php")  );
 
+if ( function_exists('register_uninstall_hook') )
+   register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
+
 // Uninstall chCounter Widget
-if (isset( $_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && ( isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
-	$chcounter_widget->uninstall();
+//if (isset( $_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && ( isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
+//	$chcounter_widget->uninstall();
 
 		
 /**
