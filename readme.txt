@@ -3,7 +3,7 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.3
 Tested up to: 2.7
-Stable tag: 2.3.1
+Stable tag: 2.3
 
 A simple plugin to create a widget for the [chCounter](http://chcounter.org).
 
@@ -79,6 +79,11 @@ The plugin will default to before and after widget tags like in the example for 
 
 
 == ChangeLog ==
+
+**Version 2.4**, *3-October-2008*
+
+- NEW: uninstallation hook for WP 2.7
+- disabled uninstallation form in WP 2.7
 
 **Version 2.3**, *21-May-2008*
 
