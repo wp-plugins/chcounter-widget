@@ -393,6 +393,7 @@ TEMPLATE;
 	 * adds code to Wordpress head
 	 *
 	 * @param none
+	 * @return void
 	 */
 	function addHeaderCode()
 	{
@@ -431,7 +432,6 @@ if ( function_exists('register_uninstall_hook') )
 if ( version_compare($wp_version, '2.7-hemorrhage', '<') && isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
 	$chcounter_widget->uninstall();
 
-		
 /**
  * Wrapper function to display chCounter Widget statically
  *
