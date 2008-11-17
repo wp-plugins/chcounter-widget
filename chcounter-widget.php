@@ -183,11 +183,15 @@ TEMPLATE;
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 					
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
-				<p><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?>: </label><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><?php _e( 'without trailing slash', 'chcounter' ) ?></p>
+				<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Make chCounter Invisible', 'chcounter' ) ?></label></th><td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/></td>
+				</tr>
+				</table>
 				
-				<?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?>
-				<p><label for='chcounter_widget_invisible'><?php _e( 'Make chCounter Invisible', 'chcounter' ) ?></label> <input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/></p>
-						
 				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
 				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow'>
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
