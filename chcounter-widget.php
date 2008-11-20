@@ -81,16 +81,16 @@ class chCounterWidget
 	function getParameters()
 	{
         	$params = array();
-		$params["total"] = array( "admin_label" => "Total Visitors", "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
-		$params["today"] = array( "admin_label" => "Visitors today", "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
-		$params["yesterday"] = array( "admin_label" => "Visitors yesterday", "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
-		$params["maxperday"] = array( "admin_label" => "Max. visitors per day", "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
-		$params["online"] = array( "admin_label" => "Curently online", "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
-		$params["maxonline"] = array( "admin_label" => "Max. online", "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
-		$params["totalpageviews"] = array( "admin_label" => "Total page views", "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
-		$params["totalpageviewsthispage"] = array( "admin_label" => "Page views of current page", "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["perday"] = array( "admin_label" => "Visitors per day", "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["stats"] = array( "admin_label" => "Statistics", "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
+		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
+		$params["today"] = array( "admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
+		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
+		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
+		$params["online"] = array( "admin_label" => __('Curently online', 'chcounter'), "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
+		$params["maxonline"] = array( "admin_label" => __('Max. online', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
+		$params["totalpageviews"] = array( "admin_label" => __('Total page views', 'chcounter'), "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
+		$params["totalpageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["stats"] = array( "admin_label" => __('Statistics', 'chcounter'), "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
 
 		return $params;
 	}
@@ -202,7 +202,7 @@ TEMPLATE;
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
-						<li id='param_<?php echo $param ?>'><?php _e( $params[$param]['admin_label'], 'chcounter' ) ?></li>
+						<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -216,7 +216,7 @@ TEMPLATE;
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
 						<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
-						<li id='param_<?php echo $param ?>'><?php _e( $params[$param]['admin_label'], 'chcounter' ) ?></li>
+						<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
