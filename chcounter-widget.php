@@ -431,7 +431,7 @@ register_activation_hook(__FILE__, array(&$chcounter_widget, 'init') );
 add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
 add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
 
-load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php")  );
+load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php").'/languages'  );
 
 if ( function_exists('register_uninstall_hook') )
    register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
