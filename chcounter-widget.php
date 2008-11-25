@@ -38,7 +38,7 @@ class chCounterWidget
 	 * @var string
 	 */
 	 var $plugin_url;
-	  
+
 	 
 	/**
 	 * Initialize available parameters
@@ -61,7 +61,6 @@ class chCounterWidget
 		if ( substr($_SERVER['DOCUMENT_ROOT'], -1, 1) != '/' )
 			$_SERVER['DOCUMENT_ROOT'] == $_SERVER['DOCUMENT_ROOT'].'/';
 		
-		//$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR."/chcounter-widget";
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, ".php");
 
 		return;
@@ -382,7 +381,7 @@ TEMPLATE;
 		/*
 		* Deactivation of Plugin not need in WP 2.7
 		*/
-		if ( version_compare($wp_version, '2.7-hemorrhage', '<') ) {
+		if ( !function_exists('register_uninstall_hook') ) {
 			$plugin = basename(__FILE__, ".php") .'/' . basename(__FILE__);
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			if ( function_exists( "deactivate_plugins" ) )
@@ -437,8 +436,9 @@ if ( function_exists('register_uninstall_hook') )
    register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
 
 // Uninstall chCounter Widget
-if ( version_compare($wp_version, '2.7-hemorrhage', '<') && isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
-	$chcounter_widget->uninstall();
+if ( !function_exists('register_uninstall_hook') )
+	if (isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
+		$chcounter_widget->uninstall();
 
 /**
  * Wrapper function to display chCounter Widget statically
