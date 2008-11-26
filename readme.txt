@@ -10,7 +10,7 @@ A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
 == Description ==
 
-This is a simple plugin which creates a widget for [chCounter](http://chcounter.org). It can display all 20 output values that chCounter supports. A complete list of values can be found on the [chCounter Homepage](http://chcounter.org/index.php?s=alle-ausgabewerte).
+This is a simple plugin which creates a widget for [chCounter](http://chcounter.org). It can display all [20 output values](http://chcounter.org/index.php?s=alle-ausgabewerte that chCounter supports.
 
 The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. Access to the settings page is controled via Wordpress capabilities which makes it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
 
