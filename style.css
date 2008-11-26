@@ -39,7 +39,16 @@ ol.chcounter_widget li.holder {
 ol.chcounter_widget li input {
 	margin: 0 1em auto auto;
 	}
-
+li#chcounter_stats {
+	background-image: none;
+	list-style-type: none;
+	list-style-image: none;
+	text-align: center;
+	}
+li#chcounter_stats img {
+	display: block;
+	margin: auto;
+	}
 label.chcounter_widget {
 	float: none;
 	}
