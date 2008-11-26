@@ -3,34 +3,21 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.3
 Tested up to: 2.7
-Stable tag: 2.4
+Stable tag: 2.5
 
-A simple plugin to create a widget for the [chCounter](http://chcounter.org).
+A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
 
 == Description ==
 
-This is a simple plugin which creates a widget for the [chCounter](http://chcounter.org). Currently the following parameters are supported:
+This is a simple plugin which creates a widget for [chCounter](http://chcounter.org). It can display all 20 output values that chCounter supports. A complete list of values can be found on the [chCounter Homepage](http://chcounter.org/index.php?s=alle-ausgabewerte).
 
-* Total number of visitors
-* Online visitors yesterday
-* Currently Online visitors
-* Online visitors today
-* Maximum number of visitors online per day
-* Maximum number of visitors online at one time
-* Total number of page views
-* Total number of page views for current page
-* Visitors per day
-* Link to the chCounter statistics page
-
-The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. In the latest Version I've included a new capability to control access to the Plugin Settings page and make it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
+The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. Access to the settings page is controled via Wordpress capabilities which makes it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
 
 **Translations**
 
 * German
 * Turkish
-
-A template for creating translations for other languages is included. If you create a translation for your language you can send the file to me and I will put it in the repository for public access.
 
 == Installation ==
 
@@ -39,19 +26,10 @@ To install the plugin to the following steps
 1. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
 2. Activiate the plugin via the admin plugin page.
 3. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
-3. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
+4. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
 == Frequently Asked Questions == 
-
-= How to upgrade from version 1.0 to 1.1? =
-You first unzip the new files and upload them to the plugins directory. After updating the files you need to deactivate und reactivate the plugin once. **Attention**: In Version 1.1 all data created by the plugin will be deleted upon plugin deactivation. I recommend to update.
-
-= How to upgrade from version 1.0 to 1.1.2? =
-First upload the new files to the plugins directory. You can just overwrite the old ones. Then go to Options --> chCounter Widget and check the uninstall option. Then deactivate and reactivate the plugin. You need to set the options again, Sorry!
-
-= How to upgrade to Version 2.0 =
-Due to some major changes in the options structure you need to uninstall the chCounter plugin once and then reconfigure it.
 
 = How to diplay chCounter statically without using widgets? =
 **Version 2.0.2**
@@ -79,6 +57,10 @@ The plugin will default to before and after widget tags like in the example for 
 
 
 == ChangeLog ==
+
+**Version 2.5**, *26-November-2008*
+
+- support of all output values chCounter can display
 
 **Version 2.4**, *3-October-2008*
 

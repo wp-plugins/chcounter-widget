@@ -99,7 +99,7 @@ class chCounterWidget
 		$params["pageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
 		$params["pageviewscurrentvisitor"] = array( "admin_label" => __('Page views of current visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_OF_CURRENT_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_OF_CURRENT_VISITOR}" );
 		$params["pageviewspervisitor"] = array( "admin_label" => __('Page views per visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_PER_VISITOR}" );
-		$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}", "counter_value" => "{V_JAVASCRIPT_ACTIVATED}" );
+		$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}", "counter_value" => "{V_JS_PERCENTAGE}" );
 		$params["counterstart"] = array( "admin_label" => __('Counterstart', 'chcounter'), "counter_label" => "{L_COUNTER_START}", "counter_value" => "{V_COUNTER_START}" );
 		$params["stats"] = array( "admin_label" => __('Statistics', 'chcounter'), "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
 
@@ -356,18 +356,21 @@ TEMPLATE;
 		* Upgrade Stuff
 		*/
 		if ($old_options = get_option( 'chcounter_widget' ) ) {
+			$options = array();
 			if ( !isset($old_options['version']) ) {
-				$options = array();
 				$options = $old_options;
 				$options['version'] = $this->version;
 				update_option( 'chcounter_widget', $options );
 			} elseif ( $old_options['version'] != $this->version ) {
-				$options = array();
 				$options['title'] = $old_options['title'];
 				$options['invisible'] = $old_options['invisible'];
 				$options['version'] = $this->version;
 				$options['chcounter_path'] = $old_options['chcounter_path'];
-				$options['params'] = $old_options['params'];
+				$options['params']['active'] = $old_options['params']['active'];
+				foreach ( $params AS $param => $data )
+					if ( !in_array($param, $options['params']['active']) )
+						$options['params']['available'][] = $param;
+						
 				update_option( 'chcounter_widget', $options );
 			}
 		}
