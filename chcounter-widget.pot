@@ -1,25 +1,33 @@
+# chcounterWidget POT file.
+# Copyright (C) 2008 Kolja Schleich
+# This file is distributed under the same license as the WordPress package.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
-"POT-Creation-Date: 2008-11-20 16:18+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2008-11-26 09:48+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: chcounter-widget.php:84
+#: chcounter-widget.php:83
 msgid "Total Visitors"
 msgstr ""
 
-#: chcounter-widget.php:85
+#: chcounter-widget.php:84
 msgid "Visitors today"
 msgstr ""
 
-#: chcounter-widget.php:86
+#: chcounter-widget.php:85
 msgid "Visitors yesterday"
+msgstr ""
+
+#: chcounter-widget.php:86
+msgid "Visitors per day"
 msgstr ""
 
 #: chcounter-widget.php:87
@@ -27,101 +35,141 @@ msgid "Max. visitors per day"
 msgstr ""
 
 #: chcounter-widget.php:88
-msgid "Curently online"
+msgid "Max. visitors per day date"
 msgstr ""
 
 #: chcounter-widget.php:89
-msgid "Max. online"
+msgid "Curently online"
 msgstr ""
 
 #: chcounter-widget.php:90
-msgid "Total page views"
+msgid "Max. online"
 msgstr ""
 
 #: chcounter-widget.php:91
-msgid "Page views of current page"
+msgid "Max. online date"
 msgstr ""
 
 #: chcounter-widget.php:92
-msgid "Visitors per day"
+msgid "Total page views"
 msgstr ""
 
 #: chcounter-widget.php:93
+msgid "Page views today"
+msgstr ""
+
+#: chcounter-widget.php:94
+msgid "Page views yesterday"
+msgstr ""
+
+#: chcounter-widget.php:95
+msgid "Page views per day"
+msgstr ""
+
+#: chcounter-widget.php:96
+msgid "Max. page views per day"
+msgstr ""
+
+#: chcounter-widget.php:97
+msgid "Max. page views per day date"
+msgstr ""
+
+#: chcounter-widget.php:99
+msgid "Page views of current page"
+msgstr ""
+
+#: chcounter-widget.php:100
+msgid "Page views of current visitor"
+msgstr ""
+
+#: chcounter-widget.php:101
+msgid "Page views per visitor"
+msgstr ""
+
+#: chcounter-widget.php:102
+msgid "Javascript activated"
+msgstr ""
+
+#: chcounter-widget.php:103
+msgid "Counterstart"
+msgstr ""
+
+#: chcounter-widget.php:104
 msgid "Statistics"
 msgstr ""
 
-#: chcounter-widget.php:148
+#: chcounter-widget.php:159
 msgid "chCounter Error"
 msgstr ""
 
-#: chcounter-widget.php:148
+#: chcounter-widget.php:159
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr ""
 
-#: chcounter-widget.php:178
+#: chcounter-widget.php:189
 msgid "Settings saved"
 msgstr ""
 
-#: chcounter-widget.php:183
+#: chcounter-widget.php:194
 msgid "chCounter Widget Settings"
 msgstr ""
 
-#: chcounter-widget.php:189
+#: chcounter-widget.php:200
 msgid "General Settings"
 msgstr ""
 
-#: chcounter-widget.php:192
+#: chcounter-widget.php:203
 msgid "chCounter Path"
 msgstr ""
 
-#: chcounter-widget.php:192
+#: chcounter-widget.php:203
 msgid "without trailing slash"
 msgstr ""
 
-#: chcounter-widget.php:195
+#: chcounter-widget.php:206
 msgid "Make chCounter Invisible"
 msgstr ""
 
-#: chcounter-widget.php:199
+#: chcounter-widget.php:210
 msgid "Parameters"
 msgstr ""
 
-#: chcounter-widget.php:201
+#: chcounter-widget.php:212
 msgid "Available"
 msgstr ""
 
-#: chcounter-widget.php:210
+#: chcounter-widget.php:221
 msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
 msgstr ""
 
-#: chcounter-widget.php:214
+#: chcounter-widget.php:225
 msgid "Active"
 msgstr ""
 
-#: chcounter-widget.php:224
+#: chcounter-widget.php:235
 msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
 msgstr ""
 
-#: chcounter-widget.php:229
+#: chcounter-widget.php:240
 msgid "Save Settings"
 msgstr ""
 
-#: chcounter-widget.php:236 chcounter-widget.php:242
+#: chcounter-widget.php:247 chcounter-widget.php:253
 msgid "Uninstall chCounter Widget"
 msgstr ""
 
-#: chcounter-widget.php:239
+#: chcounter-widget.php:250
 msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
 msgstr ""
 
-#: chcounter-widget.php:240
+#: chcounter-widget.php:251
 msgid "Yes, I want to uninstall chCounter Widget"
 msgstr ""
 
-#: chcounter-widget.php:293
+#: chcounter-widget.php:304
 msgid "Title"
 msgstr ""
 
-#: chcounter-widget.php:422
+#: chcounter-widget.php:438
 msgid "chCounter Widget"
 msgstr ""

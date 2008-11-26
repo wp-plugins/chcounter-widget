@@ -1,128 +1,177 @@
+# chcounterWidget POT file.
+# Copyright (C) 2008 Kolja Schleich
+# This file is distributed under the same license as the WordPress package.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2008-05-22 13:49+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
+"POT-Creation-Date: 2008-11-26 09:17+0000\n"
+"PO-Revision-Date: 2008-11-26 10:26+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: GERMANY\n"
 
-#: chcounter-widget.php:75
+#: chcounter-widget.php:83
 msgid "Total Visitors"
 msgstr "Besucher Gesamt"
 
-#: chcounter-widget.php:76
+#: chcounter-widget.php:84
 msgid "Visitors today"
 msgstr "Besucher Heute"
 
-#: chcounter-widget.php:77
+#: chcounter-widget.php:85
 msgid "Visitors yesterday"
 msgstr "Besucher Gestern"
 
-#: chcounter-widget.php:78
-msgid "Max. visitors per day"
-msgstr "Max. pro Tag"
-
-#: chcounter-widget.php:79
-msgid "Curently online"
-msgstr "Gerade Online"
-
-#: chcounter-widget.php:80
-msgid "Max. online"
-msgstr "Max. online"
-
-#: chcounter-widget.php:81
-msgid "Total page views"
-msgstr "Seitenaufrufe gesamt"
-
-#: chcounter-widget.php:82
-msgid "Page views of current page"
-msgstr "Seitenaufrufe aktuelle Seite"
-
-#: chcounter-widget.php:83
+#: chcounter-widget.php:86
 msgid "Visitors per day"
 msgstr "Besucher pro Tag"
 
-#: chcounter-widget.php:84
+#: chcounter-widget.php:87
+msgid "Max. visitors per day"
+msgstr "Max. pro Tag"
+
+#: chcounter-widget.php:88
+msgid "Max. visitors per day date"
+msgstr "Max. pro Tag Datum"
+
+#: chcounter-widget.php:89
+msgid "Curently online"
+msgstr "Gerade Online"
+
+#: chcounter-widget.php:90
+msgid "Max. online"
+msgstr "Max. online"
+
+#: chcounter-widget.php:91
+msgid "Max. online date"
+msgstr "Max. online Datum"
+
+#: chcounter-widget.php:92
+msgid "Total page views"
+msgstr "Seitenaufrufe gesamt"
+
+#: chcounter-widget.php:93
+msgid "Page views today"
+msgstr "Seitenaufrufe heute"
+
+#: chcounter-widget.php:94
+msgid "Page views yesterday"
+msgstr "Seitenaufrufe gestern"
+
+#: chcounter-widget.php:95
+msgid "Page views per day"
+msgstr "Seitenaufrufe pro Tag"
+
+#: chcounter-widget.php:96
+msgid "Max. page views per day"
+msgstr "Max. Seitenaufrufe pro Tag"
+
+#: chcounter-widget.php:97
+msgid "Max. page views per day date"
+msgstr "Max. Seitenaufrufe pro Tag Datum"
+
+#: chcounter-widget.php:99
+msgid "Page views of current page"
+msgstr "Seitenaufrufe aktuelle Seite"
+
+#: chcounter-widget.php:100
+msgid "Page views of current visitor"
+msgstr "Seitenaufrufe des aktuellen Besuchers"
+
+#: chcounter-widget.php:101
+msgid "Page views per visitor"
+msgstr "Seitenaufrufe pro Besucher"
+
+#: chcounter-widget.php:102
+msgid "Javascript activated"
+msgstr "Javascript aktiviert"
+
+#: chcounter-widget.php:103
+msgid "Counterstart"
+msgstr "Counterstart"
+
+#: chcounter-widget.php:104
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: chcounter-widget:139
+#: chcounter-widget.php:159
 msgid "chCounter Error"
 msgstr "chCounter Fehler"
 
-#: chcounter-widget.php:139
+#: chcounter-widget.php:159
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
 
-#: chcounter-widget.php:167
+#: chcounter-widget.php:189
 msgid "Settings saved"
 msgstr "Einstellungen gespeichert"
 
-#: chcounter-widget.php:170
+#: chcounter-widget.php:194
 msgid "chCounter Widget Settings"
 msgstr "chCounter Widget Einstellungen"
 
-#: chcounter-widget.php:176
+#: chcounter-widget.php:200
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: chcounter-widget.php:177
+#: chcounter-widget.php:203
 msgid "chCounter Path"
 msgstr "chCounter Pfad"
 
-#: chcounter-widget.php:177
+#: chcounter-widget.php:203
 msgid "without trailing slash"
 msgstr "ohne Slash am Ende"
 
-#: chcounter-widget.php:180
+#: chcounter-widget.php:206
 msgid "Make chCounter Invisible"
 msgstr "Mache chCounter unsichtbar"
 
-#: chcounter-widget.php:182
+#: chcounter-widget.php:210
 msgid "Parameters"
 msgstr "Parameter"
 
-#: chcounter-widget.php:184
+#: chcounter-widget.php:212
 msgid "Available"
 msgstr "Verfügbar"
 
-#: chcounter-widget.php:193
+#: chcounter-widget.php:221
 msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
 msgstr "Du siehst diese Nachricht, weil alle Parameter aktiviert sind. Du kannst einzelne Parameter deaktivieren, indem du sie per drag & drop in diese Box ziehst"
 
-#: chcounter-widget.php:197
+#: chcounter-widget.php:225
 msgid "Active"
 msgstr "Aktiviert"
 
-#: chcounter-widget.php:207
+#: chcounter-widget.php:235
 msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
 msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. Du kannst die chCounter Anzeige per drag & drop in diese Box gestalten"
 
-#: chcounter-widget.php:212
+#: chcounter-widget.php:240
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: chcounter-widget.php:217,222
+#: chcounter-widget.php:247
+#: chcounter-widget.php:253
 msgid "Uninstall chCounter Widget"
 msgstr "chCounter Widget deinstallieren"
 
-#: chcounter-widget.php:219
+#: chcounter-widget.php:250
 msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
 msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
 
-#: chcounter-widget.php:220
+#: chcounter-widget.php:251
 msgid "Yes, I want to uninstall chCounter Widget"
 msgstr "Ja, ich möchte chCounter Widget deinstallieren"
 
-#: chcounter-widget.php:271
+#: chcounter-widget.php:304
 msgid "Title"
 msgstr "Titel"
 
-#: chcounter-widget.php:395
+#: chcounter-widget.php:435
 msgid "chCounter Widget"
 msgstr "chCounter Widget"
 

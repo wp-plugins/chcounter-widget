@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.4
+Version: 2.5
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.4';
+	var $version = '2.5';
 	
 	/**
 	 * path to the plugin
@@ -38,7 +38,7 @@ class chCounterWidget
 	 * @var string
 	 */
 	 var $plugin_url;
-	  
+
 	 
 	/**
 	 * Initialize available parameters
@@ -61,7 +61,6 @@ class chCounterWidget
 		if ( substr($_SERVER['DOCUMENT_ROOT'], -1, 1) != '/' )
 			$_SERVER['DOCUMENT_ROOT'] == $_SERVER['DOCUMENT_ROOT'].'/';
 		
-		//$this->plugin_url = get_bloginfo( 'wpurl' )."/".PLUGINDIR."/chcounter-widget";
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, ".php");
 
 		return;
@@ -84,12 +83,24 @@ class chCounterWidget
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array( "admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
+		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
 		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
+		$params["maxperdaydate"] = array( "admin_label" => __('Max. visitors per day date', 'chcounter'), "chcounter_label" => "{L_MAX_VISITORS_PER_DAY_DATE}", "counter_value" => "{V_MAX_VISITORS_PER_DAY_DATE}" );
 		$params["online"] = array( "admin_label" => __('Curently online', 'chcounter'), "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
 		$params["maxonline"] = array( "admin_label" => __('Max. online', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
+		$params["maxonlinedate"] = array( "admin_label" => __('Max. online date', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_ONLINE_DATE}", "counter_value" => "{V_MAX_VISITORS_ONLINE_DATE}" );
 		$params["totalpageviews"] = array( "admin_label" => __('Total page views', 'chcounter'), "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
-		$params["totalpageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["pageviewstoday"] = array( "admin_label" => __('Page views today', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_TODAY}", "counter_value" => "{V_PAGE_VIEWS_TODAY}" );
+		$params["pageviewsyesterday"] = array( "admin_label" => __('Page views yesterday', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_YESTERDAY}", "counter_value" => "{V_PAGE_VIEWS_YESTERDAY}" );
+		$params["pageviewsperday"] = array( "admin_label" => __('Page views per day', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_PER_DAY}" );
+		$params["maxpageviewsperday"] = array( "admin_label" => __('Max. page views per day', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY}" );
+		$params["maxpageviewsperdaydate"] = array( "admin_label" => __('Max. page views per day date', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY_DATE}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY_DATE}" );
+		
+		$params["pageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["pageviewscurrentvisitor"] = array( "admin_label" => __('Page views of current visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_OF_CURRENT_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_OF_CURRENT_VISITOR}" );
+		$params["pageviewspervisitor"] = array( "admin_label" => __('Page views per visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_PER_VISITOR}" );
+		$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}", "counter_value" => "{V_JS_PERCENTAGE}" );
+		$params["counterstart"] = array( "admin_label" => __('Counterstart', 'chcounter'), "counter_label" => "{L_COUNTER_START}", "counter_value" => "{V_COUNTER_START}" );
 		$params["stats"] = array( "admin_label" => __('Statistics', 'chcounter'), "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
 
 		return $params;
@@ -129,7 +140,7 @@ class chCounterWidget
 				if ( count($options['params']['active']) > 0 ) {
 					foreach ( $options['params']['active'] AS $order => $param ) {
 						if ( 'stats' == $param )
-							$counter_template .= "<li class='stats'><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'><img src='".$params['stats']['counter_value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='counter' title='".$params['stats']['counter_label']."' /></a><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'>".$params['stats']['counter_label']."</a></li>";
+						$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'><img src='".$params['stats']['counter_value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['counter_label']."' title='".$params['stats']['counter_label']."' /></a><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'>".$params['stats']['counter_label']."</a></li>";
 						else
 							$counter_template .= "<li>".$params[$param]['counter_label']." ".$params[$param]['counter_value']."</li>";
 					}
@@ -230,8 +241,8 @@ TEMPLATE;
 			</form>
 		</div>
 		
-		<!-- Uninstallation Form not need in WP 2.7 -->
-		<?php if ( version_compare($wp_version, '2.7-hemorrhage', '<') ) : ?>
+		<?php if ( !function_exists('register_uninstall_hook') ) : ?>
+		<!-- Uninstallation Form -->
 		<div class='wrap'>
 			<h3 style='clear: both; padding-top: 1em;'><?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?></h3>
 			<form action="index.php" method="get">
@@ -345,18 +356,21 @@ TEMPLATE;
 		* Upgrade Stuff
 		*/
 		if ($old_options = get_option( 'chcounter_widget' ) ) {
+			$options = array();
 			if ( !isset($old_options['version']) ) {
-				$options = array();
 				$options = $old_options;
 				$options['version'] = $this->version;
 				update_option( 'chcounter_widget', $options );
 			} elseif ( $old_options['version'] != $this->version ) {
-				$options = array();
 				$options['title'] = $old_options['title'];
 				$options['invisible'] = $old_options['invisible'];
 				$options['version'] = $this->version;
 				$options['chcounter_path'] = $old_options['chcounter_path'];
-				$options['params'] = $old_options['params'];
+				$options['params']['active'] = $old_options['params']['active'];
+				foreach ( $params AS $param => $data )
+					if ( !in_array($param, $options['params']['active']) )
+						$options['params']['available'][] = $param;
+						
 				update_option( 'chcounter_widget', $options );
 			}
 		}
@@ -380,9 +394,9 @@ TEMPLATE;
 		delete_option( 'chcounter_widget' );
 		
 		/*
-		* Deactivation of Plugin not need in WP 2.7
+		* Deactivation of Plugin not need if function `register_uninstall_hook` is present
 		*/
-		if ( version_compare($wp_version, '2.7-hemorrhage', '<') ) {
+		if ( !function_exists('register_uninstall_hook') ) {
 			$plugin = basename(__FILE__, ".php") .'/' . basename(__FILE__);
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			if ( function_exists( "deactivate_plugins" ) )
@@ -406,8 +420,10 @@ TEMPLATE;
 	function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
-		wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
-		wp_print_scripts( 'chcounter' );
+		if ( is_admin() ) {
+			wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
+			wp_print_scripts( 'chcounter' );
+		}
 	}
 	
 
@@ -427,18 +443,19 @@ TEMPLATE;
 $chcounter_widget = new chCounterWidget();
 
 register_activation_hook(__FILE__, array(&$chcounter_widget, 'init') );
-//add_action( 'activate_'.basename(__FILE__, ".php") .'/' . basename(__FILE__), array(&$chcounter_widget, 'init') );
 add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
 add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
+add_action( 'wp_head', array(&$chcounter_widget, 'addHeaderCode') );
 
-load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php")  );
+load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php").'/languages'  );
 
 if ( function_exists('register_uninstall_hook') )
    register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
 
 // Uninstall chCounter Widget
-if ( version_compare($wp_version, '2.7-hemorrhage', '<') && isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
-	$chcounter_widget->uninstall();
+if ( !function_exists('register_uninstall_hook') )
+	if (isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
+		$chcounter_widget->uninstall();
 
 /**
  * Wrapper function to display chCounter Widget statically
