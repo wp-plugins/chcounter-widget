@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.5-testing
+Version: 2.6-testing
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	private $version = '2.5-testing';
+	private $version = '2.6-testing';
 	
 	/**
 	 * path to the plugin
@@ -53,7 +53,7 @@ class chCounterWidget
 		if ( !defined( 'WP_PLUGIN_URL' ) )
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
 		
-		$this->plugin_url = WP_PLUGIN_URL.'/'.dirname(plugin_basename(__FILE__));
+		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
 
 		return;
 	}
@@ -69,10 +69,7 @@ class chCounterWidget
 	{
         	$params = array();
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
-$params["today"] = array(		if ( !defined( 'WP_CONTENT_DIR' ) )
-define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' ); "admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
+		$params["today"] = array("admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
 		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
 		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
@@ -86,14 +83,10 @@ if ( !defined( 'WP_PLUGIN_DIR' ) )
 		$params["pageviewsperday"] = array( "admin_label" => __('Page views per day', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_PER_DAY}" );
 		$params["maxpageviewsperday"] = array( "admin_label" => __('Max. page views per day', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY}" );
 		$params["maxpageviewsperdaydate"] = array( "admin_label" => __('Max. page views per day date', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY_DATE}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY_DATE}" );
-		
 		$params["pageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
 		$params["pageviewscurrentvisitor"] = array( "admin_label" => __('Page views of current visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_OF_CURRENT_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_OF_CURRENT_VISITOR}" );
 		$params["pageviewspervisitor"] = array( "admin_label" => __('Page views per visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_PER_VISITOR}" );
-$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}		if ( !defined( 'WP_CONTENT_DIR' ) )
-define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );", "counter_value" => "{V_JS_PERCENTAGE}" );
+		$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}", "counter_value" => "{V_JS_PERCENTAGE}" );
 		$params["counterstart"] = array( "admin_label" => __('Counterstart', 'chcounter'), "counter_label" => "{L_COUNTER_START}", "counter_value" => "{V_COUNTER_START}" );
 		$params["stats"] = array( "admin_label" => __('Statistics', 'chcounter'), "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
 
@@ -121,10 +114,7 @@ if ( !defined( 'WP_PLUGIN_DIR' ) )
 		$defaults = array(
 			'before_widget' => '<li id="chcounter" class="widget '.get_class($this).'_'.__FUNCTION__.'">',
 			'after_widget' => '</li>',
-'before_title' =>		if ( !defined( 'WP_CONTENT_DIR' ) )
-define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' ); '<h2 class="widgettitle">',
+			'before_title' => '<h2 class="widgettitle">',
 			'after_title' => '</h2>',
 			'widget_title' => $options['title']
 		);
@@ -139,21 +129,15 @@ if ( !defined( 'WP_PLUGIN_DIR' ) )
 				
 				if ( count($options['params']['active']) > 0 ) {
 					foreach ( $options['params']['active'] AS $order => $param ) {
-if ( !defined( 'WP_CONTENT_DIR' ) )
-define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );	if ( 'stats' == $param )
-						$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'><img src='".$params['stats']['counter_value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['counter_label']."' title='".$params['stats']['counter_label']."' /></a><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'>".$params['stats']['counter_label']."</a></li>";
+						if ( 'stats' == $param )
+							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'><img src='".$params['stats']['counter_value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['counter_label']."' title='".$params['stats']['counter_label']."' /></a><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'>".$params['stats']['counter_label']."</a></li>";
 						else
 							$counter_template .= "<li>".$params[$param]['counter_label']." ".$params[$param]['counter_value']."</li>";
 					}
 				}
 				
 				$chCounter_template = <<<TEMPLATE
-								 <ul>$coun		if ( !defined( 'WP_CONTENT_DIR' ) )
-									 define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-									 if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );ter_template</ul>
+								 <ul>$counter_template</ul>
 TEMPLATE;
 				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
 				echo $after_widget;
@@ -182,10 +166,7 @@ TEMPLATE;
 	{
 		global $wp_version;
 		
-		$params = $this->getParam		if ( !defined( 'WP_CONTENT_DIR' ) )
-				define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-				if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );eters();
+		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
 			
 		if ( isset($_POST['updateSettings']) ) {
@@ -197,10 +178,6 @@ TEMPLATE;
 			$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
 					
 			update_option('chcounter_widget', $options);
-			if ( !defined( 'WP_CONTENT_DIR' ) )
-			define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-			if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
 		
@@ -212,16 +189,10 @@ TEMPLATE;
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 					
-				<h3><?php		if ( !defined( 'WP_CONTENT_DIR' ) )
-							define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-							if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' ); _e( 'General Settings', 'chcounter' ) ?></h3>
+				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /		if ( !defined( 'WP_CONTENT_DIR' ) )
-							define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-							if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Make chCounter Invisible', 'chcounter' ) ?></label></th><td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/></td>
@@ -229,15 +200,12 @@ TEMPLATE;
 				</table>
 				
 				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
-				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow' onDrop="toggleHandle( 'chcounter_available', 'chcounte		if ( !defined( 'WP_CONTENT_DIR' ) )
-				     define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-				     if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );r_handle_available' );">
+				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow' >
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
-						<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
+							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -245,16 +213,13 @@ TEMPLATE;
 					<span class="handle" id="chcounter_handle_available"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
 					<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
 				</div>
-				<div id="chcounter_active_box" class='chcounter_widget_parameters narrow' onDrop="toggleHandle( 'chcounter_active', 'chcounter_handle_active' );">
+				<div id="chcounter_active_box" class='chcounter_widget_parameters narrow'>
 					<h4><?php _e( 'Active', 'chcounter' ) ?></h4>
 							
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
 						<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
-						if ( !defined( 'WP_CONTENT_DIR' ) )
-						define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-						if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );	<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
+							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -267,10 +232,6 @@ TEMPLATE;
 				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button" /></p>
 			</form>
 		</div>
-		if ( !defined( 'WP_CONTENT_DIR' ) )
-		define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-		if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 		<script type='text/javascript'>
 			// <![CDATA[
 			Sortable.create("chcounter_available",
@@ -297,10 +258,7 @@ TEMPLATE;
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
 		$order_array = array();
-		for ( $i = 0; $i < count(		if ( !defined( 'WP_CONTENT_DIR' ) )
-				   define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-				   if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );$input_array); $i++ ) {
+		for ( $i = 0; $i < count($input_array); $i++ ) {
 			if ( $input_array[$i] != '' )
 				$order_array[$i+1] = $input_array[$i];
 		}
@@ -346,12 +304,12 @@ TEMPLATE;
 	
 	
 	/**
-	 * init() - initializes plugin
+	 * activate() - activate plugin
 	 *
 	 * @param none
 	 * @return void
 	 */
-	public function init()
+	public function activate()
 	{
 		$params = $this->getParameters();
 		
@@ -368,32 +326,9 @@ TEMPLATE;
 		
 		/*
 		* Add Capability to edit chCounter Widget Options for Administrator
-		getOrder*/
+		*/
 		$role = get_role('administrator');
 		$role->add_cap('edit_chcounter_widget');
-		
-		/*
-		* Upgrade Stuff
-		*/
-		if ($old_options = get_option( 'chcounter_widget' ) ) {
-			$options = array();
-			if ( !isset($old_options['version']) ) {
-				$options = $old_options;
-				$options['version'] = $this->version;
-				update_option( 'chcounter_widget', $options );
-			} elseif ( version_compare($old_options['version'], '2.5', '<') ) {
-				$options['title'] = $old_options['title'];
-				$options['invisible'] = $old_options['invisible'];
-				$options['version'] = $this->version;
-				$options['chcounter_path'] = $old_options['chcounter_path'];
-				$options['params']['active'] = $old_options['params']['active'];
-				foreach ( $params AS $param => $data )
-					if ( !in_array($param, $options['params']['active']) )
-						$options['params']['available'][] = $param;
-						
-				update_option( 'chcounter_widget', $options );
-			}
-		}
 		
 		return;
 	}
@@ -435,9 +370,10 @@ TEMPLATE;
 	 */
 	public function addAdminMenu()
 	{
+		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
 		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
-		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( &$this, 'pluginActions' ) );
+		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
 	}
 	
 	
@@ -449,7 +385,7 @@ TEMPLATE;
 	 */
 	public function pluginActions( $links )
 	{
-		$settings_link = '<a href="chcounter-widget.php">' . __('Settings') . '</a>';
+		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
 	
 		return $links;
@@ -458,8 +394,8 @@ TEMPLATE;
 
 $chcounter_widget = new chCounterWidget();
 
-register_activation_hook(__FILE__, array(&$chcounter_widget, 'init') );
-load_plugin_textdomain( 'chcounter', false, dirname(plugin_basename(__FILE__)).'/languages' );
+register_activation_hook(__FILE__, array(&$chcounter_widget, 'activate') );
+load_plugin_textdomain( 'chcounter', false, basename(__FILE__, '.php').'/languages' );
 
 add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
 add_action( 'wp_head', array(&$chcounter_widget, 'addHeaderCode') );
