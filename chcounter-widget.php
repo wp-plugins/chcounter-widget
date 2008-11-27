@@ -410,8 +410,7 @@ if ( function_exists('register_uninstall_hook') )
  *
  * @param string/array $args
  */
- function chcounter_widget_display( $args = array() )
- {
+function chcounter_widget_display( $args = array() ) {
  	global $chcounter_widget;
 	$chcounter_widget->display( $args );
  }
