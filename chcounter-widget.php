@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.5
+Version: 2.5-testing
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,54 +30,46 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.5';
+	private $version = '2.5-testing';
 	
 	/**
 	 * path to the plugin
 	 *
 	 * @var string
 	 */
-	 var $plugin_url;
+	private $plugin_url;
 
 	 
 	/**
-	 * Initialize available parameters
+	 * Initialize class
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		if ( !defined( 'WP_CONTENT_URL' ) )
 			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
 		if ( !defined( 'WP_PLUGIN_URL' ) )
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
-		if ( !defined( 'WP_CONTENT_DIR' ) )
-			define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-		if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
-			
-		// Add trailing slash to $_SERVER['DOCUMENT_ROOT'] if it doesn't exist
-		if ( substr($_SERVER['DOCUMENT_ROOT'], -1, 1) != '/' )
-			$_SERVER['DOCUMENT_ROOT'] == $_SERVER['DOCUMENT_ROOT'].'/';
 		
-		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, ".php");
+		$this->plugin_url = WP_PLUGIN_URL.'/'.dirname(plugin_basename(__FILE__));
 
 		return;
 	}
-	function chCounterWidget()
+	public function chCounterWidget()
 	{
 		$this->__construct();
 	}
 
 
 	/**
-	 * gets available parameters to display
+	 * getParameters () - gets available parameters to display
 	 *
 	 * @param none
 	 * @return array
 	 */
-	function getParameters()
+	private function getParameters()
 	{
         	$params = array();
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
@@ -108,12 +100,15 @@ class chCounterWidget
 
 	
 	/**
-	 * displays chCounter Widget
+	 * display() - displays chCounter Widget
 	 *
-	 * @param array $args
+	 * Usually this function is invoked by the Wordpress widget system.
+	 * However it can also be called manually via chcounter_widget_display().
+	 *
+	 * @param array/string $args
 	 * @return void
 	 */
-	function display($args)
+	public function display($args)
 	{
 		if ( is_string($args) )
 			$args = array( 'widget_title' => $args );
@@ -132,7 +127,7 @@ class chCounterWidget
 		$args = array_merge( $defaults, $args );
 		extract( $args );
 			
-		if ( file_exists($_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php') ) {
+		if ( file_exists(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php') ) {
 			if ( 0 == $options['invisible'] ) {
 				echo $before_widget . $before_title . $widget_title . $after_title;
 				$counter_template = '';
@@ -149,11 +144,11 @@ class chCounterWidget
 				$chCounter_template = <<<TEMPLATE
 				<ul>$counter_template</ul>
 TEMPLATE;
-				include_once($_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php');
+				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
 				echo $after_widget;
 			} else {
 				$chCounter_visible = 0;
-				include_once($_SERVER['DOCUMENT_ROOT'].$options['chcounter_path'].'/counter.php');
+				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
 			}
 		} else {
 			echo $before_widget . $before_title . __( 'chCounter Error', 'chcounter' ) .$after_title.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).$after_widget;
@@ -164,12 +159,12 @@ TEMPLATE;
 
 
 	/**
-	 * displays admin page. Uses current_user_can function to make it compatible with Role Manager
+	 * displayAdminPage() - displays admin page.
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function displayAdminPage()
+	public function displayAdminPage()
 	{
 		global $wp_version;
 		
@@ -200,7 +195,7 @@ TEMPLATE;
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo $_SERVER['DOCUMENT_ROOT'] ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Make chCounter Invisible', 'chcounter' ) ?></label></th><td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/></td>
@@ -208,7 +203,7 @@ TEMPLATE;
 				</table>
 				
 				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
-				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow'>
+				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow' onDrop="toggleHandle( 'chcounter_available', 'chcounter_handle_available' );">
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
@@ -221,7 +216,7 @@ TEMPLATE;
 					<span class="handle" id="chcounter_handle_available"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
 					<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
 				</div>
-				<div id="chcounter_active_box" class='chcounter_widget_parameters narrow'>
+				<div id="chcounter_active_box" class='chcounter_widget_parameters narrow' onDrop="toggleHandle( 'chcounter_active', 'chcounter_handle_active' );">
 					<h4><?php _e( 'Active', 'chcounter' ) ?></h4>
 							
 					<ol class='chcounter_widget' id='chcounter_active'>
@@ -241,20 +236,6 @@ TEMPLATE;
 			</form>
 		</div>
 		
-		<?php if ( !function_exists('register_uninstall_hook') ) : ?>
-		<!-- Uninstallation Form -->
-		<div class='wrap'>
-			<h3 style='clear: both; padding-top: 1em;'><?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?></h3>
-			<form action="index.php" method="get">
-				<input type="hidden" name="chcounter-widget" value="uninstall" />
-				<p><?php _e( '<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin.', 'chcounter' ) ?></p>
-				<p><input type="checkbox" name="delete_plugin" id="chcounter_widget_uninstall" value="1" /> <label for="chcounter_widget_uninstall" class="chcounter_widget"><?php _e( 'Yes, I want to uninstall chCounter Widget', 'chcounter' ) ?></label> </p>
-						
-				<p class="submit"><input type="submit" value="<?php _e( 'Uninstall chCounter Widget', 'chcounter' ) ?>&raquo;" class="button" /></p>
-			</form>
-		</div>
-		<?php endif; ?>
-		
 		<script type='text/javascript'>
 			// <![CDATA[
 			Sortable.create("chcounter_available",
@@ -270,12 +251,13 @@ TEMPLATE;
 
 
 	/**
-	 * gets order of parameters
+	 * getOrder() - gets order of parameters
 	 *
 	 * @param string $input serialized string with order
+	 * @param string $listname ID of list to sort
 	 * @return array
 	 */
- 	function getOrder( $input, $listname )
+ 	private function getOrder( $input, $listname )
 	{
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
@@ -289,12 +271,12 @@ TEMPLATE;
 
 
 	/**
-	 * displays control panel for the widget
+	 * control() - displays control panel for the widget
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function control()
+	protected function control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
@@ -309,12 +291,12 @@ TEMPLATE;
 
 
 	/**
-	 * registers widget
+	 * register() - registers widget
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function register()
+	public function register()
 	{
 		if ( !function_exists("register_sidebar_widget") )
 			return;
@@ -326,12 +308,12 @@ TEMPLATE;
 	
 	
 	/**
-	 * initializes plugin
+	 * init() - initializes plugin
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function init()
+	public function init()
 	{
 		$params = $this->getParameters();
 		
@@ -348,7 +330,7 @@ TEMPLATE;
 		
 		/*
 		* Add Capability to edit chCounter Widget Options for Administrator
-		*/
+		getOrder*/
 		$role = get_role('administrator');
 		$role->add_cap('edit_chcounter_widget');
 		
@@ -361,7 +343,7 @@ TEMPLATE;
 				$options = $old_options;
 				$options['version'] = $this->version;
 				update_option( 'chcounter_widget', $options );
-			} elseif ( $old_options['version'] != $this->version ) {
+			} elseif ( version_compare($old_options['version'], '2.5', '<') ) {
 				$options['title'] = $old_options['title'];
 				$options['invisible'] = $old_options['invisible'];
 				$options['version'] = $this->version;
@@ -375,49 +357,29 @@ TEMPLATE;
 			}
 		}
 		
-
-		
 		return;
 	}
 
 
 	/**
-	 * uninstalls chCounter Widget
+	 * uninstall() - uninstalls chCounter Widget
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function uninstall()
+	public function uninstall()
 	{
-		global $wp_version;
-		
 		delete_option( 'chcounter_widget' );
-		
-		/*
-		* Deactivation of Plugin not need if function `register_uninstall_hook` is present
-		*/
-		if ( !function_exists('register_uninstall_hook') ) {
-			$plugin = basename(__FILE__, ".php") .'/' . basename(__FILE__);
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-			if ( function_exists( "deactivate_plugins" ) )
-				deactivate_plugins( $plugin );
-			else {
-				$current = get_option('active_plugins');
-				array_splice($current, array_search( $plugin, $current), 1 );
-				update_option('active_plugins', $current);
-				do_action('deactivate_' . trim( $plugin ));
-			}
-		}
 	}
 
 
 	/**
-	 * adds code to Wordpress head
+	 * addHeaderCode() - adds code to Wordpress head
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function addHeaderCode()
+	public function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		if ( is_admin() ) {
@@ -428,34 +390,46 @@ TEMPLATE;
 	
 
 	/**
-	 * add options menu to the admin panel
+	 * addAdminMenu() - add options menu to the admin panel
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function addAdminMenu()
+	public function addAdminMenu()
 	{
 		$mypage = add_options_page( __( 'chCounter Widget', 'chcounter' ), __( 'chCounter Widget', 'chcounter' ), 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( &$this, 'pluginActions' ) );
+	}
+	
+	
+	/**
+	 * pluginActions() - display link to settings page in plugin table
+	 *
+	 * @param array $links array of action links
+	 * @return void
+	 */
+	public function pluginActions( $links )
+	{
+		$settings_link = '<a href="chcounter-widget.php">' . __('Settings') . '</a>';
+		array_unshift( $links, $settings_link );
+	
+		return $links;
 	}
 }
 
 $chcounter_widget = new chCounterWidget();
 
 register_activation_hook(__FILE__, array(&$chcounter_widget, 'init') );
+load_plugin_textdomain( 'chcounter', false, dirname(plugin_basename(__FILE__)).'/languages' );
+
 add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
-add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
 add_action( 'wp_head', array(&$chcounter_widget, 'addHeaderCode') );
-
-load_plugin_textdomain( 'chcounter', $path = PLUGINDIR.'/'.basename(__FILE__, ".php").'/languages'  );
-
+add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
+	
 if ( function_exists('register_uninstall_hook') )
    register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
 
-// Uninstall chCounter Widget
-if ( !function_exists('register_uninstall_hook') )
-	if (isset($_GET['chcounter-widget']) && 'uninstall' == $_GET['chcounter-widget'] && (isset($_GET['delete_plugin']) && 1 == $_GET['delete_plugin'] ) )
-		$chcounter_widget->uninstall();
 
 /**
  * Wrapper function to display chCounter Widget statically

@@ -7,7 +7,6 @@ Stable tag: 2.5
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
-
 == Description ==
 
 This is a simple plugin which creates a widget for [chCounter](http://chcounter.org). It can display all [20 output values](http://chcounter.org/index.php?s=alle-ausgabewerte) that chCounter supports.
