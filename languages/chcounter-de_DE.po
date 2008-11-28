@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
 "POT-Creation-Date: 2008-11-26 09:17+0000\n"
-"PO-Revision-Date: 2008-11-26 10:26+0100\n"
+"PO-Revision-Date: 2008-11-28 21:25+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -127,8 +127,12 @@ msgid "without trailing slash"
 msgstr "ohne Slash am Ende"
 
 #: chcounter-widget.php:206
-msgid "Make chCounter Invisible"
-msgstr "Mache chCounter unsichtbar"
+msgid "Invisible"
+msgstr "Unsichtbar"
+
+#: chcounter-widget.php:199
+msgid "When this option is active chCounter Widget will not be shown, while still counting"
+msgstr "Wenn diese Option aktiviert ist, wird chCounter nicht gezeigt, zählt aber weiter"
 
 #: chcounter-widget.php:210
 msgid "Parameters"
@@ -154,24 +158,11 @@ msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. D
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: chcounter-widget.php:247
-#: chcounter-widget.php:253
-msgid "Uninstall chCounter Widget"
-msgstr "chCounter Widget deinstallieren"
-
-#: chcounter-widget.php:250
-msgid "<strong>Attention:</strong> All data created by the plugin will be removed from the database if you uninstall the plugin."
-msgstr "<strong>Achtung:</strong> Alle durch das Plugin erstellten Daten werden aus der Datenbank entfernt, wenn das Plugin deinstalliert wird."
-
-#: chcounter-widget.php:251
-msgid "Yes, I want to uninstall chCounter Widget"
-msgstr "Ja, ich möchte chCounter Widget deinstallieren"
-
 #: chcounter-widget.php:304
 msgid "Title"
 msgstr "Titel"
 
 #: chcounter-widget.php:435
-msgid "chCounter Widget"
-msgstr "chCounter Widget"
+msgid "chCounter"
+msgstr "chCounter"
 
