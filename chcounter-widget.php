@@ -305,7 +305,7 @@ TEMPLATE;
 	
 	
 	/**
-	 * activate() - activate plugin
+	 * activate() - Activate plugin
 	 *
 	 * @param none
 	 * @return void
