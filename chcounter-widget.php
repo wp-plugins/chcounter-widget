@@ -154,10 +154,7 @@ TEMPLATE;
 
 
 	/**
-	* displayAdminPage() - displays 		if ( !defined( 'WP_CONTENT_DIR' ) )
-	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-	if ( !defined( 'WP_PLUGIN_DIR' ) )
-			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );admin page.
+	 * displayAdminPage() - displays admin page 
 	 *
 	 * @param none
 	 * @return void
