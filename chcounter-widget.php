@@ -270,7 +270,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	protected function control()
+	public function control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
