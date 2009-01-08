@@ -277,7 +277,7 @@ TEMPLATE;
 			$options['title'] = $_POST['chCounter_widget_title'];
 			update_option( 'chcounter_widget', $options );
 		}
-		echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" size="30" /></p>';
+		echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input class="widefat" type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 		
 		return;
@@ -295,8 +295,9 @@ TEMPLATE;
 		if ( !function_exists("register_sidebar_widget") )
 			return;
 
-		register_sidebar_widget( 'chCounter', array(&$this, 'display') );
-		register_widget_control( 'chCounter', array(&$this, 'control'), 250, 100 );
+		$widget_ops = array('classname' => 'widget_chcounter', 'description' => __('chCounter visitor statistics', 'chcounter') );
+		wp_register_sidebar_widget( 'chcounter', 'chCounter', array(&$this, 'display'), $widget_ops );
+		wp_register_widget_control( 'chcounter', 'chCounter', array(&$this, 'control'), array('width' => 250, 'height' => 100) );
 		return;
 	}
 	

@@ -158,11 +158,15 @@ msgstr "Du siehst diese Nachricht, da keine Parameter bisher aktiviert wurden. D
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: chcounter-widget.php:304
+#: chcounter-widget.php:280
 msgid "Title"
 msgstr "Titel"
 
-#: chcounter-widget.php:435
+#: chcounter-widget:298
+msgid "chCounter visitor statistics"
+msgstr "chCounter Besucherstatistik"
+
+#: chcounter-widget.php:375
 msgid "chCounter"
 msgstr "chCounter"
 
