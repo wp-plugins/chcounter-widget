@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version:\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
-"POT-Creation-Date: 2008-12-01 14:27+0000\n"
+"POT-Creation-Date: 2009-01-08 19:34+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -106,66 +106,92 @@ msgstr ""
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr ""
 
-#: chcounter-widget.php:181
+#: chcounter-widget.php:178
 msgid "Settings saved"
 msgstr ""
 
-#: chcounter-widget.php:186
+#: chcounter-widget.php:183
 msgid "chCounter Widget Settings"
 msgstr ""
 
-#: chcounter-widget.php:192
+#: chcounter-widget.php:189
 msgid "General Settings"
 msgstr ""
 
-#: chcounter-widget.php:195
+#: chcounter-widget.php:192
 msgid "chCounter Path"
 msgstr ""
 
-#: chcounter-widget.php:195
+#: chcounter-widget.php:192
 msgid "without trailing slash"
 msgstr ""
 
-#: chcounter-widget.php:198
+#: chcounter-widget.php:195
 msgid "Invisible"
 msgstr ""
 
-#: chcounter-widget.php:199
-msgid "When this option is active chCounter Widget will not be shown, while still counting"
+#: chcounter-widget.php:196
+msgid ""
+"When this option is active chCounter Widget will not be shown, while still "
+"counting"
 msgstr ""
 
-#: chcounter-widget.php:203
+#: chcounter-widget.php:200
 msgid "Parameters"
 msgstr ""
 
-#: chcounter-widget.php:205
+#: chcounter-widget.php:202
 msgid "Available"
 msgstr ""
 
-#: chcounter-widget.php:214
-msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
+#: chcounter-widget.php:211
+msgid ""
+"You see this message, because all parameters have been activated. To "
+"deactivate certain parameters simply drag & drop them into this box"
 msgstr ""
 
-#: chcounter-widget.php:218
+#: chcounter-widget.php:215
 msgid "Active"
 msgstr ""
 
-#: chcounter-widget.php:228
-msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
+#: chcounter-widget.php:225
+msgid ""
+"You see this message, because no parameters have been activated yet. You can "
+"create your chCounter Display via drag & drop into this box"
 msgstr ""
 
-#: chcounter-widget.php:233
+#: chcounter-widget.php:230
 msgid "Save Settings"
 msgstr ""
 
-#: chcounter-widget.php:283
+#: chcounter-widget.php:280
 msgid "Title"
 msgstr ""
 
-#: chcounter-widget.php:375 chcounter-widget.php:377
+#: chcounter-widget.php:298
+msgid "chCounter visitor statistics"
+msgstr ""
+
+#: chcounter-widget.php:374 chcounter-widget.php:375
 msgid "chCounter"
 msgstr ""
 
-#: chcounter-widget.php:391
+#: chcounter-widget.php:389
 msgid "Settings"
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "ChCounter Widget"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://wordpress.org/extend/plugins/chcounter-widget/"
+msgstr ""
+
+#. Description of an extension
+msgid "Integrate chCounter into Wordpress as widget."
+msgstr ""
+
+#. Author of an extension
+msgid "Kolja Schleich"
 msgstr ""
