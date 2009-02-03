@@ -41,18 +41,14 @@ class chCounterWidget
 
 	 
 	/**
-	 * Initialize class
+	 * Class constructor
 	 *
 	 * @param none
 	 * @return void
 	 */
 	public function __construct()
 	{
-		if ( !defined( 'WP_CONTENT_URL' ) )
-			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
-		if ( !defined( 'WP_PLUGIN_URL' ) )
-			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
-		
+		$this->initialize();
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
 
 		return;
@@ -60,10 +56,35 @@ class chCounterWidget
 
 
 	/**
-	 * getParameters () - gets available parameters to display
+	 * initialize plugin: register hooks and actions
 	 *
 	 * @param none
-	 * @return array
+	 * @return void
+	 */
+	private function initialize()
+	{
+		if ( !defined( 'WP_CONTENT_URL' ) )
+			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+		if ( !defined( 'WP_PLUGIN_URL' ) )
+			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+			
+		register_activation_hook(__FILE__, array(&$this, 'activate') );
+		load_plugin_textdomain( 'chcounter', false, basename(__FILE__, '.php').'/languages' );
+	
+		add_action( 'widgets_init', array(&$this, 'register') );
+		add_action( 'wp_head', array(&$this, 'addHeaderCode') );
+		add_action( 'admin_menu', array(&$this, 'addAdminMenu') );
+	
+		if ( function_exists('register_uninstall_hook') )
+			register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+	}
+	
+	
+	/**
+	 * gets available parameters to display
+	 *
+	 * @param none
+	 * @return array of parameters
 	 */
 	private function getParameters()
 	{
@@ -95,7 +116,7 @@ class chCounterWidget
 
 	
 	/**
-	 * display() - displays chCounter Widget
+	 * displays chCounter Widget
 	 *
 	 * Usually this function is invoked by the Wordpress widget system.
 	 * However it can also be called manually via chcounter_widget_display().
@@ -154,15 +175,13 @@ TEMPLATE;
 
 
 	/**
-	 * displayAdminPage() - displays admin page 
+	 * displays admin page 
 	 *
 	 * @param none
 	 * @return void
 	 */
 	public function displayAdminPage()
 	{
-		global $wp_version;
-		
 		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
 			
@@ -245,11 +264,11 @@ TEMPLATE;
 
 
 	/**
-	 * getOrder() - gets order of parameters
+	 * gets order of parameters
 	 *
 	 * @param string $input serialized string with order
 	 * @param string $listname ID of list to sort
-	 * @return array
+	 * @return sorted array of parameters
 	 */
  	private function getOrder( $input, $listname )
 	{
@@ -265,7 +284,7 @@ TEMPLATE;
 
 
 	/**
-	 * control() - displays control panel for the widget
+	 * displays control panel for the widget
 	 *
 	 * @param none
 	 * @return void
@@ -279,13 +298,11 @@ TEMPLATE;
 		}
 		echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input class="widefat" type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
-		
-		return;
 	}
 
 
 	/**
-	 * register() - registers widget
+	 * registers widget
 	 *
 	 * @param none
 	 * @return void
@@ -298,12 +315,11 @@ TEMPLATE;
 		$widget_ops = array('classname' => 'widget_chcounter', 'description' => __('chCounter visitor statistics', 'chcounter') );
 		wp_register_sidebar_widget( 'chcounter', 'chCounter', array(&$this, 'display'), $widget_ops );
 		wp_register_widget_control( 'chcounter', 'chCounter', array(&$this, 'control'), array('width' => 250, 'height' => 100) );
-		return;
 	}
 	
 	
 	/**
-	 * activate() - Activate plugin
+	 * Activate plugin
 	 *
 	 * @param none
 	 * @return void
@@ -328,13 +344,11 @@ TEMPLATE;
 		*/
 		$role = get_role('administrator');
 		$role->add_cap('edit_chcounter_widget');
-		
-		return;
 	}
 
 
 	/**
-	 * uninstall() - uninstalls chCounter Widget
+	 * uninstall chCounter Widget
 	 *
 	 * @param none
 	 * @return void
@@ -346,7 +360,7 @@ TEMPLATE;
 
 
 	/**
-	 * addHeaderCode() - adds code to Wordpress head
+	 * adds code to Wordpress head
 	 *
 	 * @param none
 	 * @return void
@@ -370,19 +384,18 @@ TEMPLATE;
 	public function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-		//$menu_title = "<img src='".$this->plugin_url."/icon.gif' alt='' /> ".__( 'chCounter', 'chcounter' );
-		$menu_title = __( 'chCounter', 'chcounter' );
-		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
+		$menu_title = "<img src='".$this->plugin_url."/icon.gif' alt='' /> ".__( 'chCounter', 'chcounter' );
+		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', 'chcounter-widget', array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
 	}
 	
 	
 	/**
-	 * pluginActions() - display link to settings page in plugin table
+	 * display link to settings page in plugin table
 	 *
 	 * @param array $links array of action links
-	 * @return void
+	 * @return new array of plugin actions
 	 */
 	public function pluginActions( $links )
 	{
@@ -393,18 +406,8 @@ TEMPLATE;
 	}
 }
 
+// run chCounter Widget
 $chcounter_widget = new chCounterWidget();
-
-register_activation_hook(__FILE__, array(&$chcounter_widget, 'activate') );
-load_plugin_textdomain( 'chcounter', false, basename(__FILE__, '.php').'/languages' );
-
-add_action( 'widgets_init', array(&$chcounter_widget, 'register') );
-add_action( 'wp_head', array(&$chcounter_widget, 'addHeaderCode') );
-add_action( 'admin_menu', array(&$chcounter_widget, 'addAdminMenu') );
-	
-if ( function_exists('register_uninstall_hook') )
-   register_uninstall_hook(__FILE__, array(&$chcounter_widget, 'uninstall'));
-
 
 /**
  * Wrapper function to display chCounter Widget statically
