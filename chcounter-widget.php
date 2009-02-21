@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6
+Version: 2.5.1
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	private $version = '2.6';
+	private $version = '2.5.1';
 	
 	/**
 	 * path to the plugin
@@ -208,11 +208,11 @@ TEMPLATE;
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'without trailing slash', 'chcounter' ) ?></span></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/><br /><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></td>
+					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
 				</tr>
 				</table>
 				
@@ -384,7 +384,7 @@ TEMPLATE;
 	public function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-		$menu_title = "<img src='".$this->plugin_url."/icon.gif' alt='' /> ".__( 'chCounter', 'chcounter' );
+		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ".__( 'chCounter', 'chcounter' );
 		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
@@ -408,7 +408,6 @@ TEMPLATE;
 
 // run chCounter Widget
 $chcounter_widget = new chCounterWidget();
-
 /**
  * Wrapper function to display chCounter Widget statically
  *
@@ -417,4 +416,4 @@ $chcounter_widget = new chCounterWidget();
 function chcounter_widget_display( $args = array() ) {
  	global $chcounter_widget;
 	$chcounter_widget->display( $args );
- }
+}
