@@ -19,6 +19,8 @@ The parameters to display are controlled via the admin panel. There's also an op
 * German
 * Turkish
 
+Due to the growing popularity of my plugins I have launched a [website](http://kolja.galerie-neander.de/)!
+
 == Installation ==
 
 To install the plugin to the following steps
