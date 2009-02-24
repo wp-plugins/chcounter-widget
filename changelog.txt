@@ -1,7 +1,10 @@
 chCounter Widget
 by Kolja Schleich <kolja.schleich@googlemail.com>
 
-V2.5.1 - February 21 - 2009
+V2.5.2 - February 24, 2009
+- BUGFIX: parameters
+
+V2.5.1 - February 21, 2009
 - CHANGED: styling on settings page
 
 V2.5 - November 26, 2008
