@@ -1,9 +1,10 @@
 <?php
 /*
 Plugin Name: ChCounter Widget
-Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
+Author URI: http://kolja.galerie-neander.de/
+Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6
+Version: 2.5.2
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	private $version = '2.6';
+	private $version = '2.5.2';
 	
 	/**
 	 * path to the plugin
@@ -92,7 +93,7 @@ class chCounterWidget
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array("admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
-		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_VISITORS_PER_DAY}" );
 		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
 		$params["maxperdaydate"] = array( "admin_label" => __('Max. visitors per day date', 'chcounter'), "chcounter_label" => "{L_MAX_VISITORS_PER_DAY_DATE}", "counter_value" => "{V_MAX_VISITORS_PER_DAY_DATE}" );
 		$params["online"] = array( "admin_label" => __('Curently online', 'chcounter'), "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
@@ -208,11 +209,11 @@ TEMPLATE;
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'without trailing slash', 'chcounter' ) ?></span></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/><br /><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></td>
+					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
 				</tr>
 				</table>
 				
@@ -384,7 +385,7 @@ TEMPLATE;
 	public function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-		$menu_title = "<img src='".$this->plugin_url."/icon.gif' alt='' /> ".__( 'chCounter', 'chcounter' );
+		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ".__( 'chCounter', 'chcounter' );
 		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
@@ -408,7 +409,6 @@ TEMPLATE;
 
 // run chCounter Widget
 $chcounter_widget = new chCounterWidget();
-
 /**
  * Wrapper function to display chCounter Widget statically
  *
@@ -417,4 +417,4 @@ $chcounter_widget = new chCounterWidget();
 function chcounter_widget_display( $args = array() ) {
  	global $chcounter_widget;
 	$chcounter_widget->display( $args );
- }
+}
