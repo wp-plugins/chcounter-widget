@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
 Tested up to: 2.7.1
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 

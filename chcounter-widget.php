@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.5.2
+Version: 2.5.3
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,14 +31,14 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	private $version = '2.5.2';
+	var $version = '2.5.3';
 	
 	/**
 	 * path to the plugin
 	 *
 	 * @var string
 	 */
-	private $plugin_url;
+	var $plugin_url;
 
 	 
 	/**
@@ -47,12 +47,16 @@ class chCounterWidget
 	 * @param none
 	 * @return void
 	 */
-	public function __construct()
+	function __construct()
 	{
 		$this->initialize();
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
 
 		return;
+	}
+	function chCounterWidget()
+	{
+		$this->__construct();
 	}
 
 
@@ -62,7 +66,7 @@ class chCounterWidget
 	 * @param none
 	 * @return void
 	 */
-	private function initialize()
+	function initialize()
 	{
 		if ( !defined( 'WP_CONTENT_URL' ) )
 			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
@@ -87,7 +91,7 @@ class chCounterWidget
 	 * @param none
 	 * @return array of parameters
 	 */
-	private function getParameters()
+	function getParameters()
 	{
         	$params = array();
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
@@ -125,7 +129,7 @@ class chCounterWidget
 	 * @param array/string $args
 	 * @return void
 	 */
-	public function display($args)
+	function display($args)
 	{
 		if ( is_string($args) )
 			$args = array( 'widget_title' => $args );
@@ -181,7 +185,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function displayAdminPage()
+	function displayAdminPage()
 	{
 		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
@@ -271,7 +275,7 @@ TEMPLATE;
 	 * @param string $listname ID of list to sort
 	 * @return sorted array of parameters
 	 */
- 	private function getOrder( $input, $listname )
+ 	function getOrder( $input, $listname )
 	{
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
@@ -290,7 +294,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function control()
+	function control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
@@ -308,7 +312,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function register()
+	function register()
 	{
 		if ( !function_exists("register_sidebar_widget") )
 			return;
@@ -325,7 +329,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function activate()
+	function activate()
 	{
 		$params = $this->getParameters();
 		
@@ -354,7 +358,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function uninstall()
+	function uninstall()
 	{
 		delete_option( 'chcounter_widget' );
 	}
@@ -366,7 +370,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function addHeaderCode()
+	function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		if ( is_admin() ) {
@@ -382,7 +386,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function addAdminMenu()
+	function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
 		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ".__( 'chCounter', 'chcounter' );
@@ -398,7 +402,7 @@ TEMPLATE;
 	 * @param array $links array of action links
 	 * @return new array of plugin actions
 	 */
-	public function pluginActions( $links )
+	function pluginActions( $links )
 	{
 		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
