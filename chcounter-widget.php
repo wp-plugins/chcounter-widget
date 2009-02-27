@@ -1,9 +1,10 @@
 <?php
 /*
 Plugin Name: ChCounter Widget
-Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
+Author URI: http://kolja.galerie-neander.de/
+Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6
+Version: 2.5.3
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -30,14 +31,14 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	private $version = '2.6';
+	var $version = '2.5.3';
 	
 	/**
 	 * path to the plugin
 	 *
 	 * @var string
 	 */
-	private $plugin_url;
+	var $plugin_url;
 
 	 
 	/**
@@ -46,12 +47,16 @@ class chCounterWidget
 	 * @param none
 	 * @return void
 	 */
-	public function __construct()
+	function __construct()
 	{
 		$this->initialize();
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
 
 		return;
+	}
+	function chCounterWidget()
+	{
+		$this->__construct();
 	}
 
 
@@ -61,7 +66,7 @@ class chCounterWidget
 	 * @param none
 	 * @return void
 	 */
-	private function initialize()
+	function initialize()
 	{
 		if ( !defined( 'WP_CONTENT_URL' ) )
 			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
@@ -86,13 +91,13 @@ class chCounterWidget
 	 * @param none
 	 * @return array of parameters
 	 */
-	private function getParameters()
+	function getParameters()
 	{
         	$params = array();
 		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array("admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
-		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_VISITORS_PER_DAY}" );
 		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
 		$params["maxperdaydate"] = array( "admin_label" => __('Max. visitors per day date', 'chcounter'), "chcounter_label" => "{L_MAX_VISITORS_PER_DAY_DATE}", "counter_value" => "{V_MAX_VISITORS_PER_DAY_DATE}" );
 		$params["online"] = array( "admin_label" => __('Curently online', 'chcounter'), "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
@@ -124,7 +129,7 @@ class chCounterWidget
 	 * @param array/string $args
 	 * @return void
 	 */
-	public function display($args)
+	function display($args)
 	{
 		if ( is_string($args) )
 			$args = array( 'widget_title' => $args );
@@ -180,7 +185,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function displayAdminPage()
+	function displayAdminPage()
 	{
 		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
@@ -208,11 +213,11 @@ TEMPLATE;
 				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
 				<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' /><br/><?php _e( 'without trailing slash', 'chcounter' ) ?></td>
+					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'without trailing slash', 'chcounter' ) ?></span></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/><br /><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></td>
+					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
 				</tr>
 				</table>
 				
@@ -270,7 +275,7 @@ TEMPLATE;
 	 * @param string $listname ID of list to sort
 	 * @return sorted array of parameters
 	 */
- 	private function getOrder( $input, $listname )
+ 	function getOrder( $input, $listname )
 	{
 		parse_str( $input, $input_array );
 		$input_array = $input_array[$listname];
@@ -289,7 +294,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function control()
+	function control()
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( $_POST['chcounter-submit'] ) {
@@ -307,7 +312,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function register()
+	function register()
 	{
 		if ( !function_exists("register_sidebar_widget") )
 			return;
@@ -324,7 +329,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function activate()
+	function activate()
 	{
 		$params = $this->getParameters();
 		
@@ -353,7 +358,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function uninstall()
+	function uninstall()
 	{
 		delete_option( 'chcounter_widget' );
 	}
@@ -365,7 +370,7 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function addHeaderCode()
+	function addHeaderCode()
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		if ( is_admin() ) {
@@ -381,10 +386,10 @@ TEMPLATE;
 	 * @param none
 	 * @return void
 	 */
-	public function addAdminMenu()
+	function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-		$menu_title = "<img src='".$this->plugin_url."/icon.gif' alt='' /> ".__( 'chCounter', 'chcounter' );
+		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ".__( 'chCounter', 'chcounter' );
 		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
@@ -397,7 +402,7 @@ TEMPLATE;
 	 * @param array $links array of action links
 	 * @return new array of plugin actions
 	 */
-	public function pluginActions( $links )
+	function pluginActions( $links )
 	{
 		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
@@ -408,7 +413,6 @@ TEMPLATE;
 
 // run chCounter Widget
 $chcounter_widget = new chCounterWidget();
-
 /**
  * Wrapper function to display chCounter Widget statically
  *
@@ -417,4 +421,4 @@ $chcounter_widget = new chCounterWidget();
 function chcounter_widget_display( $args = array() ) {
  	global $chcounter_widget;
 	$chcounter_widget->display( $args );
- }
+}
