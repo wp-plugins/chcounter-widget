@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
 Tested up to: 2.7.1
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
@@ -26,10 +26,11 @@ Due to the growing popularity of my plugins I have launched a [website](http://k
 
 To install the plugin to the following steps
 
-1. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
-2. Activiate the plugin via the admin plugin page.
-3. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
-4. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
+1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and install it
+2. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
+3. Activiate the plugin via the admin plugin page.
+4. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
+5. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
 == Frequently Asked Questions == 
