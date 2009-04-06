@@ -4,185 +4,182 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
 "POT-Creation-Date: 2009-01-08 19:34+0000\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Last-Translator: didier <didier@wolforg.eu>\n"
+"Language-Team: Wolforg <contact@wolforg.eu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
 
 #: chcounter-widget.php:71
 msgid "Total Visitors"
-msgstr ""
+msgstr "Total des visiteurs"
 
 #: chcounter-widget.php:72
 msgid "Visitors today"
-msgstr ""
+msgstr "Visiteurs du jour"
 
 #: chcounter-widget.php:73
 msgid "Visitors yesterday"
-msgstr ""
+msgstr "Visiteurs hier"
 
 #: chcounter-widget.php:74
 msgid "Visitors per day"
-msgstr ""
+msgstr "Visiteurs par jour"
 
 #: chcounter-widget.php:75
 msgid "Max. visitors per day"
-msgstr ""
+msgstr "Max. visiteurs par jour"
 
 #: chcounter-widget.php:76
 msgid "Max. visitors per day date"
-msgstr ""
+msgstr "Max. visiteurs par jour date"
 
 #: chcounter-widget.php:77
 msgid "Curently online"
-msgstr ""
+msgstr "Actuellement en ligne"
 
 #: chcounter-widget.php:78
 msgid "Max. online"
-msgstr ""
+msgstr "Max. en ligne"
 
 #: chcounter-widget.php:79
 msgid "Max. online date"
-msgstr ""
+msgstr "Max. en ligne date"
 
 #: chcounter-widget.php:80
 msgid "Total page views"
-msgstr ""
+msgstr "Total de pages vues"
 
 #: chcounter-widget.php:81
 msgid "Page views today"
-msgstr ""
+msgstr "Pages vues ce jour"
 
 #: chcounter-widget.php:82
 msgid "Page views yesterday"
-msgstr ""
+msgstr "Pages vues hier"
 
 #: chcounter-widget.php:83
 msgid "Page views per day"
-msgstr ""
+msgstr "Pages vues par jour"
 
 #: chcounter-widget.php:84
 msgid "Max. page views per day"
-msgstr ""
+msgstr "Max. de pages vues par jour"
 
 #: chcounter-widget.php:85
 msgid "Max. page views per day date"
-msgstr ""
+msgstr "Max. de pages vues par jour date"
 
 #: chcounter-widget.php:86
 msgid "Page views of current page"
-msgstr ""
+msgstr "Vues de cette page"
 
 #: chcounter-widget.php:87
 msgid "Page views of current visitor"
-msgstr ""
+msgstr "Pages vues de ce visiteur"
 
 #: chcounter-widget.php:88
 msgid "Page views per visitor"
-msgstr ""
+msgstr "Pages vues par visiteur"
 
 #: chcounter-widget.php:89
 msgid "Javascript activated"
-msgstr ""
+msgstr "Javascript activé"
 
 #: chcounter-widget.php:90
 msgid "Counterstart"
-msgstr ""
+msgstr "Départ du compteur"
 
 #: chcounter-widget.php:91
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiques"
 
 #: chcounter-widget.php:149
 msgid "chCounter Error"
-msgstr ""
+msgstr "Erreur de chCounter"
 
 #: chcounter-widget.php:149
 msgid "Could not find the chcounter installation. Please check your settings."
-msgstr ""
+msgstr "Impossible de trouver l'installation de chCounter. Vérifiez vos paramètres."
 
 #: chcounter-widget.php:178
 msgid "Settings saved"
-msgstr ""
+msgstr "Paramètres enregistrés."
 
 #: chcounter-widget.php:183
 msgid "chCounter Widget Settings"
-msgstr ""
+msgstr "Paramètres du Widget de chCounter"
 
 #: chcounter-widget.php:189
 msgid "General Settings"
-msgstr ""
+msgstr "Paramètres généraux"
 
 #: chcounter-widget.php:192
 msgid "chCounter Path"
-msgstr ""
+msgstr "Chemin de chCounter"
 
 #: chcounter-widget.php:192
-msgid "path to your chCounter installation NOT this plugin"
-msgstr ""
+msgid "without trailing slash"
+msgstr "sans le slash"
 
 #: chcounter-widget.php:195
 msgid "Invisible"
-msgstr ""
+msgstr "Invisible"
 
 #: chcounter-widget.php:196
-msgid ""
-"When this option is active chCounter Widget will not be shown, while still "
-"counting"
-msgstr ""
+msgid "When this option is active chCounter Widget will not be shown, while still counting"
+msgstr "Quand cette option est activée, le widget de chCounter ne sera pas visible mais comptera toujours"
 
 #: chcounter-widget.php:200
 msgid "Parameters"
-msgstr ""
+msgstr "Paramètres"
 
 #: chcounter-widget.php:202
 msgid "Available"
-msgstr ""
+msgstr "Dsiponible"
 
 #: chcounter-widget.php:211
-msgid ""
-"You see this message, because all parameters have been activated. To "
-"deactivate certain parameters simply drag & drop them into this box"
-msgstr ""
+msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
+msgstr "Vous lisez ce message car tous les paramètres ont été activés. Pour désactiver certains paramètres glissez/déposez les simplement dans cette boite"
 
 #: chcounter-widget.php:215
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #: chcounter-widget.php:225
-msgid ""
-"You see this message, because no parameters have been activated yet. You can "
-"create your chCounter Display via drag & drop into this box"
-msgstr ""
+msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
+msgstr "Vous lisez ce message car aucun paramètre n'est encore activé. Vous pouvez créer votre affichage de chCounter en le glissant/déposant dans cette boite"
 
 #: chcounter-widget.php:230
 msgid "Save Settings"
-msgstr ""
+msgstr "Enregistrer les paramètres"
 
 #: chcounter-widget.php:280
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: chcounter-widget.php:298
 msgid "chCounter visitor statistics"
-msgstr ""
+msgstr "Statistiques chCounter des visiteurs"
 
-#: chcounter-widget.php:374 chcounter-widget.php:375
+#: chcounter-widget.php:374
+#: chcounter-widget.php:375
 msgid "chCounter"
 msgstr ""
 
 #: chcounter-widget.php:389
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #. Plugin Name of an extension
 msgid "ChCounter Widget"
-msgstr ""
+msgstr "Widget de chCounter"
 
 #. Plugin URI of an extension
 msgid "http://wordpress.org/extend/plugins/chcounter-widget/"
@@ -190,8 +187,9 @@ msgstr ""
 
 #. Description of an extension
 msgid "Integrate chCounter into Wordpress as widget."
-msgstr ""
+msgstr "Intégrer chCounter dans Wordpress en tant que widget."
 
 #. Author of an extension
 msgid "Kolja Schleich"
 msgstr ""
+

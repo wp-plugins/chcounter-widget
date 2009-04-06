@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
 "POT-Creation-Date: 2008-11-26 09:17+0000\n"
-"PO-Revision-Date: 2009-01-08 20:28+0100\n"
+"PO-Revision-Date: 2009-04-06 08:59+0100\n"
 "Last-Translator: Kolja Schleich <kolja.schleich@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -123,8 +123,8 @@ msgid "chCounter Path"
 msgstr "chCounter Pfad"
 
 #: chcounter-widget.php:203
-msgid "without trailing slash"
-msgstr "ohne Slash am Ende"
+msgid "path to your chCounter installation NOT this plugin"
+msgstr "Pfad zur chCounter Installation NICHT dieses Plugin"
 
 #: chcounter-widget.php:206
 msgid "Invisible"
