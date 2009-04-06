@@ -17,6 +17,7 @@ The parameters to display are controlled via the admin panel. There's also an op
 **Translations**
 
 * German
+* French
 * Turkish
 
 Due to the growing popularity of my plugins I have launched a [website](http://kolja.galerie-neander.de/)!
@@ -25,10 +26,11 @@ Due to the growing popularity of my plugins I have launched a [website](http://k
 
 To install the plugin to the following steps
 
-1. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
-2. Activiate the plugin via the admin plugin page.
-3. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
-4. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
+1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and install it
+2. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
+3. Activiate the plugin via the admin plugin page.
+4. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
+5. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
 == Frequently Asked Questions == 
