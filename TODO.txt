@@ -1,0 +1,1 @@
+- translate frontend, don't use chCounter
