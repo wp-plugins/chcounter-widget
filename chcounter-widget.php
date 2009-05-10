@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.5.4
+Version: 2.6
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.5.4';
+	var $version = '2.6';
 	
 	/**
 	 * path to the plugin
@@ -93,28 +93,28 @@ class chCounterWidget
 	 */
 	function getParameters()
 	{
-        	$params = array();
-		$params["total"] = array( "admin_label" => __('Total Visitors', 'chcounter'), "counter_label" =>  "{L_TOTAL_VISITORS}", "counter_value" => "{V_TOTAL_VISITORS}" );
-		$params["today"] = array("admin_label" => __('Visitors today', 'chcounter'), "counter_label" => "{L_VISITORS_TODAY}", "counter_value" => "{V_VISITORS_TODAY}" );
-		$params["yesterday"] = array( "admin_label" => __('Visitors yesterday', 'chcounter'), "counter_label" => "{L_VISITORS_YESTERDAY}", "counter_value" => "{V_VISITORS_YESTERDAY}" );
-		$params["perday"] = array( "admin_label" => __('Visitors per day', 'chcounter'), "counter_label" => "{L_VISITORS_PER_DAY}", "counter_value" => "{V_VISITORS_PER_DAY}" );
-		$params["maxperday"] = array( "admin_label" => __('Max. visitors per day', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_PER_DAY}", "counter_value" => "{V_MAX_VISITORS_PER_DAY}" );
-		$params["maxperdaydate"] = array( "admin_label" => __('Max. visitors per day date', 'chcounter'), "chcounter_label" => "{L_MAX_VISITORS_PER_DAY_DATE}", "counter_value" => "{V_MAX_VISITORS_PER_DAY_DATE}" );
-		$params["online"] = array( "admin_label" => __('Curently online', 'chcounter'), "counter_label" => "{L_VISITORS_CURRENTLY_ONLINE}", "counter_value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
-		$params["maxonline"] = array( "admin_label" => __('Max. online', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_ONLINE}", "counter_value" => "{V_MAX_VISITORS_ONLINE}" );
-		$params["maxonlinedate"] = array( "admin_label" => __('Max. online date', 'chcounter'), "counter_label" => "{L_MAX_VISITORS_ONLINE_DATE}", "counter_value" => "{V_MAX_VISITORS_ONLINE_DATE}" );
-		$params["totalpageviews"] = array( "admin_label" => __('Total page views', 'chcounter'), "counter_label" => "{L_TOTAL_PAGE_VIEWS}", "counter_value" => "{V_TOTAL_PAGE_VIEWS}" );
-		$params["pageviewstoday"] = array( "admin_label" => __('Page views today', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_TODAY}", "counter_value" => "{V_PAGE_VIEWS_TODAY}" );
-		$params["pageviewsyesterday"] = array( "admin_label" => __('Page views yesterday', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_YESTERDAY}", "counter_value" => "{V_PAGE_VIEWS_YESTERDAY}" );
-		$params["pageviewsperday"] = array( "admin_label" => __('Page views per day', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_PAGE_VIEWS_PER_DAY}" );
-		$params["maxpageviewsperday"] = array( "admin_label" => __('Max. page views per day', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY}" );
-		$params["maxpageviewsperdaydate"] = array( "admin_label" => __('Max. page views per day date', 'chcounter'), "counter_label" => "{L_MAX_PAGE_VIEWS_PER_DAY_DATE}", "counter_value" => "{V_MAX_PAGE_VIEWS_PER_DAY_DATE}" );
-		$params["pageviewsthispage"] = array( "admin_label" => __('Page views of current page', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_THIS_PAGE}", "counter_value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
-		$params["pageviewscurrentvisitor"] = array( "admin_label" => __('Page views of current visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_OF_CURRENT_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_OF_CURRENT_VISITOR}" );
-		$params["pageviewspervisitor"] = array( "admin_label" => __('Page views per visitor', 'chcounter'), "counter_label" => "{L_PAGE_VIEWS_PER_VISITOR}", "counter_value" => "{V_PAGE_VIEWS_PER_VISITOR}" );
-		$params["javascriptactivated"] = array( "admin_label" => __('Javascript activated', 'chcounter'), "counter_label" => "{L_JAVASCRIPT_ACTIVATED}", "counter_value" => "{V_JS_PERCENTAGE}" );
-		$params["counterstart"] = array( "admin_label" => __('Counterstart', 'chcounter'), "counter_label" => "{L_COUNTER_START}", "counter_value" => "{V_COUNTER_START}" );
-		$params["stats"] = array( "admin_label" => __('Statistics', 'chcounter'), "counter_label" => "{L_STATISTICS}", "counter_value" => "{V_COUNTER_URL}" );
+        $params = array();
+		$params["total"] = array( "label" => __('Total Visitors', 'chcounter'), "value" => "{V_TOTAL_VISITORS}" );
+		$params["today"] = array("label" => __('Visitors today', 'chcounter'), "value" => "{V_VISITORS_TODAY}" );
+		$params["yesterday"] = array( "label" => __('Visitors yesterday', 'chcounter'), "value" => "{V_VISITORS_YESTERDAY}" );
+		$params["perday"] = array( "label" => __('Visitors per day', 'chcounter'), "value" => "{V_VISITORS_PER_DAY}" );
+		$params["maxperday"] = array( "label" => __('Max. visitors per day', 'chcounter'), "value" => "{V_MAX_VISITORS_PER_DAY}" );
+		$params["maxperdaydate"] = array( "label" => __('Max. visitors per day date', 'chcounter'), "value" => "{V_MAX_VISITORS_PER_DAY_DATE}" );
+		$params["online"] = array( "label" => __('Curently online', 'chcounter'), "value" => "{V_VISITORS_CURRENTLY_ONLINE}" );
+		$params["maxonline"] = array( "label" => __('Max. online', 'chcounter'), "value" => "{V_MAX_VISITORS_ONLINE}" );
+		$params["maxonlinedate"] = array( "label" => __('Max. online date', 'chcounter'), "value" => "{V_MAX_VISITORS_ONLINE_DATE}" );
+		$params["totalpageviews"] = array( "label" => __('Total page views', 'chcounter'), "value" => "{V_TOTAL_PAGE_VIEWS}" );
+		$params["pageviewstoday"] = array( "label" => __('Page views today', 'chcounter'), "value" => "{V_PAGE_VIEWS_TODAY}" );
+		$params["pageviewsyesterday"] = array( "label" => __('Page views yesterday', 'chcounter'), "value" => "{V_PAGE_VIEWS_YESTERDAY}" );
+		$params["pageviewsperday"] = array( "label" => __('Page views per day', 'chcounter'), "value" => "{V_PAGE_VIEWS_PER_DAY}" );
+		$params["maxpageviewsperday"] = array( "label" => __('Max. page views per day', 'chcounter'), "value" => "{V_MAX_PAGE_VIEWS_PER_DAY}" );
+		$params["maxpageviewsperdaydate"] = array( "label" => __('Max. page views per day date', 'chcounter'), "value" => "{V_MAX_PAGE_VIEWS_PER_DAY_DATE}" );
+		$params["pageviewsthispage"] = array( "label" => __('Page views of current page', 'chcounter'), "value" => "{V_PAGE_VIEWS_THIS_PAGE}" );
+		$params["pageviewscurrentvisitor"] = array( "label" => __('Page views of current visitor', 'chcounter'), "value" => "{V_PAGE_VIEWS_OF_CURRENT_VISITOR}" );
+		$params["pageviewspervisitor"] = array( "label" => __('Page views per visitor', 'chcounter'), "value" => "{V_PAGE_VIEWS_PER_VISITOR}" );
+		$params["javascriptactivated"] = array( "label" => __('Javascript activated', 'chcounter'), "value" => "{V_JS_PERCENTAGE}" );
+		$params["counterstart"] = array( "label" => __('Counterstart', 'chcounter'), "value" => "{V_COUNTER_START}" );
+		$params["stats"] = array( "label" => __('Statistics', 'chcounter'), "value" => "{V_COUNTER_URL}" );
 
 		return $params;
 	}
@@ -156,9 +156,9 @@ class chCounterWidget
 				if ( count($options['params']['active']) > 0 ) {
 					foreach ( $options['params']['active'] AS $order => $param ) {
 						if ( 'stats' == $param )
-							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'><img src='".$params['stats']['counter_value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['counter_label']."' title='".$params['stats']['counter_label']."' /></a><a target='_blank' href='".$params['stats']['counter_value']."/stats/index.php'>".$params['stats']['counter_label']."</a></li>";
+							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['value']."/stats/index.php'><img src='".$params['stats']['value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['label']."' title='".$params['stats']['label']."' /></a><a target='_blank' href='".$params['stats']['value']."/stats/index.php'>".$params['stats']['label']."</a></li>";
 						else
-							$counter_template .= "<li>".$params[$param]['counter_label']." ".$params[$param]['counter_value']."</li>";
+							$counter_template .= "<li>".$params[$param]['label']." ".$params[$param]['value']."</li>";
 					}
 				}
 				
@@ -227,7 +227,7 @@ TEMPLATE;
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
-							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
+							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -241,7 +241,7 @@ TEMPLATE;
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
 						<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
-							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['admin_label'] ?></li>
+							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>

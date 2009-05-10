@@ -1,6 +1,9 @@
 chCounter Widget
 by Kolja Schleich <kolja.schleich@googlemail.com>
 
+V2.6
+- CHANGED: full translation with Wordpress
+
 V2.5.3 - February 27, 2009
 - CHANGED: backwards compatibility with PHP4
 
