@@ -21,7 +21,8 @@ The parameters to display are controlled via the admin panel. There's also an op
 * Turkish
 * Swedish
 
-Due to the growing popularity of my plugins I have launched a [website](http://kolja.galerie-neander.de/)!
+Most recent language files can be downloaded at http://svn.wp-plugins.org/chcounter-widget/i18n.
+
 
 == Installation ==
 
