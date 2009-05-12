@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
 Tested up to: 2.7.1
-Stable tag: 2.6
+Stable tag: 2.6.1
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
@@ -21,7 +21,8 @@ The parameters to display are controlled via the admin panel. There's also an op
 * Turkish
 * Swedish
 
-Due to the growing popularity of my plugins I have launched a [website](http://kolja.galerie-neander.de/)!
+Most recent language files can be downloaded at http://svn.wp-plugins.org/chcounter-widget/i18n.
+
 
 == Installation ==
 
