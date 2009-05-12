@@ -1,7 +1,10 @@
 chCounter Widget
 by Kolja Schleich <kolja.schleich@googlemail.com>
 
-V2.6
+V2.6.1 - May 12, 2009
+- BUGFIX: don't display title element if empty
+
+V2.6 - May 10, 2009
 - CHANGED: full translation with Wordpress
 
 V2.5.3 - February 27, 2009

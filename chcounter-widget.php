@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6
+Version: 2.6.1
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6';
+	var $version = '2.6.1';
 	
 	/**
 	 * path to the plugin
@@ -150,7 +150,9 @@ class chCounterWidget
 			
 		if ( file_exists(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php') ) {
 			if ( 0 == $options['invisible'] ) {
-				echo $before_widget . $before_title . $widget_title . $after_title;
+				echo $before_widget;
+				if ( !empty($widget_title) ) echo $before_title . $widget_title . $after_title;
+
 				$counter_template = '';
 				
 				if ( count($options['params']['active']) > 0 ) {
