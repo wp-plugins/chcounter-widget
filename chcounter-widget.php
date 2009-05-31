@@ -299,7 +299,7 @@ TEMPLATE;
 	function control()
 	{
 		$options = get_option( 'chcounter_widget' );
-		if ( $_POST['chcounter-submit'] ) {
+		if ( isset($_POST['chcounter-submit']) ) {
 			$options['title'] = $_POST['chCounter_widget_title'];
 			update_option( 'chcounter_widget', $options );
 		}
