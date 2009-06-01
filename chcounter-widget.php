@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6.2
+Version: 2.7
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6.2';
+	var $version = '2.7';
 	
 	/**
 	 * path to the plugin
@@ -93,7 +93,7 @@ class chCounterWidget
 	 */
 	function getParameters()
 	{
-        $params = array();
+	        $params = array();
 		$params["total"] = array( "label" => __('Total Visitors', 'chcounter'), "value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array("label" => __('Visitors today', 'chcounter'), "value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "label" => __('Visitors yesterday', 'chcounter'), "value" => "{V_VISITORS_YESTERDAY}" );
@@ -218,8 +218,8 @@ TEMPLATE;
 					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'path to your chCounter installation NOT this plugin', 'chcounter' ) ?></span></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><?php $selected_invisible = ( 1 == $options['invisible'] ) ? " checked = 'checked'" : ''; ?><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php echo $selected_invisible ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
+					<th scope="row"><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
+					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php checked($options['invisible'], 1) ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
 				</tr>
 				</table>
 				
