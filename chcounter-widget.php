@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6.1
+Version: 2.6.2
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6.1';
+	var $version = '2.6.2';
 	
 	/**
 	 * path to the plugin
@@ -142,7 +142,7 @@ class chCounterWidget
 			'after_widget' => '</li>',
 			'before_title' => '<h2 class="widgettitle">',
 			'after_title' => '</h2>',
-			'widget_title' => $options['title']
+			'widget_title' => (string)$options['title']
 		);
 		
 		$args = array_merge( $defaults, $args );
@@ -195,7 +195,7 @@ TEMPLATE;
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
-			$options['chcounter_path'] = untrailingslashit($_POST['chcounter_widget_path']);
+			$options['chcounter_path'] = (string)untrailingslashit($_POST['chcounter_widget_path']);
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
 			$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
