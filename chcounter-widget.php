@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6.1
+Version: 2.6.2
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6.1';
+	var $version = '2.6.2';
 	
 	/**
 	 * path to the plugin
@@ -224,12 +224,12 @@ TEMPLATE;
 				</table>
 				
 				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
-				<div id="chcounter_available_box" class='chcounter_widget_parameters narrow' >
+				<div id="chcounter_available_box" class='chcounter_widget_parameters widget narrow' >
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
-							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
+							<li class="widget-top" id='param_<?php echo $param ?>'><span class="widget-title"><?php echo $params[$param]['label'] ?></span></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -237,13 +237,13 @@ TEMPLATE;
 					<span class="handle" id="chcounter_handle_available"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
 					<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
 				</div>
-				<div id="chcounter_active_box" class='chcounter_widget_parameters narrow'>
+				<div id="chcounter_active_box" class='chcounter_widget_parameters widget narrow'>
 					<h4><?php _e( 'Active', 'chcounter' ) ?></h4>
 							
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
 						<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
-							<li id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
+							<li class="widget-top" id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
@@ -391,7 +391,8 @@ TEMPLATE;
 	function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ".__( 'chCounter', 'chcounter' );
+//		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ";
+		$menu_title = __( 'chCounter', 'chcounter' );
 		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
