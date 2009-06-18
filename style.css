@@ -1,12 +1,5 @@
 div.chcounter_widget_parameters {
 	width: 18em;
-	background: #eaf3fa;
-	border: 1px solid #ccc;
-	border-spacing: 0;
-	-moz-border-radius: 4px;
-	-khtml-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
 	padding: 0.5em;
 	margin-left: 0;
 	margin-right: 4em;
@@ -33,13 +26,6 @@ ol.chcounter_widget {
 ol.chcounter_widget li {
 	padding: 0.5em;
 	margin: 0.2 0.5em;
-	background: #fdfdfd;
-	border: 1px solid #ccc;
-	border-spacing: 0;
-	-moz-border-radius: 4px;
-	-khtml-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
 	cursor: move;
 	}
 ol.chcounter_widget li.holder {
