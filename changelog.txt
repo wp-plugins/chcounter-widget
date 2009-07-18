@@ -1,6 +1,9 @@
 chCounter Widget
 by Kolja Schleich <kolja.schleich@googlemail.com>
 
+V2.7 - July 18, 2009
+- NEW: bundled chCounter with plugin
+
 V2.6.1 - May 12, 2009
 - BUGFIX: don't display title element if empty
 

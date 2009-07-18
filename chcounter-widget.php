@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6.2
+Version: 2.7
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6.2';
+	var $version = '2.7';
 	
 	/**
 	 * path to the plugin
@@ -42,6 +42,14 @@ class chCounterWidget
 
 	 
 	/**
+	 * plugin patth
+	 *
+	 * @var string
+	 */
+	var $plugin_path;
+
+
+	/**
 	 * Class constructor
 	 *
 	 * @param none
@@ -51,6 +59,7 @@ class chCounterWidget
 	{
 		$this->initialize();
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
+		$this->plugin_path = WP_PLUGIN_DIR.'/'.basename(__FILE__, '.php');
 
 		return;
 	}
@@ -142,39 +151,36 @@ class chCounterWidget
 			'after_widget' => '</li>',
 			'before_title' => '<h2 class="widgettitle">',
 			'after_title' => '</h2>',
-			'widget_title' => (string)$options['title']
+			'widget_title' => (string)$options['title'],
+			'invisible' => $options['invisible']
 		);
 		
 		$args = array_merge( $defaults, $args );
 		extract( $args );
 			
-		if ( file_exists(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php') ) {
-			if ( 0 == $options['invisible'] ) {
-				echo $before_widget;
-				if ( !empty($widget_title) ) echo $before_title . $widget_title . $after_title;
+		if ( empty($invisible) ) {
+			echo $before_widget;
+			if ( !empty($widget_title) ) echo $before_title . $widget_title . $after_title;
 
-				$counter_template = '';
+			$counter_template = '';
 				
-				if ( count($options['params']['active']) > 0 ) {
-					foreach ( $options['params']['active'] AS $order => $param ) {
-						if ( 'stats' == $param )
-							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['value']."/stats/index.php'><img src='".$params['stats']['value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['label']."' title='".$params['stats']['label']."' /></a><a target='_blank' href='".$params['stats']['value']."/stats/index.php'>".$params['stats']['label']."</a></li>";
-						else
-							$counter_template .= "<li>".$params[$param]['label']." ".$params[$param]['value']."</li>";
-					}
+			if ( count($options['params']['active']) > 0 ) {
+				foreach ( $options['params']['active'] AS $order => $param ) {
+					if ( 'stats' == $param )
+						$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['value']."/stats/index.php'><img src='".$params['stats']['value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['label']."' title='".$params['stats']['label']."' /></a><a target='_blank' href='".$params['stats']['value']."/stats/index.php'>".$params['stats']['label']."</a></li>";
+					else
+						$counter_template .= "<li>".$params[$param]['label']." ".$params[$param]['value']."</li>";
 				}
-				
-				$chCounter_template = <<<TEMPLATE
-								 <ul>$counter_template</ul>
-TEMPLATE;
-				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
-				echo $after_widget;
-			} else {
-				$chCounter_visible = 0;
-				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
 			}
+				
+			$chCounter_template = <<<TEMPLATE
+				 <ul>$counter_template</ul>
+TEMPLATE;
+			include_once('chcounter/counter.php');
+			echo $after_widget;
 		} else {
-			echo $before_widget . $before_title . __( 'chCounter Error', 'chcounter' ) .$after_title.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).$after_widget;
+			$chCounter_visible = 0;
+			include_once('chcounter/counter.php');
 		}
 			
 		return;
@@ -195,35 +201,77 @@ TEMPLATE;
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
-			$options['chcounter_path'] = (string)untrailingslashit($_POST['chcounter_widget_path']);
-			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
 			$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
 					
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
-		
 		?>
 		<div class='wrap'>
+			<?php if ( isset($_GET['install']) && 'chcounter' == $_GET['install'] ) : ?>
+			<h2><?php _e( 'chCounter Configuration', 'chcounter' ) ?></h2>
+
+			<?php if ( !is_writable($this->plugin_path.'/chcounter/includes') ) : ?>
+			<div class="error fade"><p><?php printf(__( 'The chCounter Configuration directory is not writable. Either make %s writable or configure chCounter manually.', 'chcounter' ), $this->plugin_path.'/chcounter/includes/') ?></p></div>
+			<?php endif; ?>
+
+			<?php if ( isset($_POST['write']) ) : ?>
+				<?php $this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] ) ?>
+				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcouner' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
+			<?php endif; ?>
+
+			<?php
+			$db_name = isset($_POST['chcounter_db_name']) ? $_POST['chcounter_db_name'] : DB_NAME;
+			$db_user = isset($_POST['chcounter_db_user']) ? $_POST['chcounter_db_user'] : DB_USER;
+			$db_passwd = isset($_POST['chcounter_db_passwd']) ? $_POST['chcounter_db_passwd'] : DB_PASSWORD;
+			$db_table_prefix = isset($_POST['chcounter_table_prefix']) ? $_POST['chcounter_table_prefix'] : 'chc_';
+			?>
+			<form action="" method="post">
+			<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><label for="chcounter_db_name"><?php _e( 'Database Name', 'chcounter' ) ?></label></th>
+				<td><input type="text" name="chcounter_db_name" id="chcounter_db_name" value="<?php echo $db_name ?>" /></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="chcounter_db_user"><?php _e( 'Database User', 'chcounter' ) ?></label></th>
+				<td><input type="text" name="chcounter_db_user" id="chcounter_db_user" value="<?php echo $db_user ?>" /></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="chcounter_db_passwd"><?php _e( 'Database Password', 'chcounter' ) ?></label></th>
+				<td><input type="text" name="chcounter_db_passwd" id="chcounter_db_passwd" value="<?php echo $db_passwd ?>" /></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="chcounter_table_prefix"><?php _e( 'Table Prefix', 'chcounter' ) ?></label></th>
+				<td><input type="text" name="chcounter_table_prefix" id="chcounter_table_prefix" value="<?php echo $db_table_prefix ?>" /></td>
+			</tr>
+			</table>
+
+			<p class="submit"><input type="submit" name="write"  value="<?php _e( 'Save Configuration &raquo;', 'chcounter' ) ?>" /></p>
+			</form>
+
+			<?php else : ?>
+
 			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
-					
-			<form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
+
+			<?php if ( isset($_GET['remove_install_dir']) ) : ?>
+				<?php if ( $this->removeDir($this->plugin_path.'/chcounter/install') ) : ?>
+				<div class="updated fade"><p><?php _e( "The chCounter Installation directory has been deleted.", 'chcouner' ) ?></p></div>
+				<?php else : ?>
+				<div class="error fade"><p><?php _e( 'Could not delete the installation directory. Please delete it manually.', 'chcounter' ) ?></p></div>
+				<?php endif; ?>
+			<?php endif; ?>
+
+			<?php if ( !$this->installed() ) : ?>
+			<div class="updated"><p><?php printf(__( "It looks like chCounter has not been installed yet. <a href='%s'>Install now.</a>", 'chcounter' ), $_SERVER['REQUEST_URI']."&amp;install=chcounter") ?></p></div>
+			<?php elseif ( $this->installed() && file_exists($this->plugin_path.'/chcounter/install') ) : ?>
+			<div class="updated"><p><?php printf(__( "The chCounter Installation directory exists. You should <a href='%s'>delete it.</a>", 'chcounter' ), $_SERVER['REQUEST_URI']."&amp;remove_install_dir") ?></p></div>
+			<?php endif; ?>
+
+			<form action='' method='post' onSubmit="populateHiddenVars();">
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 					
-				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
-				<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'path to your chCounter installation NOT this plugin', 'chcounter' ) ?></span></td>
-				</tr>
-				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php checked($options['invisible'], 1) ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
-				</tr>
-				</table>
-				
-				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
 				<div id="chcounter_available_box" class='chcounter_widget_parameters widget narrow' >
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
 					<ol class='chcounter_widget' id='chcounter_available'>
@@ -266,6 +314,8 @@ TEMPLATE;
 			window.onload = toggleHandle( "chcounter_available", "chcounter_handle_available" );
 			// ]]>
 		</script>
+
+		<?php endif; ?>
 		<?php
 	}
 
@@ -301,9 +351,12 @@ TEMPLATE;
 		$options = get_option( 'chcounter_widget' );
 		if ( isset($_POST['chcounter-submit']) ) {
 			$options['title'] = $_POST['chCounter_widget_title'];
+			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
-		echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input class="widefat" type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" /></p>';
+		echo '<p style="text-align: left;"><label for="chcounter_widget_title">'.__( 'Title', 'chcounter' ).'</label><input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_widget_title" value="'.$options['title'].'" /></p>';
+		$checked = ( $options['invisible'] == 1 ) ? ' checked="checked"' : '';
+		echo '<p><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"'.$checked.' />&#160;<label for="chcounter_widget_invisible">'.__( 'Invisible', 'chcounter' ).'</label></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 	}
 
@@ -351,6 +404,9 @@ TEMPLATE;
 		*/
 		$role = get_role('administrator');
 		$role->add_cap('edit_chcounter_widget');
+
+		if ( $this->installed() && file_exists($this->plugin_path.'/chcounter/install') )
+			$this->removeDir($this->plugin_path.'/chcounter/install');
 	}
 
 
@@ -363,6 +419,89 @@ TEMPLATE;
 	function uninstall()
 	{
 		delete_option( 'chcounter_widget' );
+	}
+
+
+	/**
+	 * check if chCounter is installed
+	 *
+	 * @param none
+	 * @return boolean
+	 */
+	function installed()
+	{
+		$options = get_option('chcounter_widget');
+		$tables = mysql_list_tables(DB_NAME);
+		$prefix = $options['table_prefix'];
+		while ( list($temp) = mysql_fetch_array($tables) ) {
+			if ( $temp == $prefix . 'config' ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * write chCounter configuration file
+	 *
+	 * @param string $db_name
+	 * @param string $db_user
+	 * @param string $db_passwd
+	 * @param string $table_prefix
+	 * @return true
+	 */
+	function writeConfiguration( $db_name, $db_user, $db_passwd, $table_prefix )
+	{
+		$file = $this->plugin_path . '/chcounter/includes/config.inc.php';
+		$content = "<?php \$_CHC_DBCONFIG = array (\n\t'server' => 'localhost',\n\t'database' => '".$db_name."',\n\t'user' => '".$db_user."',\n\t'password' => '".$db_passwd."',\n\t'tables_prefix' => '".$table_prefix."'\n);\n?>";
+		file_put_contents($file, $content);
+
+		$options = get_option('chcounter_widget');
+		$options['table_prefix'] = $table_prefix;
+		update_option('chcounter_widget', $options);
+
+		return true;
+	}
+
+
+	/**
+	 * remove chCounter installation directory
+	 *
+	 * @param none
+	 * @return void
+	 */
+	function removeDir( $dir )
+	{
+		if ( substr($dir,-1) == '/' )
+			$dir = substr($dir,0,-1);
+
+		if ( !file_exists($dir) || !is_dir($dir) ) {
+			return false;
+		} elseif ( !is_readable($dir) ) {
+			return false;
+
+		} else {
+			$handle = opendir($dir);
+			while ( false !== ($item = readdir($handle)) ) {
+				if ( $item != '.' && $item != '..' ) {
+					$path = $dir . '/' . $item;
+
+					if ( is_dir($path) )
+						$this->removeDir($path);
+					else
+						unlink($path);
+				}
+			}
+
+			closedir($handle);
+
+			if ( !@rmdir($dir) )
+				return false;
+
+			return true;
+		}
 	}
 
 
