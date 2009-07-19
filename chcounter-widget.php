@@ -81,6 +81,10 @@ class chCounterWidget
 			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
 		if ( !defined( 'WP_PLUGIN_URL' ) )
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+		if ( !defined( 'WP_CONTENT_DIR' ) )
+			define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+		if ( !defined( 'WP_PLUGIN_DIR' ) )
+			define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 			
 		register_activation_hook(__FILE__, array(&$this, 'activate') );
 		load_plugin_textdomain( 'chcounter', false, basename(__FILE__, '.php').'/languages' );
@@ -207,6 +211,10 @@ TEMPLATE;
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
+		$db_name = isset($_POST['chcounter_db_name']) ? $_POST['chcounter_db_name'] : DB_NAME;
+		$db_user = isset($_POST['chcounter_db_user']) ? $_POST['chcounter_db_user'] : DB_USER;
+		$db_passwd = isset($_POST['chcounter_db_passwd']) ? $_POST['chcounter_db_passwd'] : DB_PASSWORD;
+		$db_table_prefix = isset($_POST['chcounter_table_prefix']) ? $_POST['chcounter_table_prefix'] : 'chc_';
 		?>
 		<div class='wrap'>
 			<?php if ( isset($_GET['install']) && 'chcounter' == $_GET['install'] ) : ?>
@@ -218,15 +226,9 @@ TEMPLATE;
 
 			<?php if ( isset($_POST['write']) ) : ?>
 				<?php $this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] ) ?>
-				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcouner' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
+				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcounter' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
 			<?php endif; ?>
 
-			<?php
-			$db_name = isset($_POST['chcounter_db_name']) ? $_POST['chcounter_db_name'] : DB_NAME;
-			$db_user = isset($_POST['chcounter_db_user']) ? $_POST['chcounter_db_user'] : DB_USER;
-			$db_passwd = isset($_POST['chcounter_db_passwd']) ? $_POST['chcounter_db_passwd'] : DB_PASSWORD;
-			$db_table_prefix = isset($_POST['chcounter_table_prefix']) ? $_POST['chcounter_table_prefix'] : 'chc_';
-			?>
 			<form action="" method="post">
 			<table class="form-table">
 			<tr valign="top">
@@ -306,10 +308,18 @@ TEMPLATE;
 		</div>
 		<script type='text/javascript'>
 			// <![CDATA[
-			Sortable.create("chcounter_available",
-			{dropOnEmpty:true, containment:["chcounter_available", "chcounter_active"], constraint:false});
-			Sortable.create("chcounter_active",
-			{dropOnEmpty:true, containment:["chcounter_available", "chcounter_active"], constraint:false});
+			Sortable.create("chcounter_available",{
+				dropOnEmpty:true,
+				containment:["chcounter_available", "chcounter_active"],
+				constraint:false,
+				onUpdate: function() { toggleHandle("chcounter_active", "chcounter_handle_active"); }
+			});
+			Sortable.create("chcounter_active",{
+				dropOnEmpty:true,
+				containment:["chcounter_available", "chcounter_active"],
+				constraint:false,
+				onUpdate: function() { toggleHandle("chcounter_available", "chcounter_handle_available"); }
+			});
 			window.onload = toggleHandle( "chcounter_active", "chcounter_handle_active" );
 			window.onload = toggleHandle( "chcounter_available", "chcounter_handle_available" );
 			// ]]>
@@ -423,7 +433,7 @@ TEMPLATE;
 
 
 	/**
-	 * check if chCounter is installed
+	 * check if chCounter is installed, thus $prefix . 'config' table exists
 	 *
 	 * @param none
 	 * @return boolean
@@ -515,7 +525,7 @@ TEMPLATE;
 	{
 		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
 		if ( is_admin() ) {
-			wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
+			wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('jquery', 'scriptaculous'), '1.0' );
 			wp_print_scripts( 'chcounter' );
 		}
 	}
@@ -547,7 +557,8 @@ TEMPLATE;
 	function pluginActions( $links )
 	{
 		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
-		array_unshift( $links, $settings_link );
+		$setup_link = '<a href="options-general.php?page='.basename(__FILE__).'&amp;install=chcounter">'.__('Setup', 'chcounter').'</a>';
+		array_unshift( $links, $settings_link, $setup_link );
 	
 		return $links;
 	}
@@ -555,6 +566,7 @@ TEMPLATE;
 
 // run chCounter Widget
 $chcounter_widget = new chCounterWidget();
+
 /**
  * Wrapper function to display chCounter Widget statically
  *
