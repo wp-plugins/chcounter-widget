@@ -226,7 +226,7 @@ TEMPLATE;
 
 			<?php if ( isset($_POST['write']) ) : ?>
 				<?php $this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] ) ?>
-				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcouner' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
+				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcounter' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
 			<?php endif; ?>
 
 			<form action="" method="post">
