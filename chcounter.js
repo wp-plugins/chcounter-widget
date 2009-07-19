@@ -9,9 +9,9 @@ function toggleHandle(listID, handleID) {
    var items = list.getElementsByTagName('li');
 	
    if ( items.length > 0 ) {
-      Element.hide(handleID);
+      jQuery('span#'+handleID).fadeOut('fast');//Element.hide(handleID);
    } else {
-      Element.show(handleID);
+      jQuery('span#'+handleID).fadeIn('fast');//Element.show(handleID);
    }
 	
    return true;

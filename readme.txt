@@ -28,10 +28,9 @@ Most recent language files can be downloaded at http://svn.wp-plugins.org/chcoun
 
 To install the plugin to the following steps
 
-1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and install it
-2. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
+1. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
 3. Activiate the plugin via the admin plugin page.
-4. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
+4. Go to Options --> chCounter Widget and set up chCounter as well as parameters shown on the frontend
 5. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
