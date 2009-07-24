@@ -64,3 +64,73 @@ The plugin will default to before and after widget tags like in the example for 
 == Screenshots ==
 1. Options Page to control chCounter display
 2. Widget Control Panel
+
+== Changelog ==
+
+= 2.7 =
+* NEW: bundled chCounter with plugin
+
+= 2.6.1 =
+* BUGFIX: don't display title element if empty
+
+= 2.6 =
+* CHANGED: full translation with Wordpress
+
+= 2.5.3 =
+* CHANGED: backwards compatibility with PHP4
+
+= 2.5.2 =
+* BUGFIX: parameters
+
+= 2.5.1 =
+* CHANGED: styling on settings page
+
+= 2.5 =
+* NEW: support of all output values chCounter can display
+
+= V.4 =
+* NEW: uninstallation hook for WP 2.7
+* CHANGED: disabled uninstallation form in WP 2.7
+
+= 2.3 =
+* NEW: own capability to control access to plugin options page
+
+= 2.2.1 =
+* NEW: load scripts only on chCounter settings page
+* CHANGED: uninstallation method to direct uninstallation and plugin deactivation
+
+= 2.2 =
+* BUGFIX: display widget statically
+
+= 2.1 =
+* NEW: Simplified static displaying of chCounter.
+* CHANGED: Switched to using scriptaculous and prototype shipped with Wordpress to reduce disk usage
+* REMOVED: deleted scriptaculous and prototype files from plugin
+
+= 2.0.2 =
+* NEW: option to make chCounter invisible while active
+
+= 2.0.1 =
+* NEW: display chCounter statically without using widget.
+* BUGFIX: compatibility with Wordpress 2.5
+
+= 2.0 =
+* NEW: drag & drop sorting and activation of parameters
+* CHANGED: styling like widgets in Wordpress 2.3
+
+= 1.1.3 =
+* CHANGED: styling upgrade with own css file in respect to Wordpress 2.5
+
+= 1.1.2 =
+* NEW: option to uninstall it upon plugin deactivation
+* BUGFIX: widget was not displayed
+* REMOVED: Took out automatic uninstallation upon plugin deactivation
+
+= 1.1.1 =
+* NEW: uninstallation of the plugin upon deactivation.
+
+= 1.1 =
+* NEW: option to set chCounter installation directory via the admin interface and simple sorting of parameters.
+
+= 1.0 =
+* First Release of the plugin.
