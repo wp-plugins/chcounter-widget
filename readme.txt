@@ -88,7 +88,7 @@ The plugin will default to before and after widget tags like in the example for 
 = 2.5 =
 * NEW: support of all output values chCounter can display
 
-= V.4 =
+= 2.4 =
 * NEW: uninstallation hook for WP 2.7
 * CHANGED: disabled uninstallation form in WP 2.7
 
