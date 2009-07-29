@@ -525,7 +525,7 @@ TEMPLATE;
 		}
 		
 		if ( $upgraded ) {
-			echo "<p>".__('Upgrade sucessfull', 'chcounter')."</p>";
+			echo "<p>".__('Upgrade successful', 'chcounter')."</p>";
 			echo "<h3><a class='button' href='options-general.php?page=".basename(__FILE__)."'>".__('Continue', 'chcounter')."...</a></h3>";
 
 			$options['version'] = $this->version;

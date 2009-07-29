@@ -199,6 +199,12 @@ msgstr "chCounter"
 msgid "Settings"
 msgstr "Einstellungen"
 
-msgid "Setup"
-msgstr "Installation"
+msgid "chCounter Widget Upgrade"
+msgstr "chCounter Widget Upgrade"
+
+msgid "Upgrade successful"
+msgstr "Upgrade erfolgreich"
+
+msgid "Continue"
+msgstr "Fortfahren"
 

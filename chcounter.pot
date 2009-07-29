@@ -233,3 +233,12 @@ msgstr ""
 #. Author URI of an extension
 msgid "http://kolja.galerie-neander.de/"
 msgstr ""
+
+msgid "chCounter Widget Upgrade"
+msgstr ""
+
+msgid "Upgrade successful"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
