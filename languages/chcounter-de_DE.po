@@ -151,7 +151,7 @@ msgstr "Konnte das Installationsverzeichnis nicht löschen. Bitte lösche es man
 #: chcounter-widget.php:266
 #, php-format
 msgid "It looks like chCounter has not been installed yet. <a href='%s'>Install now.</a>"
-msgstr "Es sieht so aus, dass chCounter noch nicht installiert wurde. <a hrref='%s'>Installiere Jetzt.</a>"
+msgstr "Es sieht so aus, dass chCounter noch nicht installiert wurde. <a href='%s'>Installiere Jetzt.</a>"
 
 #: chcounter-widget.php:268
 #, php-format

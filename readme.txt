@@ -67,6 +67,9 @@ The plugin will default to before and after widget tags like in the example for 
 
 == Changelog ==
 
+= 2.7.1 = 
+* BUGFIX: german translation
+
 = 2.7 =
 * NEW: bundled chCounter with plugin
 

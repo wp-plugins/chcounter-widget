@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.7
+Version: 2.7.1
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.7';
+	var $version = '2.7.1';
 	
 	/**
 	 * path to the plugin
@@ -199,8 +199,13 @@ TEMPLATE;
 	 */
 	function displayAdminPage()
 	{
-		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
+		if ( $options['version'] != $this->version ) {
+			$this->upgrade();
+			return;
+		}
+
+		$params = $this->getParameters();
 			
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
@@ -211,51 +216,8 @@ TEMPLATE;
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
-		$db_name = isset($_POST['chcounter_db_name']) ? $_POST['chcounter_db_name'] : DB_NAME;
-		$db_user = isset($_POST['chcounter_db_user']) ? $_POST['chcounter_db_user'] : DB_USER;
-		$db_passwd = isset($_POST['chcounter_db_passwd']) ? $_POST['chcounter_db_passwd'] : DB_PASSWORD;
-		$db_table_prefix = isset($_POST['chcounter_table_prefix']) ? $_POST['chcounter_table_prefix'] : 'chc_';
 		?>
 		<div class='wrap'>
-			<?php if ( isset($_GET['install']) && 'chcounter' == $_GET['install'] ) : ?>
-			<h2><?php _e( 'chCounter Configuration', 'chcounter' ) ?></h2>
-
-			<?php if ( !is_writable($this->plugin_path.'/chcounter/includes') ) : ?>
-			<div class="error fade"><p><?php printf(__( 'The chCounter Configuration directory is not writable. Either make %s writable or configure chCounter manually.', 'chcounter' ), $this->plugin_path.'/chcounter/includes/') ?></p></div>
-			<?php endif; ?>
-
-			<?php if ( isset($_POST['write']) ) : ?>
-				<?php $this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] ) ?>
-				<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcounter' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
-			<?php endif; ?>
-
-			<form action="" method="post">
-			<table class="form-table">
-			<tr valign="top">
-				<th scope="row"><label for="chcounter_db_name"><?php _e( 'Database Name', 'chcounter' ) ?></label></th>
-				<td><input type="text" name="chcounter_db_name" id="chcounter_db_name" value="<?php echo $db_name ?>" /></td>
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="chcounter_db_user"><?php _e( 'Database User', 'chcounter' ) ?></label></th>
-				<td><input type="text" name="chcounter_db_user" id="chcounter_db_user" value="<?php echo $db_user ?>" /></td>
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="chcounter_db_passwd"><?php _e( 'Database Password', 'chcounter' ) ?></label></th>
-				<td><input type="text" name="chcounter_db_passwd" id="chcounter_db_passwd" value="<?php echo $db_passwd ?>" /></td>
-			</tr>
-			<tr valign="top">
-				<th scope="row"><label for="chcounter_table_prefix"><?php _e( 'Table Prefix', 'chcounter' ) ?></label></th>
-				<td><input type="text" name="chcounter_table_prefix" id="chcounter_table_prefix" value="<?php echo $db_table_prefix ?>" /></td>
-			</tr>
-			</table>
-
-			<p class="submit"><input type="submit" name="write"  value="<?php _e( 'Save Configuration &raquo;', 'chcounter' ) ?>" /></p>
-			</form>
-
-			<?php else : ?>
-
-			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
-
 			<?php if ( isset($_GET['remove_install_dir']) ) : ?>
 				<?php if ( $this->removeDir($this->plugin_path.'/chcounter/install') ) : ?>
 				<div class="updated fade"><p><?php _e( "The chCounter Installation directory has been deleted.", 'chcouner' ) ?></p></div>
@@ -263,6 +225,12 @@ TEMPLATE;
 				<div class="error fade"><p><?php _e( 'Could not delete the installation directory. Please delete it manually.', 'chcounter' ) ?></p></div>
 				<?php endif; ?>
 			<?php endif; ?>
+
+			<?php if ( isset($_GET['install']) && 'chcounter' == $_GET['install'] ) : ?>
+				<?php $this->installChCounter(); ?>
+			<?php else : ?>
+
+			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
 
 			<?php if ( !$this->installed() ) : ?>
 			<div class="updated"><p><?php printf(__( "It looks like chCounter has not been installed yet. <a href='%s'>Install now.</a>", 'chcounter' ), $_SERVER['REQUEST_URI']."&amp;install=chcounter") ?></p></div>
@@ -327,6 +295,60 @@ TEMPLATE;
 
 		<?php endif; ?>
 		<?php
+	}
+
+
+	/**
+	 * display installation form for chCounter
+	 *
+	 * @param boolean $upgrade
+	 * @return void
+	 */
+	function installChCounter( $upgrade )
+	{
+		$db_name = isset($_POST['chcounter_db_name']) ? $_POST['chcounter_db_name'] : DB_NAME;
+		$db_user = isset($_POST['chcounter_db_user']) ? $_POST['chcounter_db_user'] : DB_USER;
+		$db_passwd = isset($_POST['chcounter_db_passwd']) ? $_POST['chcounter_db_passwd'] : DB_PASSWORD;
+		$db_table_prefix = isset($_POST['chcounter_table_prefix']) ? $_POST['chcounter_table_prefix'] : 'chc_';
+	
+		$title = $upgrade ? '<h3>%s</h3>' : '<h2>%s</h2>';
+
+		if ( isset($_POST['install']) ) :
+			$this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] );
+		?>
+			<div class="updated fade"><p><?php printf(__( "Configuration file written. <a href='%s' target='_blank'>Install chCounter</a>", 'chcounter' ), $this->plugin_url.'/chcounter/install/install.php') ?></p></div>
+		<?php else : ?>
+
+		<?php printf($title, __( 'chCounter Configuration', 'chcounter' )); ?>
+
+		<?php if ( !is_writable($this->plugin_path.'/chcounter/includes') ) : ?>
+		<div class="error fade"><p><?php printf(__( 'The chCounter Configuration directory is not writable. Please make %s writable by the server.', 'chcounter' ), $this->plugin_path.'/chcounter/includes/') ?></p></div>
+		<?php endif; ?>
+			
+		<form action="" method="post">
+		<table class="form-table">
+		<tr valign="top">
+			<th scope="row"><label for="chcounter_db_name"><?php _e( 'Database Name', 'chcounter' ) ?></label></th>
+			<td><input type="text" name="chcounter_db_name" id="chcounter_db_name" value="<?php echo $db_name ?>" /></td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="chcounter_db_user"><?php _e( 'Database User', 'chcounter' ) ?></label></th>
+			<td><input type="text" name="chcounter_db_user" id="chcounter_db_user" value="<?php echo $db_user ?>" /></td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="chcounter_db_passwd"><?php _e( 'Database Password', 'chcounter' ) ?></label></th>
+			<td><input type="text" name="chcounter_db_passwd" id="chcounter_db_passwd" value="<?php echo $db_passwd ?>" /></td>
+		</tr>
+		<tr valign="top">
+			<th scope="row"><label for="chcounter_table_prefix"><?php _e( 'Table Prefix', 'chcounter' ) ?></label></th>
+			<td><input type="text" name="chcounter_table_prefix" id="chcounter_table_prefix" value="<?php echo $db_table_prefix ?>" /></td>
+		</tr>
+		</table>
+
+		<p class="submit"><input type="submit" name="install"  value="<?php _e( 'Save Configuration &raquo;', 'chcounter' ) ?>" /></p>
+		</form>
+		<?php endif; ?>
+<?php
 	}
 
 
@@ -477,6 +499,43 @@ TEMPLATE;
 
 
 	/**
+	 * upgrade
+	 *
+	 * @param none
+	 */
+	function upgrade()
+	{
+		global $wpdb;
+		$options = get_option('chcounter_widget');
+
+		$counter_url = $this->plugin_url . '/chcounter';
+		$upgraded = false;
+
+		echo "<div class='wrap'><h2>".__('chCounter Widget Upgrade', 'chcounter')."</h2>";
+		if ( version_compare($options['version'], '2.7', '<') ) {
+			if ( isset($_POST['install']) ) {
+				$this->writeConfiguration( $_POST['chcounter_db_name'], $_POST['chcounter_db_user'], $_POST['chcounter_db_passwd'], $_POST['chcounter_table_prefix'] );
+				$wpdb->query( $wpdb->prepare( "UPDATE ".$_POST['chcounter_table_prefix']."config SET `value` = '%s' WHERE `setting` = 'default_counter_url'", $counter_url ) );
+
+				$upgraded = true;
+			} else {
+				$this->installChCounter(true);
+			}
+
+		}
+		
+		if ( $upgraded ) {
+			echo "<p>".__('Upgrade sucessfull', 'chcounter')."</p>";
+			echo "<h3><a class='button' href='options-general.php?page=".basename(__FILE__)."'>".__('Continue', 'chcounter')."...</a></h3>";
+
+			$options['version'] = $this->version;
+			update_option('chcounter_widget', $options);
+		}
+		echo "</div>";
+	}
+
+
+	/**
 	 * remove chCounter installation directory
 	 *
 	 * @param none
@@ -501,7 +560,7 @@ TEMPLATE;
 					if ( is_dir($path) )
 						$this->removeDir($path);
 					else
-						unlink($path);
+						@unlink($path);
 				}
 			}
 
@@ -557,8 +616,7 @@ TEMPLATE;
 	function pluginActions( $links )
 	{
 		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
-		$setup_link = '<a href="options-general.php?page='.basename(__FILE__).'&amp;install=chcounter">'.__('Setup', 'chcounter').'</a>';
-		array_unshift( $links, $settings_link, $setup_link );
+		array_unshift( $links, $settings_link );
 	
 		return $links;
 	}

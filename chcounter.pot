@@ -110,9 +110,7 @@ msgstr ""
 
 #: chcounter-widget.php:224
 #, php-format
-msgid ""
-"The chCounter Configuration directory is not writable. Either make %s "
-"writable or configure chCounter manually."
+msgid "The chCounter Configuration directory is not writable. Please make %s writable by the server."
 msgstr ""
 
 #: chcounter-widget.php:229
