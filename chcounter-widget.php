@@ -4,7 +4,7 @@ Plugin Name: ChCounter Widget
 Author URI: http://kolja.galerie-neander.de/
 Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.6.2
+Version: 2.8
 Author: Kolja Schleich
 
 Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
@@ -31,7 +31,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.6.2';
+	var $version = '2.8';
 	
 	/**
 	 * path to the plugin
@@ -93,7 +93,7 @@ class chCounterWidget
 	 */
 	function getParameters()
 	{
-	        $params = array();
+	  $params = array();
 		$params["total"] = array( "label" => __('Total Visitors', 'chcounter'), "value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array("label" => __('Visitors today', 'chcounter'), "value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "label" => __('Visitors yesterday', 'chcounter'), "value" => "{V_VISITORS_YESTERDAY}" );
@@ -212,18 +212,18 @@ TEMPLATE;
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 					
-				<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>
-				<table class="form-table">
+				<!--<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>-->
+				<table class="form-table" style="margin-bottom: 1.5em;">
 				<tr valign="top">
 					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'path to your chCounter installation NOT this plugin', 'chcounter' ) ?></span></td>
 				</tr>
-				<tr valign="top">
+				<!--<tr valign="top">
 					<th scope="row"><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
 					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php checked($options['invisible'], 1) ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
-				</tr>
+				</tr>-->
 				</table>
 				
-				<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>
+				<!--<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>-->
 				<div id="chcounter_available_box" class='chcounter_widget_parameters widget narrow' >
 					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
 					<ol class='chcounter_widget' id='chcounter_available'>
@@ -301,9 +301,12 @@ TEMPLATE;
 		$options = get_option( 'chcounter_widget' );
 		if ( isset($_POST['chcounter-submit']) ) {
 			$options['title'] = $_POST['chCounter_widget_title'];
+			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
-		echo '<p style="text-align: left;">'.__( 'Title', 'chcounter' ).': <input class="widefat" type="text" name="chCounter_widget_title" id="widget_title" value="'.$options['title'].'" /></p>';
+		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$options['title'].'" /></p>';
+		$checked = ( 1 == $options['invisible'] ) ? ' checked="checked"' : '';
+		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.$checked.' /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 	}
 
