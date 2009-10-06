@@ -28,11 +28,6 @@ ol.chcounter_widget li {
 	margin: 0.2 0.5em;
 	cursor: move;
 	}
-.emptyPlaceMarker {
-	z-index: 999;
-	border: 1px dashed #000000;
-	background-color: transparent;
-	}
 ol.chcounter_widget li.holder {
 	border: none;
 	background: transparent;
