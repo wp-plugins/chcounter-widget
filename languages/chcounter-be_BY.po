@@ -1,0 +1,196 @@
+# chcounterWidget POT file.
+# Copyright (C) 2008 Kolja Schleich
+# This file is distributed under the same license as the WordPress package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CH\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/chcounter-widget\n"
+"POT-Creation-Date: 2009-01-08 19:34+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: Fat Cow <zhr@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: chcounter-widget.php:71
+msgid "Total Visitors"
+msgstr "Всего посетителей"
+
+#: chcounter-widget.php:72
+msgid "Visitors today"
+msgstr "Посетителей сегодня"
+
+#: chcounter-widget.php:73
+msgid "Visitors yesterday"
+msgstr "Посетителей вчера"
+
+#: chcounter-widget.php:74
+msgid "Visitors per day"
+msgstr "Посетителей за день"
+
+#: chcounter-widget.php:75
+msgid "Max. visitors per day"
+msgstr "Макс. посетителей за день"
+
+#: chcounter-widget.php:76
+msgid "Max. visitors per day date"
+msgstr "Макс. посетителей за день"
+
+#: chcounter-widget.php:77
+msgid "Curently online"
+msgstr "Сейчас онлайн"
+
+#: chcounter-widget.php:78
+msgid "Max. online"
+msgstr "Макс. онлайн"
+
+#: chcounter-widget.php:79
+msgid "Max. online date"
+msgstr "Макс. онлайн - дата"
+
+#: chcounter-widget.php:80
+msgid "Total page views"
+msgstr "Всего просмотрено страниц"
+
+#: chcounter-widget.php:81
+msgid "Page views today"
+msgstr "Просмотрено страниц сегодня"
+
+#: chcounter-widget.php:82
+msgid "Page views yesterday"
+msgstr "Просмотрено страниц вчера"
+
+#: chcounter-widget.php:83
+msgid "Page views per day"
+msgstr "Просмотрено страниц за день"
+
+#: chcounter-widget.php:84
+msgid "Max. page views per day"
+msgstr "Макс. просмотрено страниц за день"
+
+#: chcounter-widget.php:85
+msgid "Max. page views per day date"
+msgstr "Макс. просмотрено страниц за дату"
+
+#: chcounter-widget.php:86
+msgid "Page views of current page"
+msgstr "Просмотров текущей страницы"
+
+#: chcounter-widget.php:87
+msgid "Page views of current visitor"
+msgstr "Просмотров текущего пользователя"
+
+#: chcounter-widget.php:88
+msgid "Page views per visitor"
+msgstr "Просмотров посетителем"
+
+#: chcounter-widget.php:89
+msgid "Javascript activated"
+msgstr "Javascript включен"
+
+#: chcounter-widget.php:90
+msgid "Counterstart"
+msgstr "Counterstart"
+
+#: chcounter-widget.php:91
+msgid "Statistics"
+msgstr "Статистика"
+
+#: chcounter-widget.php:149
+msgid "chCounter Error"
+msgstr "chCounter ошибка"
+
+#: chcounter-widget.php:149
+msgid "Could not find the chcounter installation. Please check your settings."
+msgstr "Не найден chcounter установки. Пожалуйста, проверьте настройки."
+
+#: chcounter-widget.php:178
+msgid "Settings saved"
+msgstr "Настройки сохранены"
+
+#: chcounter-widget.php:183
+msgid "chCounter Widget Settings"
+msgstr "chCounter настройки виджета"
+
+#: chcounter-widget.php:189
+msgid "General Settings"
+msgstr "Главные настройки"
+
+#: chcounter-widget.php:192
+msgid "chCounter Path"
+msgstr "путь к chCounter"
+
+#: chcounter-widget.php:192
+msgid "path to your chCounter installation NOT this plugin"
+msgstr "путь к установке chCounter НЕ lzk этого плагина"
+
+#: chcounter-widget.php:195
+msgid "Invisible"
+msgstr "Невидимый"
+
+#: chcounter-widget.php:196
+msgid "When this option is active chCounter Widget will not be shown, while still counting"
+msgstr "Когда эта опция активна chCounter виджет не будет показано ниже, в то же время подсчета"
+
+#: chcounter-widget.php:200
+msgid "Parameters"
+msgstr "Параметры"
+
+#: chcounter-widget.php:202
+msgid "Available"
+msgstr "Доступен"
+
+#: chcounter-widget.php:211
+msgid "You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box"
+msgstr "Вы видите это сообщение, потому что все параметры были активированы. Чтобы отключить определенные параметры просто перетащить &amp; положить их в это поле"
+
+#: chcounter-widget.php:215
+msgid "Active"
+msgstr "Активен"
+
+#: chcounter-widget.php:225
+msgid "You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box"
+msgstr "Вы видите это сообщение, потому что ни параметры были активированы еще. Вы можете создать свои chCounter дисплея с помощью перетащить &amp; капля в это поле"
+
+#: chcounter-widget.php:230
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+#: chcounter-widget.php:280
+msgid "Title"
+msgstr "Заголовок"
+
+#: chcounter-widget.php:298
+msgid "chCounter visitor statistics"
+msgstr "chCounter статистика посещений"
+
+#: chcounter-widget.php:374
+#: chcounter-widget.php:375
+msgid "chCounter"
+msgstr "chCounter"
+
+#: chcounter-widget.php:389
+msgid "Settings"
+msgstr "Настройки"
+
+#. Plugin Name of an extension
+msgid "ChCounter Widget"
+msgstr "ChCounter виджет"
+
+#. Plugin URI of an extension
+msgid "http://wordpress.org/extend/plugins/chcounter-widget/"
+msgstr "http://wordpress.org/extend/plugins/chcounter-widget/"
+
+#. Description of an extension
+msgid "Integrate chCounter into Wordpress as widget."
+msgstr "Интеграция chCounter в Wordpress как виджета."
+
+#. Author of an extension
+msgid "Kolja Schleich"
+msgstr "Kolja Schleich"
+
