@@ -20,7 +20,7 @@ The parameters to display are controlled via the admin panel. There's also an op
 * French
 * Turkish
 * Swedish
-* Belorussian (FatCow)[http://www.fatcow.com/]
+* Belorussian by [FatCow](http://www.fatcow.com/)
 
 Most recent language files can be downloaded at http://svn.wp-plugins.org/chcounter-widget/i18n.
 
@@ -69,7 +69,7 @@ The plugin will default to before and after widget tags like in the example for 
 == Changelog ==
 
 = 2.8.1 =
-* NEW: Belorussian translation by (FatCow)[http://www.fatcow.com/]
+* NEW: Belorussian translation by [FatCow](http://www.fatcow.com/)
 
 = 2.8 =
 * REMOVED: chCounter bundle due to installation problems
