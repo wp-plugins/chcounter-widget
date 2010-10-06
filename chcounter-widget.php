@@ -1,8 +1,7 @@
 <?php
 /*
 Plugin Name: ChCounter Widget
-Author URI: http://kolja.galerie-neander.de/
-Plugin URI: http://kolja.galerie-neander.de/plugins/chcounter-widget/
+Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
 Version: 2.8.1
 Author: Kolja Schleich
