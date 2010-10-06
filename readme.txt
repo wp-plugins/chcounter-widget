@@ -29,42 +29,26 @@ Most recent language files can be downloaded at http://svn.wp-plugins.org/chcoun
 
 To install the plugin to the following steps
 
-1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and install it
-2. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
-3. Activiate the plugin via the admin plugin page.
-4. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
-5. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
+1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and unpack it, e.g. in /chcounter
+2. Install chCounter via the webinterface http://www.yourDomain.tld/chCounterDirectory/install/install.php
+3. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
+4. Activiate the plugin via the admin plugin page.
+5. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
+6. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
 == Frequently Asked Questions == 
 
 = How to diplay chCounter statically without using widgets? =
-**Version 2.0.2**
 
 Place the following code where you want to display chCounter
 
-`<?php
-$chcounter_widget = new chCounterWidget();
-$chcounter_widget->display(array (
-   'before_widget' => '<li id="chcounter" class="widget chCounterWidget_display">',
-   'after_widget' => '</li>',
-   'before_title' => '<h2 class="widgettitle">',
-   'after_title' => '</h2>',
-   'widget_title' => 'Visitor statistics',
-));
-?>`
-
-**Version 2.1+**
-
-You can just put the following code where you want to display chCounter:
-
 `<?php chcounter_widget_display("chCounter Widget Title") ?>`
 
-The plugin will default to before and after widget tags like in the example for Version 2.0.2. Alternatively you can pass an array of arguments to the function like in Version 2.0.2 to overwrite the defaults.
 
 == Screenshots ==
-1. Options Page to control chCounter display
-2. Widget Control Panel
+1. Options Page to control chCounter display. Set the path to chCounter relative to the web root
+2. Widget Control Panel. Make the counter display invisible while still counting
 
 == Changelog ==
 
