@@ -1,6 +1,5 @@
 === chCounter Widget ===
 Contributors: Kolja Schleich
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2329191
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
 Tested up to: 2.8.4
@@ -62,7 +61,7 @@ Place the following code where you want to display chCounter
 * BUGFIX: german translation
 * NEW: upgrade procedure to fix false counter url
 
-= 2.7 =
+= 2.7 
 * NEW: bundled chCounter with plugin
 
 = 2.6.1 =
