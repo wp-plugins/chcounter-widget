@@ -6,7 +6,7 @@ Description: Integrate chCounter into Wordpress as widget.
 Version: 2.8.1
 Author: Kolja Schleich
 
-Copyright 2007-2008  Kolja Schleich  (email : kolja.schleich@googlemail.com)
+Copyright 2007-2014  Kolja Schleich  (email : kolja.schleich@googlemail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
