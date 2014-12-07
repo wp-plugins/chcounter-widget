@@ -2,8 +2,8 @@
 Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
-Tested up to: 2.8.4
-Stable tag: 2.8.1
+Tested up to: 4.0.1
+Stable tag: 3.0
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
@@ -11,7 +11,7 @@ A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
 Create a widget for [chCounter](http://chcounter.org). It can display all [20 output values](http://chcounter.org/index.php?s=alle-ausgabewerte) that chCounter supports.
 
-The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting. Access to the settings page is controled via Wordpress capabilities which makes it compatible with [Role Manager](http://www.im-web-gefunden.de/wordpress-plugins/role-manager/)
+The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting
 
 **Translations**
 
@@ -28,11 +28,11 @@ Most recent language files can be downloaded at http://svn.wp-plugins.org/chcoun
 
 To install the plugin to the following steps
 
-1. [Download chCounter](http://chcounter.org/index.php?s=dateien) and unpack it, e.g. in /chcounter
-2. Install chCounter via the webinterface http://www.yourDomain.tld/chCounterDirectory/install/install.php
+1. Install chCounter via the webinterface http://www.yourDomain.tld/wp-content/plugins/chcounter-widget/chcounter/install/install.php (will give deprecated warnings you can ignore)
+2. Remove the folder "install" in the chcounter subdirectory
 3. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
 4. Activiate the plugin via the admin plugin page.
-5. Go to Options --> chCounter Widget and set up the directory of your chCounter installation as well as parameters shown on the frontend
+5. Go to Options --> chCounter Widget and set up the parameters to show on the front end
 6. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
 
 
@@ -50,6 +50,11 @@ Place the following code where you want to display chCounter
 2. Widget Control Panel. Make the counter display invisible while still counting
 
 == Changelog ==
+
+= 3.0 =
+* NEW: Compatible with Wordpress 4.0.1
+* NEW: Bundle chCounter 3.1.3 (fixed some deprecated issues) within plugin
+* BUGFIX: escape html specialchars in $_POST variables for security
 
 = 2.8.1 =
 * NEW: Belorussian translation by [FatCow](http://www.fatcow.com/)

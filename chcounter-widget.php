@@ -3,10 +3,10 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 2.8.1
+Version: 3.0
 Author: Kolja Schleich
 
-Copyright 2007-2014  Kolja Schleich  (email : kolja.schleich@googlemail.com)
+Copyright 2007-2014  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '2.8.1';
+	var $version = '3.0';
 	
 	/**
 	 * path to the plugin
@@ -92,7 +92,7 @@ class chCounterWidget
 	 */
 	function getParameters()
 	{
-	  $params = array();
+		$params = array();
 		$params["total"] = array( "label" => __('Total Visitors', 'chcounter'), "value" => "{V_TOTAL_VISITORS}" );
 		$params["today"] = array("label" => __('Visitors today', 'chcounter'), "value" => "{V_VISITORS_TODAY}" );
 		$params["yesterday"] = array( "label" => __('Visitors yesterday', 'chcounter'), "value" => "{V_VISITORS_YESTERDAY}" );
@@ -146,8 +146,9 @@ class chCounterWidget
 		
 		$args = array_merge( $defaults, $args );
 		extract( $args );
-			
-		if ( file_exists(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php') ) {
+		
+		$file = dirname( __FILE__ ).'/chcounter/counter.php';
+		if ( file_exists($file)) {
 			if ( 0 == $options['invisible'] ) {
 				echo $before_widget;
 				if ( !empty($widget_title) ) echo $before_title . $widget_title . $after_title;
@@ -166,11 +167,11 @@ class chCounterWidget
 				$chCounter_template = <<<TEMPLATE
 								 <ul>$counter_template</ul>
 TEMPLATE;
-				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
+				include_once($file);
 				echo $after_widget;
 			} else {
 				$chCounter_visible = 0;
-				include_once(trailingslashit($_SERVER['DOCUMENT_ROOT']).$options['chcounter_path'].'/counter.php');
+				include_once($file);
 			}
 		} else {
 			echo $before_widget . $before_title . __( 'chCounter Error', 'chcounter' ) .$after_title.__( 'Could not find the chcounter installation. Please check your settings.', 'chcounter' ).$after_widget;
@@ -194,10 +195,10 @@ TEMPLATE;
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
-			$options['chcounter_path'] = (string)untrailingslashit($_POST['chcounter_widget_path']);
+			//$options['chcounter_path'] = untrailingslashit(htmlspecialchars($_POST['chcounter_widget_path']));
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-			$options['params']['available'] = $this->getOrder($_POST['chcounter_widget_available_order'], 'chcounter_available');
-			$options['params']['active'] = $this->getOrder($_POST['chcounter_widget_active_order'], 'chcounter_active');
+			$options['params']['available'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_available');
+			$options['params']['active'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_active');
 					
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
@@ -212,19 +213,15 @@ TEMPLATE;
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 					
 				<!--<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>-->
-				<table class="form-table" style="margin-bottom: 1.5em;">
+				<!--<table class="form-table" style="margin-bottom: 1.5em;">
 				<tr valign="top">
 					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'path to your chCounter installation NOT this plugin', 'chcounter' ) ?></span></td>
 				</tr>
-				<!--<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_invisible'><?php _e( 'Invisible', 'chcounter' ) ?></label></th>
-					<td><input type="checkbox" name="chcounter_widget_invisible" id="chcounter_widget_invisible"<?php checked($options['invisible'], 1) ?>/>&#160;<span class="setting-description"><?php _e( 'When this option is active chCounter Widget will not be shown, while still counting', 'chcounter' ) ?></span></td>
-				</tr>-->
-				</table>
+				</table>-->
 				
 				<!--<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>-->
 				<div id="chcounter_available_box" class='chcounter_widget_parameters widget narrow' >
-					<h4><?php _e( 'Available', 'chcounter' ) ?></h4>
+					<h3><?php _e( 'Available', 'chcounter' ) ?></h3>
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
@@ -237,7 +234,7 @@ TEMPLATE;
 					<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
 				</div>
 				<div id="chcounter_active_box" class='chcounter_widget_parameters widget narrow'>
-					<h4><?php _e( 'Active', 'chcounter' ) ?></h4>
+					<h3><?php _e( 'Active', 'chcounter' ) ?></h3>
 							
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
@@ -267,28 +264,25 @@ TEMPLATE;
 		</script>
 		<?php
 	}
-
+	
 
 	/**
-	 * gets order of parameters
+	 * parse string and escape html specialchars
 	 *
-	 * @param string $input serialized string with order
-	 * @param string $listname ID of list to sort
-	 * @return sorted array of parameters
+	 * @param string str
+	 * @param string name
+	 * @return escaped parsed string
 	 */
- 	function getOrder( $input, $listname )
-	{
-		parse_str( $input, $input_array );
-		$input_array = $input_array[$listname];
-		$order_array = array();
-		for ( $i = 0; $i < count($input_array); $i++ ) {
-			if ( $input_array[$i] != '' )
-				$order_array[$i+1] = $input_array[$i];
+	function parseString($str, $name) {
+		parse_str( $str, $tmp );
+		$ret = array();
+		foreach ($tmp[$name] AS $id => $value) {
+			$ret[] = htmlspecialchars($value);
 		}
-		return $order_array;	
+		return $ret;
 	}
-
-
+	
+	
 	/**
 	 * displays control panel for the widget
 	 *
@@ -299,7 +293,7 @@ TEMPLATE;
 	{
 		$options = get_option( 'chcounter_widget' );
 		if ( isset($_POST['chcounter-submit']) ) {
-			$options['title'] = $_POST['chCounter_widget_title'];
+			$options['title'] = htmlspecialchars($_POST['chCounter_widget_title']);
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
@@ -353,6 +347,52 @@ TEMPLATE;
 		*/
 		$role = get_role('administrator');
 		$role->add_cap('edit_chcounter_widget');
+		
+		$this->writeChCounterConfig();
+	}
+	function writeChCounterConfig() {
+		$content = "<?php
+/*
+ **************************************
+ *
+ * includes/config.inc.php
+ * -------------
+ *
+ * last modified:	2005-04-21
+ * -------------
+ *
+ * project:	chCounter
+ * version:	3.1.1
+ * copyright:	© 2005 Christoph Bachner
+ * license:	GPL vs2.0 or higher [ see docs/license.txt ]
+ * contact:	www.christoph-bachner.net
+ *
+ **************************************
+*/
+
+
+//
+// Datenbank-Zugangsdaten
+// Your database data 
+// Données d'accès pour la base de données
+//
+\$_CHC_DBCONFIG = array(
+
+	'server' => '".DB_HOST."',		// database server | Server | Server
+	'user' => '".DB_USER."',			// database account | Benutzername | mot d'utilisateur
+	'password' => '".DB_PASSWORD."',			// database password | Passwort | mot de passe
+	'database' => '".DB_NAME."',			// database name | Datenbankname | nom de la base de données
+
+	// Prefix of the chCounter database tables:
+	// Präfix der chCounter Datenbanktabellen:
+	// Préfixe des tableaux de la base de données du chCounter:
+	'tables_prefix' => 'chc_'
+	
+);
+
+?>";
+		$file = dirname( __FILE__ ).'/chcounter/includes/config.inc.php';
+		file_put_contents($file, $content);
 	}
 
 

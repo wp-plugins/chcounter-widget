@@ -1,15 +1,16 @@
 div.chcounter_widget_parameters {
-	width: 18em;
+	width: 20em;
 	padding: 0.5em;
 	margin-left: 0;
 	margin-right: 4em;
 	float: left;
+	border: 1px solid #ccc;
 	}
-div.chcounter_widget_parameters h4 {
+div.chcounter_widget_parameters h3 {
 	margin: 0;
 	padding: 0.2em 0 0.5em 0;
 	text-align: center;
-}
+	}
 div.chcounter_widget_parameters span.handle {
 	border: 1px solid #ccc;
 	background: #fffccf;
