@@ -191,14 +191,14 @@ TEMPLATE;
 	{
 		$params = $this->getParameters();
 		$options = get_option( 'chcounter_widget' );
-			
+		
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
 			//$options['chcounter_path'] = untrailingslashit(htmlspecialchars($_POST['chcounter_widget_path']));
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			$options['params']['available'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_available');
-			$options['params']['active'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_active');
+			$options['params']['active'] = $this->parseString($_POST['chcounter_widget_active_order'], 'chcounter_active');
 					
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
