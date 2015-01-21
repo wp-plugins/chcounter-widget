@@ -153,3 +153,7 @@ msgstr ""
 #: chcounter-widget.php:391
 msgid "Settings"
 msgstr ""
+
+#: chcouner-widget.php:
+msgid "Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective form fields. Empty values will deactivate parameters."
+msgstr ""

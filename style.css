@@ -1,8 +1,9 @@
 div.chcounter_widget_parameters {
-	width: 20em;
+	width: 30em;
 	padding: 0.5em;
 	margin-left: 0;
 	margin-right: 4em;
+	margin-top: 1em;
 	float: left;
 	border: 1px solid #ccc;
 	}
@@ -26,7 +27,7 @@ ol.chcounter_widget {
 	}
 ol.chcounter_widget li {
 	padding: 0.5em;
-	margin: 0.2 0.5em;
+	margin: 0.3em 0.5em;
 	cursor: move;
 	}
 ol.chcounter_widget li.holder {
@@ -34,7 +35,9 @@ ol.chcounter_widget li.holder {
 	background: transparent;
 	}
 ol.chcounter_widget li input {
-	margin: 0 1em auto auto;
+	margin: 0em;
+	padding: 0em;
+	float: right;
 	}
 li#chcounter_stats {
 	background-image: none;
@@ -45,4 +48,7 @@ li#chcounter_stats {
 li#chcounter_stats img {
 	display: block;
 	margin: auto;
+	}
+p#chcounter_nojs {
+	margin: 1em 0;
 	}

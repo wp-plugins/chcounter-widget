@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.0
+Version: 3.1
 Author: Kolja Schleich
 
 Copyright 2007-2014  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.0';
+	var $version = '3.1';
 	
 	/**
 	 * path to the plugin
@@ -190,47 +190,63 @@ TEMPLATE;
 	function displayAdminPage()
 	{
 		$params = $this->getParameters();
-		$options = get_option( 'chcounter_widget' );
 		
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
+			// Hidden order values are empty if Javascript is disabled
+			if ($_POST['chcounter_widget_available_order'] == "" && $_POST['chcounter_widget_active_order'] == "") {
+				$options['params']['available'] = $options['params']['active'] = $tmp = array();
+				$param_order = $_POST['param_order'];
+				asort($param_order); // sort parameter ordering keeping key associations intact
+				foreach ($param_order AS $param => $order) {
+					// Put fields with empty ordering values into available otherwise in active parameters 
+					if ($order == "") {
+						array_push($options['params']['available'], $param);
+					} else {
+						// prevent problems with identical keys
+						if (array_key_exists($order, $tmp))
+							array_push($tmp, $param);
+						else
+							$tmp[$order] = $param;
+						ksort($tmp); // sort array by keys
+						$options['params']['active'] = array_values($tmp);
+					}
+				}
+			} else {
+				// Parameter order from jQuery Sortable list if Javascript is active
+				$options['params']['available'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_available');
+				$options['params']['active'] = $this->parseString($_POST['chcounter_widget_active_order'], 'chcounter_active');
+			}
 			//$options['chcounter_path'] = untrailingslashit(htmlspecialchars($_POST['chcounter_widget_path']));
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-			$options['params']['available'] = $this->parseString($_POST['chcounter_widget_available_order'], 'chcounter_available');
-			$options['params']['active'] = $this->parseString($_POST['chcounter_widget_active_order'], 'chcounter_active');
 					
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
 		
+		$options = get_option( 'chcounter_widget' );
 		?>
 		<div class='wrap'>
 			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
-					
+			
+			<noscript><p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective form fields. Empty values will deactivate parameters.', 'chcounter') ?></p></noscript>
+			
 			<form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
-					
-				<!--<h3><?php _e( 'General Settings', 'chcounter' ) ?></h3>-->
-				<!--<table class="form-table" style="margin-bottom: 1.5em;">
-				<tr valign="top">
-					<th scope="row"><label for='chcounter_widget_path'><?php _e( 'chCounter Path', 'chcounter' ) ?></label></th><td><?php echo trailingslashit($_SERVER['DOCUMENT_ROOT']) ?><input type='text' name='chcounter_widget_path' id='chcounter_widget_path' value='<?php echo $options['chcounter_path'] ?>' size='20' />&#160;<span class="setting-description"><?php _e( 'path to your chCounter installation NOT this plugin', 'chcounter' ) ?></span></td>
-				</tr>
-				</table>-->
 				
-				<!--<h3><?php _e( 'Parameters', 'chcounter' ) ?></h3>-->
 				<div id="chcounter_available_box" class='chcounter_widget_parameters widget narrow' >
 					<h3><?php _e( 'Available', 'chcounter' ) ?></h3>
 					<ol class='chcounter_widget' id='chcounter_available'>
 						<?php if ( count($options['params']['available']) > 0 ) : ?>
 						<?php foreach ( $options['params']['available'] AS $order => $param ) : ?>
-							<li class="widget-top" id='param_<?php echo $param ?>'><span class="widget-title"><?php echo $params[$param]['label'] ?></span></li>
+							<li class="widget-top" id='param_<?php echo $param ?>'><span class="widget-title"><?php echo $params[$param]['label'] ?></span><input type="text" name="param_order[<?php echo $param ?>]" id="param_order_<?php echo $param ?>" size="2" value="" /></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
-							
-					<span class="handle" id="chcounter_handle_available"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
+					
+					<span class="handle" id="chcounter_handle_available" style="display: none;"><?php _e( 'You see this message, because all parameters have been activated. To deactivate certain parameters simply drag & drop them into this box', 'chcounter' ) ?></span>
 					<input type="hidden" name="chcounter_widget_available_order" id="chcounter_widget_available_order" />
 				</div>
 				<div id="chcounter_active_box" class='chcounter_widget_parameters widget narrow'>
@@ -239,12 +255,12 @@ TEMPLATE;
 					<ol class='chcounter_widget' id='chcounter_active'>
 						<?php if ( count($options['params']['active']) > 0 ) : ?>
 						<?php foreach ( $options['params']['active'] AS $order => $param ) : ?>
-							<li class="widget-top" id='param_<?php echo $param ?>'><?php echo $params[$param]['label'] ?></li>
+							<li class="widget-top" id='param_<?php echo $param ?>'><span class="widget-title"><?php echo $params[$param]['label'] ?></span><input type="text" name="param_order[<?php echo $param ?>]" id="param_order_<?php echo $param ?>" size="2" value="<?php echo $order ?>" /></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ol>
-								
-					<span class="handle" id="chcounter_handle_active"><?php _e( 'You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box', 'chcounter' ) ?></span>
+					
+					<span class="handle" id="chcounter_handle_active" style="display: none;"><?php _e( 'You see this message, because no parameters have been activated yet. You can create your chCounter Display via drag & drop into this box', 'chcounter' ) ?></span>					
 					<input type="hidden" name="chcounter_widget_active_order" id="chcounter_widget_active_order" />
 				</div>
 						
@@ -261,6 +277,11 @@ TEMPLATE;
 			window.onload = toggleHandle( "chcounter_active", "chcounter_handle_active" );
 			window.onload = toggleHandle( "chcounter_available", "chcounter_handle_available" );
 			// ]]>
+			
+			// Hide order boxes when Javascript is active
+			<?php foreach ($params AS $key => $param) : ?>
+			document.getElementById('param_order_<?php echo $key ?>').style.visibility='hidden';
+			<?php endforeach; ?>
 		</script>
 		<?php
 	}
