@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1
+Version: 3.1.1
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1';
+	var $version = '3.1.1';
 	
 	/**
 	 * path to the plugin
@@ -200,6 +200,7 @@ TEMPLATE;
 				$param_order = $_POST['param_order'];
 				asort($param_order); // sort parameter ordering keeping key associations intact
 				foreach ($param_order AS $param => $order) {
+					$order = intval($order);
 					// Put fields with empty ordering values into available otherwise in active parameters 
 					if ($order == "") {
 						array_push($options['params']['available'], $param);
@@ -318,7 +319,7 @@ TEMPLATE;
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
-		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$options['title'].'" /></p>';
+		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.htmlspecialchars($options['title']).'" /></p>';
 		$checked = ( 1 == $options['invisible'] ) ? ' checked="checked"' : '';
 		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.$checked.' /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
