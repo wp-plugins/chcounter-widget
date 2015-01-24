@@ -2,7 +2,7 @@
 Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
-Tested up to: 4.0.1
+Tested up to: 4.1
 Stable tag: 3.1.1
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
