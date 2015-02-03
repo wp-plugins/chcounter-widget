@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.1
+Version: 3.1.2
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.1';
+	var $version = '3.1.2';
 	
 	/**
 	 * path to the plugin
@@ -80,7 +80,7 @@ class chCounterWidget
 		add_action( 'admin_menu', array(&$this, 'addAdminMenu') );
 	
 		if ( function_exists('register_uninstall_hook') )
-			register_uninstall_hook(__FILE__, array(&$this, 'uninstall'));
+			register_uninstall_hook(__FILE__, array('chCounterWidget', 'uninstall'));
 	}
 	
 	
@@ -191,6 +191,9 @@ TEMPLATE;
 	{
 		$params = $this->getParameters();
 		
+		//$this->uninstall();
+		$this->activate();
+		
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
@@ -200,7 +203,6 @@ TEMPLATE;
 				$param_order = $_POST['param_order'];
 				asort($param_order); // sort parameter ordering keeping key associations intact
 				foreach ($param_order AS $param => $order) {
-					$order = intval($order);
 					// Put fields with empty ordering values into available otherwise in active parameters 
 					if ($order == "") {
 						array_push($options['params']['available'], $param);
@@ -221,7 +223,7 @@ TEMPLATE;
 			}
 			//$options['chcounter_path'] = untrailingslashit(htmlspecialchars($_POST['chcounter_widget_path']));
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
-					
+							
 			update_option('chcounter_widget', $options);
 			echo '<div id="message" class="updated fade"><p><strong>'.__( 'Settings saved', 'chcounter' ).'</strong></p></div>';
 		}
@@ -231,7 +233,7 @@ TEMPLATE;
 		<div class='wrap'>
 			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
 			
-			<noscript><p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective form fields. Empty values will deactivate parameters.', 'chcounter') ?></p></noscript>
+			<p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective form fields. Empty values will deactivate parameters.', 'chcounter') ?></p>
 			
 			<form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
 					
@@ -266,7 +268,7 @@ TEMPLATE;
 				</div>
 						
 				<br style="clear: both;" />
-				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button" /></p>
+				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button button-primary" /></p>
 			</form>
 		</div>
 		<script type='text/javascript'>
@@ -279,6 +281,7 @@ TEMPLATE;
 			window.onload = toggleHandle( "chcounter_available", "chcounter_handle_available" );
 			// ]]>
 			
+			document.getElementById('chcounter_nojs').style.display='none';
 			// Hide order boxes when Javascript is active
 			<?php foreach ($params AS $key => $param) : ?>
 			document.getElementById('param_order_<?php echo $key ?>').style.visibility='hidden';
@@ -362,7 +365,7 @@ TEMPLATE;
 			$options['params']['active'] = array();
 		}
 		
-		add_option( 'chcounter_widget', $options, 'chCounter Widget Options', 'yes' );
+		add_option( 'chcounter_widget', $options, '', 'yes' );
 		
 		/*
 		* Add Capability to edit chCounter Widget Options for Administrator
@@ -489,3 +492,4 @@ function chcounter_widget_display( $args = array() ) {
  	global $chcounter_widget;
 	$chcounter_widget->display( $args );
 }
+?>
