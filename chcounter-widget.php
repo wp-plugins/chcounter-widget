@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.3
+Version: 3.1.4
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.3';
+	var $version = '3.1.4';
 	
 	/**
 	 * path to the plugin
@@ -141,7 +141,7 @@ class chCounterWidget
 			'after_widget' => '</li>',
 			'before_title' => '<h2 class="widgettitle">',
 			'after_title' => '</h2>',
-			'widget_title' => (string)$options['title']
+			'widget_title' => isset($options['title']) ? htmlspecialchars($options['title']) : "chCounter",
 		);
 		
 		$args = array_merge( $defaults, $args );
@@ -322,7 +322,7 @@ TEMPLATE;
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
-		$title = isset($options['title']) ? htmlspecialchars($options['title']) : '';
+		$title = isset($options['title']) ? htmlspecialchars($options['title']) : 'chCounter';
 		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$title.'" /></p>';
 		$checked = ( 1 == $options['invisible'] ) ? ' checked="checked"' : '';
 		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.$checked.' /></p>';
