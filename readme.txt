@@ -30,7 +30,6 @@ To install the plugin to the following steps
 
 1. Install chCounter via the webinterface http://www.yourDomain.tld/wp-content/plugins/chcounter-widget/chcounter/install/install.php (will give deprecated warnings you can ignore)
 2. Remove the folder "install" in the chcounter subdirectory
-3. Unzip the zip-file and upload the content to your Wordpress Plugin directory.
 4. Activiate the plugin via the admin plugin page.
 5. Go to Options --> chCounter Widget and set up the parameters to show on the front end
 6. Go to the widget page and add it to your sidebar. Don't forget to set the title via the widget control panel
@@ -46,7 +45,7 @@ Place the following code where you want to display chCounter
 
 
 == Screenshots ==
-1. Options Page to control chCounter display. Set the path to chCounter relative to the web root
+1. Options Page to control chCounter display.
 2. Widget Control Panel. Make the counter display invisible while still counting
 
 == Changelog ==
