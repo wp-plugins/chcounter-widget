@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.4
+Version: 3.1.5
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.4';
+	var $version = '3.1.5';
 	
 	/**
 	 * path to the plugin
@@ -301,8 +301,10 @@ TEMPLATE;
 	function parseString($str, $name) {
 		parse_str( $str, $tmp );
 		$ret = array();
-		foreach ($tmp[$name] AS $id => $value) {
-			$ret[] = htmlspecialchars($value);
+		if (isset($tmp[$name])) {
+			foreach ($tmp[$name] AS $id => $value) {
+				$ret[] = htmlspecialchars($value);
+			}
 		}
 		return $ret;
 	}
