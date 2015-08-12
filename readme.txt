@@ -50,6 +50,11 @@ Place the following code where you want to display chCounter
 
 == Changelog ==
 
+= 3.1.6 =
+* NEW: add warning and link to chCounter installation directory if it exists
+* NEW: add warning and link to delete installation directory if it exists
+* BUGFIX: add stripslashes to widget title
+
 = 3.1.5 =
 * BUGFIX: small fix in function parseString()
 

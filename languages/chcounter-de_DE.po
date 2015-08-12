@@ -102,6 +102,14 @@ msgstr "Statistiken"
 msgid "chCounter Error"
 msgstr "chCounter Fehler"
 
+#: chcounter-widget.php
+msgid "chCounter installation directory deleted"
+msgstr "chCounter Installationsverzeichnis wurde gelöscht"
+
+#: chcounter-widget.php
+msgid "The chCounter installation directory exists. If you visit this page for the first time you should <a href="%s" target="_blank">install</a> chCounter. After installation <a href="%s">delete</a> the installation directory to prevent misuse."
+msgstr "Das chCounter Installationsverzeichnis existiert. Falls du diese Seite das erste mal besuchsts solltest du chCounter <a href="%s" target="_blank">installieren</a>. Nach der Installation <a href="%s">lösche</a> das Verzeichnis, um Missbrauch zu verhindern."
+
 #: chcounter-widget.php:159
 msgid "Could not find the chcounter installation. Please check your settings."
 msgstr "Konnte die chcounter Installation nicht finden. Bitte überprüfe deine Einstellungen."
