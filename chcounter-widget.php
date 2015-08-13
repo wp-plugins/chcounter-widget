@@ -197,7 +197,7 @@ TEMPLATE;
 			echo "<div id='message' class='updated fade'><p>".__('chCounter installation directory deleted', 'chcounter')."</p></div>";
 		}
 		if (file_exists($chcounter_install_dir)) {
-			if (chCounterIsInstalled()) {
+			if ($this->chCounterIsInstalled()) {
 				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists, but chCounter seems to be already installed. If this is not the case you should <a href="%s" target="_blank">install</a> chCounter. Otherwise, you should <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), WP_PLUGIN_URL.'/chcounter-widget/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
 			} else {
 				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists. If you visit this page for the first time you should <a href="%s" target="_blank">install</a> chCounter. After installation <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), WP_PLUGIN_URL.'/chcounter-widget/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
