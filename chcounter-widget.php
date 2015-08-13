@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.5
+Version: 3.1.6
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,16 +30,24 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.5';
+	var $version = '3.1.6';
+	
+	/**
+	 * url to the plugin
+	 *
+	 * @var string
+	 */
+	var $plugin_url;
+
 	
 	/**
 	 * path to the plugin
 	 *
 	 * @var string
 	 */
-	var $plugin_url;
-
-	 
+	var $plugin_path;
+	
+	
 	/**
 	 * Class constructor
 	 *
@@ -50,6 +58,7 @@ class chCounterWidget
 	{
 		$this->initialize();
 		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
+		$this->plugin_path = dirname( __FILE__ );
 
 		return;
 	}
@@ -147,11 +156,11 @@ class chCounterWidget
 		$args = array_merge( $defaults, $args );
 		extract( $args );
 		
-		$file = dirname( __FILE__ ).'/chcounter/counter.php';
+		$file = $this->plugin_path.'/chcounter/counter.php';
 		if ( file_exists($file)) {
 			if ( 0 == $options['invisible'] ) {
 				echo $before_widget;
-				if ( !empty($widget_title) ) echo $before_title . $widget_title . $after_title;
+				if ( !empty($widget_title) ) echo $before_title . stripslashes($widget_title) . $after_title;
 
 				$counter_template = '';
 				
@@ -191,9 +200,19 @@ TEMPLATE;
 	{
 		$params = $this->getParameters();
 		
-		//$this->uninstall();
-		$this->activate();
-		
+		$chcounter_install_dir = $this->plugin_path."/chcounter/install";
+		if (isset($_GET['delete_install_dir'])) {
+			$this->removeDir($chcounter_install_dir);
+			echo "<div id='message' class='updated fade'><p>".__('chCounter installation directory deleted', 'chcounter')."</p></div>";
+		}
+		if (file_exists($chcounter_install_dir)) {
+			if ($this->chCounterIsInstalled()) {
+				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists, but chCounter seems to be already installed. If this is not the case you should <a href="%s" target="_blank">install</a> chCounter. Otherwise, you should <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), $this->plugin_url.'/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
+			} else {
+				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists. If you visit this page for the first time you should <a href="%s" target="_blank">install</a> chCounter. After installation <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), $this->plugin_url.'/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
+			}
+		}
+
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
@@ -324,7 +343,7 @@ TEMPLATE;
 			$options['invisible'] = isset( $_POST['chcounter_widget_invisible'] ) ? 1 : 0;
 			update_option( 'chcounter_widget', $options );
 		}
-		$title = isset($options['title']) ? htmlspecialchars($options['title']) : 'chCounter';
+		$title = isset($options['title']) ? htmlspecialchars(stripslashes($options['title'])) : 'chCounter';
 		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$title.'" /></p>';
 		$checked = ( 1 == $options['invisible'] ) ? ' checked="checked"' : '';
 		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.$checked.' /></p>';
@@ -419,7 +438,7 @@ TEMPLATE;
 );
 
 ?>";
-		$file = dirname( __FILE__ ).'/chcounter/includes/config.inc.php';
+		$file = $this->plugin_path.'/chcounter/includes/config.inc.php';
 		file_put_contents($file, $content);
 	}
 
@@ -436,6 +455,44 @@ TEMPLATE;
 	}
 
 
+	/**
+	 * recursively remove directory
+	 *
+	 * @param string $dir
+	 *
+	 */
+	function removeDir($dir)
+	{
+		$files = array_diff(scandir($dir), array('.','..'));
+		foreach ($files AS $file) {
+			if (is_dir("$dir/$file"))
+				$this->removeDir("$dir/$file");
+			else
+				@unlink("$dir/$file");
+		}
+		@rmdir($dir);
+	}
+	
+	
+	/**
+	 * check if chCounter is installed
+	 *
+	 * @param none
+	 * @return boolean
+	 */
+	function chCounterIsInstalled()
+	{
+		global $wpdb;
+		
+		// check if table chc_config exists
+		if ($wpdb->query("SHOW TABLES LIKE 'chc_config'") == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 	/**
 	 * adds code to Wordpress head
 	 *
@@ -486,6 +543,7 @@ TEMPLATE;
 
 // run chCounter Widget
 $chcounter_widget = new chCounterWidget();
+
 /**
  * Wrapper function to display chCounter Widget statically
  *
