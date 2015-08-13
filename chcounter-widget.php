@@ -197,10 +197,13 @@ TEMPLATE;
 			echo "<div id='message' class='updated fade'><p>".__('chCounter installation directory deleted', 'chcounter')."</p></div>";
 		}
 		if (file_exists($chcounter_install_dir)) {
-			echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists. If you visit this page for the first time you should <a href="%s" target="_blank">install</a> chCounter. After installation <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), WP_PLUGIN_URL.'/chcounter-widget/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
+			if (chCounterIsInstalled()) {
+				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists, but chCounter seems to be already installed. If this is not the case you should <a href="%s" target="_blank">install</a> chCounter. Otherwise, you should <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), WP_PLUGIN_URL.'/chcounter-widget/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
+			} else {
+				echo "<div class='updated fade error'><p>".sprintf(__('The chCounter installation directory exists. If you visit this page for the first time you should <a href="%s" target="_blank">install</a> chCounter. After installation <a href="%s">delete</a> the installation directory to prevent misuse.', 'chcounter'), WP_PLUGIN_URL.'/chcounter-widget/chcounter/install/install.php', '?page=chcounter-widget.php&delete_install_dir')."</p></div>";
+			}
 		}
 
-		
 		if ( isset($_POST['updateSettings']) ) {
 			check_admin_referer( 'chcounter-widget_update-options' );
 			
@@ -459,6 +462,25 @@ TEMPLATE;
 				@unlink("$dir/$file");
 		}
 		@rmdir($dir);
+	}
+	
+	
+	/**
+	 * check if chCounter is installed
+	 *
+	 * @param none
+	 * @return boolean
+	 */
+	function chCounterIsInstalled()
+	{
+		global $wpdb;
+		
+		// check if table chc_config exists
+		if ($wpdb->query("SHOW TABLES LIKE 'chc_config'") == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
