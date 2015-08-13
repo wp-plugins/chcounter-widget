@@ -2,14 +2,14 @@
 Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
-Tested up to: 4.1
-Stable tag: 3.1.5
+Tested up to: 4.2.4
+Stable tag: 3.1.6
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
 == Description ==
 
-Create a widget for [chCounter](http://chcounter.org). It can display all [20 output values](http://chcounter.org/index.php?s=alle-ausgabewerte) that chCounter supports.
+Create a widget for [chCounter](http://chcounter.org) and is bundled with the plugin. It can display all [20 output values](http://chcounter.org/index.php?s=alle-ausgabewerte) that chCounter supports.
 
 The parameters to display are controlled via the admin panel. There's also an option to make chCounter invisible while active and counting
 
