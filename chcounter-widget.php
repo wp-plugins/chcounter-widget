@@ -32,6 +32,7 @@ class chCounterWidget
 	 */
 	var $version = '3.1.6';
 	
+	
 	/**
 	 * url to the plugin
 	 *
