@@ -3,7 +3,7 @@ Contributors: Kolja Schleich
 Tags: plugin, sidebar, widget, visitor counter, counter, integration
 Requires at least: 2.7
 Tested up to: 4.2.4
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 
 A simple plugin to create a widget for [chCounter](http://chcounter.org).
 
@@ -49,6 +49,9 @@ Place the following code where you want to display chCounter
 2. Widget Control Panel. Make the counter display invisible while still counting
 
 == Changelog ==
+
+= 3.1.7 =
+* BUGFIX: fix loading of stylesheet and javascript script
 
 = 3.1.6 =
 * NEW: add warning and link to chCounter installation directory if it exists and link to delete it

@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.6
+Version: 3.1.7
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.6';
+	var $version = '3.1.7';
 	
 	
 	/**
@@ -58,8 +58,6 @@ class chCounterWidget
 	function __construct()
 	{
 		$this->initialize();
-		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
-		$this->plugin_path = dirname( __FILE__ );
 
 		return;
 	}
@@ -77,25 +75,39 @@ class chCounterWidget
 	 */
 	function initialize()
 	{
+		// define constants
 		if ( !defined( 'WP_CONTENT_URL' ) )
 			define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
 		if ( !defined( 'WP_PLUGIN_URL' ) )
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
 			
+		// define plugin url and path
+		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
+		$this->plugin_path = dirname( __FILE__ );
+		
+		// register activation function
 		register_activation_hook(__FILE__, array(&$this, 'activate') );
+		
+		// load plugin translations
 		load_plugin_textdomain( 'chcounter', false, basename(__FILE__, '.php').'/languages' );
 	
+		// register widget
 		add_action( 'widgets_init', array(&$this, 'register') );
-		add_action( 'wp_head', array(&$this, 'addHeaderCode') );
+
+		// add stylesheet
+		add_action( 'wp_enqueue_scripts', array(&$this, 'addStyles') );
+		
+		// add admin menu
 		add_action( 'admin_menu', array(&$this, 'addAdminMenu') );
 	
+		// register uninstallation function
 		if ( function_exists('register_uninstall_hook') )
 			register_uninstall_hook(__FILE__, array('chCounterWidget', 'uninstall'));
 	}
 	
 	
 	/**
-	 * gets available parameters to display
+	 * get available parameters to display
 	 *
 	 * @param none
 	 * @return array of parameters
@@ -130,7 +142,7 @@ class chCounterWidget
 
 	
 	/**
-	 * displays chCounter Widget
+	 * display chCounter Widget
 	 *
 	 * Usually this function is invoked by the Wordpress widget system.
 	 * However it can also be called manually via chcounter_widget_display().
@@ -331,7 +343,7 @@ TEMPLATE;
 	
 	
 	/**
-	 * displays control panel for the widget
+	 * display control panel for the widget
 	 *
 	 * @param none
 	 * @return void
@@ -346,8 +358,7 @@ TEMPLATE;
 		}
 		$title = isset($options['title']) ? htmlspecialchars(stripslashes($options['title'])) : 'chCounter';
 		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$title.'" /></p>';
-		$checked = ( 1 == $options['invisible'] ) ? ' checked="checked"' : '';
-		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.$checked.' /></p>';
+		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.checked($options['invisible'], 1, false).' /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 	}
 
@@ -495,18 +506,26 @@ TEMPLATE;
 	
 	
 	/**
-	 * adds code to Wordpress head
+	 * add stylesheet
 	 *
 	 * @param none
 	 * @return void
 	 */
-	function addHeaderCode()
+	function addStyles()
 	{
-		echo "<link rel='stylesheet' href='".$this->plugin_url."/style.css' type='text/css' />\n";
-		if ( is_admin() ) {
-			wp_register_script( 'chcounter', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0' );
-			wp_print_scripts( 'chcounter' );
-		}
+		wp_enqueue_style('chcounter-styles', $this->plugin_url."/style.css", array(), '1.0', 'all');
+	}
+
+	
+	/**
+	 * add administration javascript
+	 *
+	 * @param none
+	 * @return void
+	 */
+	function addScripts()
+	{
+		wp_enqueue_script('chcounter-scripts', $this->plugin_url.'/chcounter.js', array('prototype', 'scriptaculous'), '1.0');
 	}
 	
 
@@ -522,7 +541,8 @@ TEMPLATE;
 //		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ";
 		$menu_title = __( 'chCounter', 'chcounter' );
 		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
-		add_action( "admin_print_scripts-$mypage", array(&$this, 'addHeaderCode') );
+		add_action( "admin_print_scripts-".$mypage, array(&$this, 'addScripts') );
+		add_action( "admin_print_styles-".$mypage, array(&$this, 'addStyles') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
 	}
 	
