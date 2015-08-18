@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.7
+Version: 3.1.8
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.7';
+	var $version = '3.1.8';
 	
 	
 	/**
@@ -94,8 +94,8 @@ class chCounterWidget
 		// register widget
 		add_action( 'widgets_init', array(&$this, 'register') );
 
-		// add stylesheet
-		add_action( 'wp_enqueue_scripts', array(&$this, 'addStyles') );
+		// add stylesheet before theme styles
+		add_action( 'wp_enqueue_scripts', array(&$this, 'addStyles'), 1 );
 		
 		// add admin menu
 		add_action( 'admin_menu', array(&$this, 'addAdminMenu') );
@@ -513,7 +513,7 @@ TEMPLATE;
 	 */
 	function addStyles()
 	{
-		wp_enqueue_style('chcounter-styles', $this->plugin_url."/style.css", array(), '1.0', 'all');
+		wp_enqueue_style('chcounter', $this->plugin_url."/style.css", array(), '1.0', 'all');
 	}
 
 	
