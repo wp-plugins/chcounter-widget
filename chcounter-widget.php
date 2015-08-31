@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.8
+Version: 3.1.9
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.8';
+	var $version = '3.1.9';
 	
 	
 	/**
@@ -180,7 +180,7 @@ class chCounterWidget
 				if ( count($options['params']['active']) > 0 ) {
 					foreach ( $options['params']['active'] AS $order => $param ) {
 						if ( 'stats' == $param )
-							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['value']."/stats/index.php'><img src='".$params['stats']['value']."/images/stats.png' style='width:15px; height:15px; border: 0px; display: inline; margin-right: 0.5em;' alt='".$params['stats']['label']."' title='".$params['stats']['label']."' /></a><a target='_blank' href='".$params['stats']['value']."/stats/index.php'>".$params['stats']['label']."</a></li>";
+							$counter_template .= "<li id='chcounter_stats'><a target='_blank' href='".$params['stats']['value']."/stats/index.php'><img src='".$params['stats']['value']."/images/stats.png' alt='".$params['stats']['label']."' title='".$params['stats']['label']."' /></a><a target='_blank' href='".$params['stats']['value']."/stats/index.php'>".$params['stats']['label']."</a></li>";
 						else
 							$counter_template .= "<li>".$params[$param]['label']." ".$params[$param]['value']."</li>";
 					}
@@ -262,12 +262,13 @@ TEMPLATE;
 		
 		$options = get_option( 'chcounter_widget' );
 		?>
-		<div class='wrap'>
+		
+		<div class='wrap' id="chcounter-widget-settings">
 			<h2><?php _e( 'chCounter Widget Settings', 'chcounter' ) ?></h2>
 			
-			<p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective form fields. Empty values will deactivate parameters.', 'chcounter') ?></p>
+			<p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective 	 fields. Empty values will deactivate parameters.', 'chcounter') ?></p>
 			
-			<form action='options-general.php?page=chcounter-widget.php' method='post' onSubmit="populateHiddenVars();">
+			<form action='<?php menu_page_url('chcounter-widget') ?>' method='post' onSubmit="populateHiddenVars();">
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 				
@@ -299,8 +300,7 @@ TEMPLATE;
 					<input type="hidden" name="chcounter_widget_active_order" id="chcounter_widget_active_order" />
 				</div>
 						
-				<br style="clear: both;" />
-				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>&raquo;" class="button button-primary" /></p>
+				<p class="submit"><input type="submit" name="updateSettings" value="<?php _e( 'Save Settings', 'chcounter' ) ?>" class="button button-primary" /></p>
 			</form>
 		</div>
 		<script type='text/javascript'>
@@ -313,6 +313,7 @@ TEMPLATE;
 			window.onload = toggleHandle( "chcounter_available", "chcounter_handle_available" );
 			// ]]>
 			
+			// Hide javascript-deactivated box
 			document.getElementById('chcounter_nojs').style.display='none';
 			// Hide order boxes when Javascript is active
 			<?php foreach ($params AS $key => $param) : ?>
@@ -357,8 +358,8 @@ TEMPLATE;
 			update_option( 'chcounter_widget', $options );
 		}
 		$title = isset($options['title']) ? htmlspecialchars(stripslashes($options['title'])) : 'chCounter';
-		echo '<p style="text-align: left;"><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$title.'" /></p>';
-		echo '<p style="text-align: left;"><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.checked($options['invisible'], 1, false).' /></p>';
+		echo '<p><label for="chcounter_title">'.__( 'Title', 'chcounter' ).'</label>: <input class="widefat" type="text" name="chCounter_widget_title" id="chcounter_title" value="'.$title.'" /></p>';
+		echo '<p><label for="chcounter_invisible">'.__( 'Invisible', 'chcounter' ).'</label>&#160;<input type="checkbox" name="chcounter_widget_invisible" id="chcounter_invisible"'.checked($options['invisible'], 1, false).' /></p>';
 		echo '<input type="hidden" name="chcounter-submit" id="chcounter-submit" value="1" />';
 	}
 
@@ -538,9 +539,7 @@ TEMPLATE;
 	function addAdminMenu()
 	{
 		$plugin = basename(__FILE__,'.php').'/'.basename(__FILE__);
-//		$menu_title = "<img src='".$this->plugin_url."/icon.png' alt='' /> ";
-		$menu_title = __( 'chCounter', 'chcounter' );
-		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), $menu_title, 'edit_chcounter_widget', basename(__FILE__), array(&$this, 'displayAdminPage') );
+		$mypage = add_options_page( __( 'chCounter', 'chcounter' ), __( 'chCounter', 'chcounter' ), 'edit_chcounter_widget', 'chcounter-widget', array(&$this, 'displayAdminPage') );
 		add_action( "admin_print_scripts-".$mypage, array(&$this, 'addScripts') );
 		add_action( "admin_print_styles-".$mypage, array(&$this, 'addStyles') );
 		add_filter( 'plugin_action_links_' . $plugin, array( &$this, 'pluginActions' ) );
@@ -555,7 +554,7 @@ TEMPLATE;
 	 */
 	function pluginActions( $links )
 	{
-		$settings_link = '<a href="options-general.php?page='.basename(__FILE__).'">' . __('Settings') . '</a>';
+		$settings_link = '<a href="'.menu_page_url('chcounter-widget', 0).'">' . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
 	
 		return $links;

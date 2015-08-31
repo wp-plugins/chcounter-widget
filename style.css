@@ -1,3 +1,10 @@
+/*
+ * Administration Panel
+ */
+#chcounter-widget-settings p {
+	margin-top: 1em;
+	clear: both;
+	}
 div.chcounter_widget_parameters {
 	width: 30em;
 	padding: 0.5em;
@@ -18,7 +25,10 @@ div.chcounter_widget_parameters span.handle {
 	padding: 0.5em;
 	display: block;
 	}
-	
+
+/*
+ * Widget
+ */ 
 ol.chcounter_widget {
 	list-style-type: none;
 	margin: 0;
@@ -48,7 +58,13 @@ li#chcounter_stats {
 li#chcounter_stats img {
 	display: block;
 	margin: auto;
+	width:15px;
+	height:15px;
+	border: 0px;
+	display: inline;
+	margin-right: 0.5em;
 	}
+
 p#chcounter_nojs {
 	margin: 1em 0;
 	}
