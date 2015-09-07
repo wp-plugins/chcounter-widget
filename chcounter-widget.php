@@ -3,7 +3,7 @@
 Plugin Name: ChCounter Widget
 Plugin URI: http://wordpress.org/extend/plugins/chcounter-widget/
 Description: Integrate chCounter into Wordpress as widget.
-Version: 3.1.9
+Version: 3.2
 Author: Kolja Schleich
 
 Copyright 2007-2015  Kolja Schleich  (email : kolja [dot] schleich [at] googlemail.com)
@@ -30,7 +30,7 @@ class chCounterWidget
 	 *
 	 * @var string
 	 */
-	var $version = '3.1.9';
+	var $version = '3.2';
 	
 	
 	/**
@@ -82,7 +82,7 @@ class chCounterWidget
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
 			
 		// define plugin url and path
-		$this->plugin_url = WP_PLUGIN_URL.'/'.basename(__FILE__, '.php');
+		$this->plugin_url = esc_url(WP_PLUGIN_URL.'/'.basename(__FILE__, '.php'));
 		$this->plugin_path = dirname( __FILE__ );
 		
 		// register activation function
@@ -268,7 +268,7 @@ TEMPLATE;
 			
 			<p class="update-nag" id="chcounter_nojs"><?php _e('Javascript appears to be deactivated. You can activate chCounter parameters by inserting numbers giving their displaying order into the respective 	 fields. Empty values will deactivate parameters.', 'chcounter') ?></p>
 			
-			<form action='<?php menu_page_url('chcounter-widget') ?>' method='post' onSubmit="populateHiddenVars();">
+			<form action='<?php esc_url(menu_page_url('chcounter-widget')) ?>' method='post' onSubmit="populateHiddenVars();">
 					
 				<?php wp_nonce_field( 'chcounter-widget_update-options') ?>
 				
@@ -554,7 +554,7 @@ TEMPLATE;
 	 */
 	function pluginActions( $links )
 	{
-		$settings_link = '<a href="'.menu_page_url('chcounter-widget', 0).'">' . __('Settings') . '</a>';
+		$settings_link = '<a href="'.esc_url(menu_page_url('chcounter-widget', 0)).'">' . __('Settings') . '</a>';
 		array_unshift( $links, $settings_link );
 	
 		return $links;
